@@ -1,3 +1,7 @@
+## 1.27.2
+- SLA de hoje: se a última coleta da extensão tem mais de 45 min (entre 05:45 e 23:55), o painel avisa em amarelo "SLA desatualizado" com a hora e há quantos minutos.
+- Aviso de dado inconsistente quando há mais entregas do que pacotes do dia.
+
 # 1.27.1 — correções da revisão (ChatGPT + Gemini), só o que foi confirmado no código
 - Renovação de sessão: várias consultas simultâneas agora dividem UMA renovação (antes podiam derrubar o login).
 - Painel do dia: o relógio de 60 s só atualiza Meta/SLA quando a aba Painel está aberta e visível (faltavam chaves no `if`).

@@ -635,7 +635,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
 .pd-rod{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#C8D4E0}.pd-cheg .pd-rod{color:var(--tinta-2)}
 .pd-ritmo{margin:12px 0;font-size:13px;color:var(--tinta-2)}.pd-ritmo b{color:var(--tinta)}.pd-cheg .btn{align-self:flex-start;margin-top:auto}
 .pd-ex{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}.pd-ex div{font-size:12px;color:#C8D4E0}.pd-ex b{display:block;font-size:20px;color:#fff}
-.pd-fonte{margin:12px 0 0;font-size:11.5px;color:#9FB2C6}.pd-cheg .pd-fonte{color:var(--tinta-2)}
+.pd-fonte{margin:12px 0 0;font-size:11.5px;color:#9FB2C6}.pd-fonte.pd-velho{color:#FFC27A;font-weight:700}.pd-cheg .pd-fonte{color:var(--tinta-2)}
 .pd-mini{display:flex;align-items:flex-end;gap:6px;height:130px;position:relative;margin-top:16px}
 .pd-mini span{flex:1;background:#6F8399;border-radius:3px 3px 0 0;min-height:4px}.pd-mini span.ruim{background:var(--ambar)}.pd-mini span.hoje{background:#fff}.pd-mini span.hoje.ruim{background:#F0AE45}.pd-mini span.sem{background:#2B4259;opacity:.7}
 .pd-linha{position:absolute;left:0;right:0;border-top:1.5px dashed rgba(255,255,255,.7);pointer-events:none}
@@ -728,7 +728,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
     <div class="nav-empty" id="navVazio" hidden>Nenhuma seção encontrada.</div>
     <div class="lateral-pe">
       <div class="eu"><span class="av" id="euAv"></span><div><b id="euNome"></b><span id="quemSou"></span></div></div>
-      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.27.1</div>
+      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.27.2</div>
       <div class="pe-botoes"><button id="btnTema" class="btn-lat" type="button">Tema auto</button><button id="btnSair" class="btn-lat" type="button">Sair</button></div>
     </div>
   </aside>
@@ -1444,6 +1444,13 @@ function slaCalc(x) {
   const alvo = Math.ceil(u * SLA_META / 100 - 1e-9);
   return { u, n, tot, pend, pct: u ? n * 100 / u : 0, alvo, faltam: Math.max(0, alvo - n), atraso: Math.max(0, tot - n), melhor: u ? (n + pend) * 100 / u : 0 };
 }
+// 1.27.2: SLA "velho" = última coleta há mais de 45 min dentro do horário de coleta da extensão (05:00–23:55, Brasília).
+function slaVelho(atualizadoEm, agora) {
+  if (!atualizadoEm) return { velho: false, min: 0 };
+  const min = Math.round((agora.getTime() - new Date(atualizadoEm).getTime()) / 60000);
+  const hm = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(agora);
+  return { velho: min > 45 && hm >= '05:45' && hm <= '23:55', min };
+}
 async function uxCarregarSlaPainel() {
   const a = $('pdSla'), b = $('pdSla7'); if (!a || !b || E.aba !== 'painel') return;
   const tk = ++uxSlaToken, hoje = hojeSP(), de = somarDias(hoje, -6);
@@ -1457,13 +1464,15 @@ async function uxCarregarSlaPainel() {
     } else {
       const c = slaCalc(h), ok = c.pct >= SLA_META;
       const hora = h.atualizado_em ? new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }).format(new Date(h.atualizado_em)) : '';
+      const velho = slaVelho(h.atualizado_em, new Date());
       a.innerHTML = `<section class="pd-card pd-sla" aria-label="SLA de entrega de hoje"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div>
         <div class="pd-n ${ok ? 'ok' : ''}">${esc(fmtPct(Math.floor(c.pct * 10) / 10))}</div>
         <p class="pd-l">${c.n} no prazo de ${c.u} pacotes · ${ok ? '<span class="pd-tag ok">meta batida</span>' : '<span class="pd-tag">faltam ' + c.faltam + ' para a meta</span>'}</p>
         <div class="pd-barra" role="progressbar" aria-label="SLA de hoje" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(c.pct)}" aria-valuetext="${esc(fmtPct(c.pct))}; meta ${SLA_META}%"><i style="width:${Math.min(100, c.pct)}%"></i><b style="left:${SLA_META}%"></b></div>
         <div class="pd-rod"><span>meta: ${c.alvo} no prazo</span><span>${c.u}</span></div>
         <div class="pd-ex"><div><b>${c.pend}</b>pendentes</div><div><b>${c.atraso}</b>entregues com atraso</div><div><b>${esc(fmtPct(Math.floor(c.melhor * 10) / 10))}</b>melhor resultado possível</div></div>
-        ${hora ? `<p class="pd-fonte">Relatório de Pontualidade do iMile · coletado às ${esc(hora)}</p>` : ''}</section>`;
+        ${hora ? `<p class="pd-fonte${velho.velho ? ' pd-velho' : ''}">${velho.velho ? '⚠ SLA desatualizado: ' : 'Relatório de Pontualidade do iMile · '}coletado às ${esc(hora)}${velho.velho ? ' (há ' + velho.min + ' min). Abra o iMile com a extensão ligada e conectada à Nuvem.' : ''}</p>` : ''}
+        ${c.tot > c.u ? '<p class="pd-fonte pd-velho">⚠ Dado inconsistente (mais entregas do que pacotes do dia): aguarde a próxima coleta.</p>' : ''}</section>`;
     }
     // últimos 7 dias
     const dias = []; for (let i = 6; i >= 0; i--) dias.push(somarDias(hoje, -i));
