@@ -686,6 +686,34 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
 @media(max-width:860px){.alerta-extravio{top:52px}.entrar{overflow-y:auto}}
 .ent-campo > span:first-child{color:rgba(245,242,236,.78)}
 :root{--alerta:#8C4308}
+
+/* 1.28.0: não reatribuir + observações do Backlog */
+.txt-ok{color:var(--ok);font-weight:700}
+.exc-resumo{display:flex;flex-wrap:wrap;gap:12px;background:var(--asfalto);color:#fff;border-radius:12px;padding:12px 16px}
+.exc-resumo>div{display:flex;flex-direction:column;min-width:150px;padding-right:18px}
+.exc-resumo>div+div{border-left:1px solid rgba(255,255,255,.3);padding-left:18px}
+.exc-resumo span{font-size:11px;font-weight:800;letter-spacing:.06em;color:#C8D4E0}.exc-resumo b{font-size:22px;line-height:1.2}.exc-resumo small{color:#C8D4E0;font-size:12.5px}
+.exc-form{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.5fr) auto;gap:10px;align-items:end;background:var(--superficie-2);border:1px solid var(--linha);border-radius:12px;padding:12px;margin-top:12px}
+.exc-form input,.exc-form select{min-height:42px}
+.exc-info{min-height:22px;margin:6px 2px 10px;font-size:13px}
+@media (max-width:900px){.exc-form{grid-template-columns:1fr 1fr}.exc-form .btn{grid-column:1/-1}}
+@media (max-width:560px){.exc-form{grid-template-columns:1fr}}
+.obs-cel{display:flex;flex-direction:column;align-items:flex-start;gap:3px;background:none;border:0;padding:4px 6px;margin:-4px -6px;border-radius:8px;text-align:left;cursor:pointer;color:inherit;font:inherit;max-width:280px}
+.obs-cel:hover{background:var(--superficie-2)}.obs-cel small{color:var(--tinta-2);font-size:11.5px;line-height:1.35}.obs-cel .obs-np{display:inline;font-weight:700}
+.obs-add{border-style:dashed}
+.obs-fundo{place-items:stretch end;padding:0}
+.obs-lado{background:var(--superficie);color:var(--tinta);width:min(440px,100vw);height:100%;overflow-y:auto;padding:20px max(20px,env(safe-area-inset-right,0px)) 28px 20px;box-shadow:-8px 0 30px rgba(0,0,0,.18);display:flex;flex-direction:column}
+.obs-topo{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px}.obs-topo h2{font-size:19px;margin:2px 0}
+.obs-rot{font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--tinta-2)}
+.obs-form{display:flex;flex-direction:column;gap:10px;background:var(--superficie-2);border:1px solid var(--linha);border-radius:12px;padding:12px}
+.obs-form textarea{font:inherit;padding:9px 11px;border:1px solid var(--linha);border-radius:10px;resize:vertical;background:var(--superficie);color:var(--tinta)}
+.obs-anexo{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.obs-prev{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;padding:4px 6px 4px 10px;border:1px solid var(--linha);border-radius:10px;background:var(--superficie)}
+.obs-prev[hidden]{display:none}
+.obs-acoes{display:flex;justify-content:flex-end}
+.obs-hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.obs-hist li{display:grid;grid-template-columns:12px 1fr;gap:10px}.obs-ponto{width:10px;height:10px;border-radius:50%;background:var(--azul);margin-top:6px}
+.obs-hist p{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.obs-img{display:inline-block;margin-top:6px}.obs-img img{display:block;max-width:100%;max-height:220px;border-radius:8px;border:1px solid var(--linha)}
 </style>
 <link rel="icon" type="image/png" href="data:image/png;base64,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" />
 <link rel="apple-touch-icon" href="data:image/png;base64,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" />
@@ -728,7 +756,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
     <div class="nav-empty" id="navVazio" hidden>Nenhuma seção encontrada.</div>
     <div class="lateral-pe">
       <div class="eu"><span class="av" id="euAv"></span><div><b id="euNome"></b><span id="quemSou"></span></div></div>
-      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.27.2</div>
+      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.28.0</div>
       <div class="pe-botoes"><button id="btnTema" class="btn-lat" type="button">Tema auto</button><button id="btnSair" class="btn-lat" type="button">Sair</button></div>
     </div>
   </aside>
@@ -769,7 +797,7 @@ function periodo(tipo, hoje, de, ate) {
     default: return { de: de || hoje, ate: ate || hoje };
   }
 }
-function dataBR(iso) { const [a, m, d] = String(iso).slice(0, 10).split('-'); return d + '/' + m + '/' + a; }
+function dataBR(iso) { let t = String(iso); if (t.length > 10 && /\d{2}:\d{2}/.test(t)) { const sp = diaSPdeIso(t); if (sp) t = sp; } const [a, m, d] = t.slice(0, 10).split('-'); return d + '/' + m + '/' + a; } // 1.28.0: data com hora vira o dia de Brasília
 // linhas da view produtividade_dia -> um item por colaborador
 function agregar(linhas) {
   const por = new Map();
@@ -1084,12 +1112,36 @@ async function renovar() {
   if (!E.sessao) return false;
   if (promessaRenovar) return promessaRenovar; // várias consultas ao mesmo tempo dividem uma só renovação (o token é de uso único)
   promessaRenovar = (async () => {
-    try {
-      const r = await cru('POST', '/auth/v1/token?grant_type=refresh_token', { refresh_token: E.sessao.refresh });
-      if (r.status === 200 && r.corpo && r.corpo.access_token) { guardarSessao(montarSessao(r.corpo)); return true; }
-      if ([400, 401, 403].includes(r.status)) guardarSessao(null);
-    } catch (_) {}
-    return false;
+    // 1.27.4: duas abas do painel abertas dividiam o mesmo login, e cada uma tentava renovar com o token que tinha
+    // na memória. A segunda usava um token já gasto e o banco encerrava o login das duas. Agora a renovação é uma
+    // por vez entre as abas (Web Locks) e a aba adota a sessão que a outra já renovou.
+    const adotar = (usado) => {
+      const g = lerSessaoGuardada();
+      if (!g || !g.refresh || g.refresh === usado || !E.sessao || g.id !== E.sessao.id) return false;
+      E.sessao = g; return true;
+    };
+    const fazer = async () => {
+      try {
+        if (!E.sessao) return false;
+        const usado = E.sessao.refresh;
+        if (adotar(usado) && E.sessao.exp - Math.floor(Date.now() / 1000) > 60) return true;
+        const pedido = E.sessao.refresh;
+        const r = await cru('POST', '/auth/v1/token?grant_type=refresh_token', { refresh_token: pedido });
+        if (r.status === 200 && r.corpo && r.corpo.access_token) { guardarSessao(montarSessao(r.corpo)); return true; }
+        if ([400, 401, 403].includes(r.status)) {
+          if (adotar(pedido)) return true;                     // outra aba renovou enquanto esta esperava
+          const g = lerSessaoGuardada();
+          if (g && E.sessao && g.id !== E.sessao.id) E.sessao = null; // outra conta entrou em outra aba: não apaga o login dela
+          else guardarSessao(null);
+        }
+      } catch (_) {}
+      return false;
+    };
+    const travas = typeof navigator !== 'undefined' && navigator.locks && typeof navigator.locks.request === 'function' ? navigator.locks : null;
+    if (!travas) return fazer();
+    let fez = false;
+    try { return await travas.request('painel-cordeiro-renovar', () => { fez = true; return fazer(); }); }
+    catch (_) { return fez ? false : fazer(); }
   })().finally(() => { promessaRenovar = null; });
   return promessaRenovar;
 }
@@ -1441,8 +1493,8 @@ function desenharFaixa() {
 const SLA_META = 95;
 function slaCalc(x) {
   const u = Number(x.universo) || 0, n = Number(x.baixas_universo) || 0, tot = Number(x.baixas_total) || 0, pend = Number(x.pendentes) || 0;
-  const alvo = Math.ceil(u * SLA_META / 100 - 1e-9);
-  return { u, n, tot, pend, pct: u ? n * 100 / u : 0, alvo, faltam: Math.max(0, alvo - n), atraso: Math.max(0, tot - n), melhor: u ? (n + pend) * 100 / u : 0 };
+  const alvo = Math.round(u * SLA_META) / 100; // exato, sem arredondar para cima
+  return { u, n, tot, pend, pct: u ? n * 100 / u : 0, alvo, faltam: Math.max(0, Math.round((alvo - n) * 100) / 100), atraso: Math.max(0, tot - n), melhor: u ? (n + pend) * 100 / u : 0 };
 }
 // 1.27.2: SLA "velho" = última coleta há mais de 45 min dentro do horário de coleta da extensão (05:00–23:55, Brasília).
 function slaVelho(atualizadoEm, agora) {
@@ -1467,9 +1519,9 @@ async function uxCarregarSlaPainel() {
       const velho = slaVelho(h.atualizado_em, new Date());
       a.innerHTML = `<section class="pd-card pd-sla" aria-label="SLA de entrega de hoje"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div>
         <div class="pd-n ${ok ? 'ok' : ''}">${esc(fmtPct(Math.floor(c.pct * 10) / 10))}</div>
-        <p class="pd-l">${c.n} no prazo de ${c.u} pacotes · ${ok ? '<span class="pd-tag ok">meta batida</span>' : '<span class="pd-tag">faltam ' + c.faltam + ' para a meta</span>'}</p>
+        <p class="pd-l">${c.n} no prazo de ${c.u} pacotes · ${ok ? '<span class="pd-tag ok">meta batida</span>' : '<span class="pd-tag">faltam ' + qExato(c.faltam) + ' para a meta</span>'}</p>
         <div class="pd-barra" role="progressbar" aria-label="SLA de hoje" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(c.pct)}" aria-valuetext="${esc(fmtPct(c.pct))}; meta ${SLA_META}%"><i style="width:${Math.min(100, c.pct)}%"></i><b style="left:${SLA_META}%"></b></div>
-        <div class="pd-rod"><span>meta: ${c.alvo} no prazo</span><span>${c.u}</span></div>
+        <div class="pd-rod"><span>meta: ${qExato(c.alvo)} no prazo</span><span>${c.u}</span></div>
         <div class="pd-ex"><div><b>${c.pend}</b>pendentes</div><div><b>${c.atraso}</b>entregues com atraso</div><div><b>${esc(fmtPct(Math.floor(c.melhor * 10) / 10))}</b>melhor resultado possível</div></div>
         ${hora ? `<p class="pd-fonte${velho.velho ? ' pd-velho' : ''}">${velho.velho ? '⚠ SLA desatualizado: ' : 'Relatório de Pontualidade do iMile · '}coletado às ${esc(hora)}${velho.velho ? ' (há ' + velho.min + ' min). Abra o iMile com a extensão ligada e conectada à Nuvem.' : ''}</p>` : ''}
         ${c.tot > c.u ? '<p class="pd-fonte pd-velho">⚠ Dado inconsistente (mais entregas do que pacotes do dia): aguarde a próxima coleta.</p>' : ''}</section>`;
@@ -1563,13 +1615,26 @@ function telaMotoristas() {
   timerMot = setInterval(() => { if (E.aba === 'motoristas' && !document.hidden) carregarMotoristas(true); }, 60000);
   carregarMotoristas(false);
 }
+// 1.27.5: os 6 dias anteriores são lidos uma vez por dia; a cada minuto vem só o dia de hoje.
+let cacheSemanaMot = null;
+async function eventosSemanaMot(semana, hoje) {
+  const base = '/rest/v1/eventos?select=tipo,rota,awb,dia&tipo=in.(atribuicao,erro,divergencia)&rota=not.is.null';
+  const chave = semana + '|' + hoje;
+  if (!cacheSemanaMot || cacheSemanaMot.chave !== chave) {
+    const ant = await lerTudo(base + '&dia=gte.' + eFiltroSeguro(semana) + '&dia=lt.' + eFiltroSeguro(hoje), 12);
+    if (!ant.completo) return lerTudo(base + '&dia=gte.' + eFiltroSeguro(semana) + '&dia=lte.' + eFiltroSeguro(hoje), 12);
+    cacheSemanaMot = { chave, itens: ant.itens };
+  }
+  const hj = await lerTudo(base + '&dia=eq.' + eFiltroSeguro(hoje), 12);
+  return { itens: cacheSemanaMot.itens.concat(hj.itens), completo: hj.completo };
+}
 async function carregarMotoristas(silencioso) {
   const meu = ++tokenMot, hoje = hojeSP(), semana = somarDias(hoje, -6);
   try {
     const [rotas, loc, ev] = await Promise.all([
       api('GET', '/rest/v1/rotas_hoje?select=rota,operador_id,operador,iniciada_em,atualizada_em,concluida_em&order=iniciada_em.asc').catch(() => []),
       api('GET', '/rest/v1/cadastros?select=valor&chave=eq.locais').catch(() => []),
-      lerTudo('/rest/v1/eventos?select=tipo,rota,awb,dia&tipo=in.(atribuicao,erro,divergencia)&rota=not.is.null&dia=gte.' + eFiltroSeguro(semana) + '&dia=lte.' + eFiltroSeguro(hoje), 12),
+      eventosSemanaMot(semana, hoje),
     ]);
     if (meu !== tokenMot || !$('mtCorpo')) return;
     const locais = limparLocais(loc && loc[0] && Array.isArray(loc[0].valor) ? loc[0].valor : []);
@@ -1778,7 +1843,12 @@ function telaNaoRecebidos() {
 async function carregarNR(silencioso) {
   const meu = ++tokenNR;
   try {
-    const ls = await api('GET', '/rest/v1/nr_listas?select=id,dia,gerada_em,gerada_por,itens&order=gerada_em.desc&limit=1');
+    // 1.27.5: a lista só é baixada inteira quando muda; a cada 30 s vem só o id e os encontrados.
+    const meta = await api('GET', '/rest/v1/nr_listas?select=id,dia,gerada_em,gerada_por&order=gerada_em.desc&limit=1');
+    if (meu !== tokenNR || !$('nrCorpo')) return;
+    const ls = !meta || !meta[0] ? meta
+      : dadosNR && dadosNR.lista && dadosNR.lista.id === meta[0].id ? [dadosNR.lista]
+      : await api('GET', '/rest/v1/nr_listas?select=id,dia,gerada_em,gerada_por,itens&id=eq.' + eFiltroSeguro(meta[0].id));
     if (meu !== tokenNR || !$('nrCorpo')) return;
     if (!ls || !ls[0]) { dadosNR = null; $('nrSub').textContent = ''; $('nrCorpo').innerHTML = '<div class="cartao"><div class="vazio"><b>Nenhuma lista enviada ainda</b>Na extensão do computador (ou no app), abra Não recebidos e toque em Buscar. A lista sobe sozinha e passa a aparecer aqui e nos outros celulares.</div></div>'; return; }
     const l = ls[0];
@@ -1910,7 +1980,7 @@ function receberTR(m) {
 }
 
 /* ===================== BACKLOG ===================== */
-const estBL = { filtro: '', cidade: '', busca: '', visao: 'motorista', ordem: 'tres', abertos: new Set(), limite: 100 };
+const estBL = { filtro: '', cidade: '', busca: '', visao: 'motorista', ordem: 'tres', abertos: new Set(), limite: 100, obs: '' };
 let tokenBL = 0, dadosBL = null, timerBL = null;
 function telaBacklog() {
   $('conteudo').innerHTML = cabecalho('Backlog', '<span id="blSub"></span>', '<button class="btn" id="blAtualizar" type="button">Atualizar</button>') + '<div id="blCorpo">' + esqueleto() + '</div>';
@@ -1922,7 +1992,19 @@ function telaBacklog() {
 async function carregarBL(silencioso) {
   const meu = ++tokenBL;
   try {
-    const f = await api('GET', '/rest/v1/backlog_fotos?select=id,gerado_em,gerado_por,total,itens&order=gerado_em.desc&limit=1');
+    // 1.27.5: antes baixava a lista inteira (milhares de pacotes) a cada 20 s, mesmo sem mudança: era o maior
+    // consumo de tráfego do Supabase. Agora confere só o id e baixa os pacotes quando há busca nova.
+    const meta = await api('GET', '/rest/v1/backlog_fotos?select=id,gerado_em,gerado_por,total&order=gerado_em.desc&limit=1');
+    if (meu !== tokenBL || !$('blCorpo')) return;
+    if (silencioso && meta && meta[0] && dadosBL && dadosBL.foto.id === meta[0].id) {
+      // Backlog igual: só traz as observações novas (leve) e redesenha se chegou alguma.
+      if (await carregarObsBL(false) && meu === tokenBL && $('blCorpo') && !document.activeElement?.closest('#blCorpo input, #blCorpo select')) desenharBL();
+      return;
+    }
+    const [f] = await Promise.all([
+      meta && meta[0] ? api('GET', '/rest/v1/backlog_fotos?select=id,gerado_em,gerado_por,total,itens&id=eq.' + eFiltroSeguro(meta[0].id)) : meta,
+      carregarObsBL(true),
+    ]);
     if (meu !== tokenBL || !$('blCorpo')) return;
     if (!f || !f[0]) { dadosBL = null; $('blSub').textContent = ''; $('blCorpo').innerHTML = '<div class="cartao"><div class="vazio"><b>Nenhum backlog enviado ainda</b>Na extensão do computador, abra Backlog e toque em Gerar lista (busca completa, sem escolher motorista). Ao terminar, o resultado sobe para este painel.</div></div>'; return; }
     if (silencioso && dadosBL && dadosBL.foto.id === f[0].id) return; // nada novo: não redesenha (preserva busca e foco)
@@ -1930,6 +2012,7 @@ async function carregarBL(silencioso) {
     const horas = (Date.now() - new Date(f[0].gerado_em).getTime()) / 3600000;
     $('blSub').textContent = 'Última busca completa: ' + dataBR(f[0].gerado_em) + ' às ' + horaCurta(f[0].gerado_em) + ' por ' + nomeOperador(f[0].gerado_por) + (horas > 24 ? ' · mais de 1 dia atrás' : '');
     desenharBL();
+    limparPrintsAntigosBL();
   } catch (e) { if (meu === tokenBL && $('blCorpo')) $('blCorpo').innerHTML = `<div class="aviso erro">${esc(e.message)}</div>`; }
 }
 function desenharBL() {
@@ -1942,8 +2025,10 @@ function desenharBL() {
   const piso = todos.filter((p) => !p.g.codigo).length;
   const cidades = [...new Set(todos.map((p) => p.cidade).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
   if (estBL.cidade && !cidades.includes(estBL.cidade)) estBL.cidade = '';
-  const vis = filtrarBacklog(todos, estBL);
-  const filtrando = !!(estBL.filtro || estBL.cidade || estBL.busca.trim());
+  const contObs = { sem: 0, acomp: 0, resolvido: 0 }; todos.forEach((p) => { contObs[estadoObs(p.awb)] += 1; });
+  if (obsBL.semSql) estBL.obs = '';
+  const vis = filtrarBacklog(todos, estBL).filter((p) => !estBL.obs || estadoObs(p.awb) === estBL.obs);
+  const filtrando = !!(estBL.filtro || estBL.cidade || estBL.busca.trim() || estBL.obs);
   // Agrupa o que passou no filtro (por motorista), com os números já do recorte.
   const mapa = new Map();
   vis.forEach((p) => { if (!mapa.has(p.g.chave)) mapa.set(p.g.chave, { g: p.g, ps: [] }); mapa.get(p.g.chave).ps.push(p); });
@@ -1961,11 +2046,11 @@ function desenharBL() {
       <td class="n" data-r="Pacotes">${ps.length}</td><td class="n ${tres ? 'txt-alerta' : ''}" data-r="3+ dias">${tres}</td><td class="n ${dez ? 'txt-erro' : ''}" data-r="+10 dias">${dez}</td><td class="n ${maior > 10 ? 'txt-erro' : ''}" data-r="Mais antigo">${maior}d</td>
       <td class="avanco"><span class="barra-av"><i style="width:${(ps.length / maxG * 100).toFixed(1)}%"></i></span></td></tr>
       ${abre ? `<tr class="bl-det"><td colspan="6"><div class="bl-acoes"><button class="btn mini" type="button" data-cob="${esc(g.chave)}">Copiar cobrança (3+ dias)</button><button class="btn mini" type="button" data-awbs="${esc(g.chave)}">Copiar códigos</button></div>
-        <div class="rolagem"><table class="tabela"><thead><tr><th>AWB</th><th class="n">Parado</th><th>Local</th></tr></thead><tbody>${ps.map((p) => `<tr><td><a class="awb" data-awb="${esc(p.awb)}" tabindex="0" role="link">${esc(p.awb)}</a>${p.erro ? ' <span class="etq divergencia">rota</span>' : ''}</td><td class="n">${etqDias(p.dias)}</td><td>${local(p)}</td></tr>`).join('')}</tbody></table></div></td></tr>` : ''}`; }).join('')}
+        <div class="rolagem"><table class="tabela"><thead><tr><th>AWB</th><th class="n">Parado</th><th>Local</th><th>Situação</th></tr></thead><tbody>${ps.map((p) => `<tr><td><a class="awb" data-awb="${esc(p.awb)}" tabindex="0" role="link">${esc(p.awb)}</a>${p.erro ? ' <span class="etq divergencia">rota</span>' : ''}</td><td class="n">${etqDias(p.dias)}</td><td>${local(p)}</td><td>${celObs(p)}</td></tr>`).join('')}</tbody></table></div></td></tr>` : ''}`; }).join('')}
     </tbody></table></div>`;
   const ordenados = [...vis].sort((a, b) => b.dias - a.dias || String(a.awb).localeCompare(String(b.awb)));
-  const listaPacotes = () => `<div class="rolagem"><table class="tabela empilha"><thead><tr><th>AWB</th><th class="n">Parado</th><th>Motorista</th><th>Local</th></tr></thead><tbody>
-    ${ordenados.slice(0, estBL.limite).map((p) => `<tr><td data-r="AWB"><a class="awb" data-awb="${esc(p.awb)}" tabindex="0" role="link">${esc(p.awb)}</a>${p.erro ? ' <span class="etq divergencia">rota</span>' : ''}</td><td class="n" data-r="Parado">${etqDias(p.dias)}</td><td data-r="Motorista"><a class="mot" data-m="${esc(p.g.chave)}" tabindex="0" role="link">${esc(p.g.nome)}</a></td><td data-r="Local">${local(p)}</td></tr>`).join('')}
+  const listaPacotes = () => `<div class="rolagem"><table class="tabela empilha"><thead><tr><th>AWB</th><th class="n">Parado</th><th>Motorista</th><th>Local</th><th>Situação</th></tr></thead><tbody>
+    ${ordenados.slice(0, estBL.limite).map((p) => `<tr><td data-r="AWB"><a class="awb" data-awb="${esc(p.awb)}" tabindex="0" role="link">${esc(p.awb)}</a>${p.erro ? ' <span class="etq divergencia">rota</span>' : ''}</td><td class="n" data-r="Parado">${etqDias(p.dias)}</td><td data-r="Motorista"><a class="mot" data-m="${esc(p.g.chave)}" tabindex="0" role="link">${esc(p.g.nome)}</a></td><td data-r="Local">${local(p)}</td><td data-r="Situação">${celObs(p)}</td></tr>`).join('')}
     </tbody></table></div>${ordenados.length > estBL.limite ? `<p style="text-align:center"><button class="btn" type="button" id="blMais">Mostrar mais (${ordenados.length - estBL.limite})</button></p>` : ''}`;
   $('blCorpo').innerHTML = `
     <div class="tiles">
@@ -1981,8 +2066,10 @@ function desenharBL() {
         <label class="busca-in"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="blBusca" type="search" placeholder="AWB, motorista, cidade ou bairro" aria-label="Buscar no backlog" value="${esc(estBL.busca)}" /></label>
         <div class="seg" id="blVisao" role="group" aria-label="Modo de exibição"><button type="button" data-v="motorista" aria-pressed="${estBL.visao === 'motorista'}">Por motorista</button><button type="button" data-v="pacotes" aria-pressed="${estBL.visao === 'pacotes'}">Lista de pacotes</button></div>
         <button class="btn" id="blCsv" type="button">Baixar CSV${filtrando ? ' (filtrado)' : ''}</button></div>
+      ${obsBL.semSql ? '<div class="sub" style="margin:-4px 0 10px">Observações dos pacotes: rode o script <b>21-observacoes-e-nao-reatribuir.sql</b> no Supabase para ligar.</div>'
+        : `<div class="seg" id="blObs" role="group" aria-label="Observações" style="margin:-2px 0 12px">${[['', 'Todos · ' + todos.length], ['sem', 'Sem observação · ' + contObs.sem], ['acomp', 'Em acompanhamento · ' + contObs.acomp], ['resolvido', 'Resolvidos · ' + contObs.resolvido]].map(([k, n]) => `<button type="button" data-o2="${k}" aria-pressed="${estBL.obs === k}">${esc(n)}</button>`).join('')}</div>`}
       <div class="bl-resumo" aria-live="polite"><b>${vis.length} pacote${vis.length === 1 ? '' : 's'}</b> · ${grupos.length} motorista${grupos.length === 1 ? '' : 's'}
-        ${estBL.filtro && NOMES[estBL.filtro] ? `<span class="chip-f">${esc(NOMES[estBL.filtro])}</span>` : ''}${estBL.cidade ? `<span class="chip-f">${esc(estBL.cidade)}</span>` : ''}${estBL.busca.trim() ? `<span class="chip-f">“${esc(estBL.busca.trim())}”</span>` : ''}
+        ${estBL.filtro && NOMES[estBL.filtro] ? `<span class="chip-f">${esc(NOMES[estBL.filtro])}</span>` : ''}${estBL.cidade ? `<span class="chip-f">${esc(estBL.cidade)}</span>` : ''}${estBL.obs ? `<span class="chip-f">${esc({ sem: 'Sem observação', acomp: 'Em acompanhamento', resolvido: 'Resolvidos' }[estBL.obs])}</span>` : ''}${estBL.busca.trim() ? `<span class="chip-f">“${esc(estBL.busca.trim())}”</span>` : ''}
         ${filtrando ? '<button class="btn mini" id="blLimpar" type="button">Limpar filtros</button>' : ''}
         ${estBL.visao === 'motorista' && grupos.length > 1 ? `<button class="btn mini" id="blAbrirTodos" type="button">${estBL.abertos.size >= grupos.length ? 'Fechar todos' : 'Abrir todos'}</button>` : ''}</div>
       ${vis.length ? (estBL.visao === 'motorista' ? listaGrupos() : listaPacotes()) : `<div class="vazio"><b>Nada por aqui</b>Nenhum pacote com esse filtro.<br><button class="btn mini" id="blLimpar" type="button" style="margin-top:10px">Limpar filtros</button></div>`}
@@ -1994,7 +2081,9 @@ function desenharBL() {
   $('blVisao').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { estBL.visao = b.dataset.v; redesenhar(); } });
   $('blCidade').addEventListener('change', (e) => { estBL.cidade = e.target.value; estBL.limite = 100; redesenhar(); });
   $('blBusca').addEventListener('input', (e) => { estBL.busca = e.target.value; estBL.limite = 100; const pos = e.target.selectionStart; redesenhar(); const n = $('blBusca'); n.focus(); n.setSelectionRange(pos, pos); });
-  B.querySelectorAll('#blLimpar').forEach((b) => b.addEventListener('click', () => { estBL.filtro = ''; estBL.cidade = ''; estBL.busca = ''; estBL.limite = 100; redesenhar(); }));
+  B.querySelectorAll('#blLimpar').forEach((b) => b.addEventListener('click', () => { estBL.filtro = ''; estBL.cidade = ''; estBL.busca = ''; estBL.obs = ''; estBL.limite = 100; redesenhar(); }));
+  const segObs = $('blObs'); if (segObs) segObs.addEventListener('click', (e) => { const b = e.target.closest('button[data-o2]'); if (b) { estBL.obs = b.dataset.o2; estBL.limite = 100; redesenhar(); } });
+  B.querySelectorAll('[data-obs]').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); abrirObs(b.dataset.obs); }));
   const ta = $('blAbrirTodos'); if (ta) ta.addEventListener('click', () => { estBL.abertos = estBL.abertos.size >= grupos.length ? new Set() : new Set(grupos.map((x) => x.g.chave)); redesenhar(); });
   const mais = $('blMais'); if (mais) mais.addEventListener('click', () => { estBL.limite += 200; redesenhar(); });
   B.querySelectorAll('button.ord').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); estBL.ordem = b.dataset.o; redesenhar(); }));
@@ -2008,8 +2097,8 @@ function desenharBL() {
   const copiar = async (texto, ok) => { try { await navigator.clipboard.writeText(texto); aviso(ok); } catch (_) { aviso('Não consegui copiar', true); } };
   B.querySelectorAll('button[data-cob]').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); const x = grupos.find((y) => y.g.chave === b.dataset.cob); const t = x && textoCobrancaBL(x.g.nome, x.ps.filter((p) => p.dias >= 3), dadosBL.foto.gerado_em); if (!t) return aviso('Nenhum pacote com 3+ dias neste recorte', true); copiar(t, 'Cobrança copiada'); }));
   B.querySelectorAll('button[data-awbs]').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); const x = grupos.find((y) => y.g.chave === b.dataset.awbs); if (x) copiar(x.ps.map((p) => p.awb).join('\n'), 'Códigos copiados'); }));
-  $('blCsv').addEventListener('click', () => baixar('backlog-' + dadosBL.foto.gerado_em.slice(0, 10) + (filtrando ? '-filtrado' : '') + '.csv', paraCsv(['AWB', 'Motorista', 'Código', 'Dias', 'Cidade', 'Bairro', 'Erro de rota'],
-    ordenados.map((p) => [p.awb, p.g.nome, p.g.codigo, p.dias, p.cidade, p.bairro, p.erro ? 'sim' : '']))));
+  $('blCsv').addEventListener('click', () => baixar('backlog-' + dadosBL.foto.gerado_em.slice(0, 10) + (filtrando ? '-filtrado' : '') + '.csv', paraCsv(['AWB', 'Motorista', 'Código', 'Dias', 'Cidade', 'Bairro', 'Erro de rota', 'Situação', 'Última observação'],
+    ordenados.map((p) => { const o = ultimaObs(p.awb); return [p.awb, p.g.nome, p.g.codigo, p.dias, p.cidade, p.bairro, p.erro ? 'sim' : '', o ? (SITUACOES_BL[o.situacao] || SITUACOES_BL.outro)[0] : '', o ? o.texto : '']; }))));
 }
 
 /* ===================== ERROS E DIVERGÊNCIAS ===================== */
@@ -2321,13 +2410,14 @@ async function verificarExtravios(forcar) {
       cacheFotoExt = c && c[0] ? c[0] : null;
     }
     const foto = cacheFotoExt; if (!foto) return null;
-    const [mov, trat, cob, aud, rlog, rcfg] = await Promise.all([
+    const [mov, trat, cob, aud, rlog, rcfg, excs] = await Promise.all([
       lerTudo('/rest/v1/eventos?select=awb&tipo=eq.atribuicao&ocorreu_em=gte.' + encodeURIComponent(foto.gerado_em), 10).catch(() => ({ itens: [] })),
       api('GET', '/rest/v1/extravio_acoes?select=id,awb,motorista,nota,valida_ate,criado_em,criado_por&tipo=eq.tratativa&valida_ate=gte.' + encodeURIComponent(agoraIso) + '&order=criado_em.desc&limit=2000').catch((e) => { throw Object.assign(new Error(e.message), { semSql: true }); }),
       api('GET', '/rest/v1/cobrancas?select=awb,enviada_em,status&enviada_em=gte.' + encodeURIComponent(new Date(Date.now() - EXTRAVIO.validadeAcaoDias * 86400000).toISOString()) + '&limit=2000').catch(() => []),
       api('GET', '/rest/v1/extravio_acoes?select=criado_em,criado_por,restantes&tipo=eq.auditoria&order=criado_em.desc&limit=1').catch(() => []),
       api('GET', '/rest/v1/reatribuicao_log?select=rodada,modo,resultado,awb,motorista,dias,detalhe,criado_em&order=criado_em.desc&limit=1000').catch(() => null),
       api('GET', '/rest/v1/cadastros?select=valor,atualizado_em&chave=eq.reatribuicao_auto').catch(() => []),
+      api('GET', '/rest/v1/reatribuicao_excecoes?select=awb,motivo,obs,motorista,criado_em,criado_por&order=criado_em.desc&limit=2000').catch(() => null),
     ]);
     if (meu !== tokenExt) return dadosExt;
     const movimentou = new Set((mov.itens || []).map((x) => x.awb));
@@ -2335,8 +2425,9 @@ async function verificarExtravios(forcar) {
     const seguros = new Set([...(trat || []).map((x) => x.awb), ...(cob || []).map((x) => x.awb), ...reOk]);
     const ultRod = rlog && rlog[0] ? rlog.filter((x) => x.rodada === rlog[0].rodada) : [];
     const { n1, n2, piso } = classificarExtravio(foto.itens, movimentou, seguros);
-    dadosExt = { foto, n1, n2, piso, tratativas: trat || [], cobrancas: cob || [], reat: { cfg: rcfg && rcfg[0] ? rcfg[0].valor : null, semSql: rlog === null, ultima: ultRod, logs: rlog || [] }, ciclo: cicloExtravio(hojeSP(), aud && aud[0] ? aud[0].criado_em : null), ultimaAud: aud && aud[0] ? aud[0] : null, velho: (Date.now() - new Date(foto.gerado_em).getTime()) / 3600000 > EXTRAVIO.velhoHoras };
+    dadosExt = { foto, n1, n2, piso, tratativas: trat || [], cobrancas: cob || [], reat: { cfg: rcfg && rcfg[0] ? rcfg[0].valor : null, semSql: rlog === null, ultima: ultRod, logs: rlog || [], excecoes: excs }, movimentou, seguros, ciclo: cicloExtravio(hojeSP(), aud && aud[0] ? aud[0].criado_em : null), ultimaAud: aud && aud[0] ? aud[0] : null, velho: (Date.now() - new Date(foto.gerado_em).getTime()) / 3600000 > EXTRAVIO.velhoHoras };
     desenharExtravioGlobal();
+    limparExcecoesForaDoBacklog(dadosExt);
     return dadosExt;
   } catch (e) {
     if (e && e.semSql) { dadosExt = { erroSql: true, n1: [], n2: [], tratativas: [] }; desenharExtravioGlobal(); }
@@ -2436,7 +2527,7 @@ function desenharExtravio() {
   corpo.innerHTML = `${d.velho ? '<div class="aviso" style="background:var(--alerta-fundo);margin-bottom:12px">O Backlog tem mais de 24 horas. Gere uma lista nova na extensão para este painel refletir a situação de agora.</div>' : ''}
     <section class="cartao ext-ciclo ${cls}"><div><b>${esc(c.texto)}</b><div class="sub">Rotina: segunda, quarta e sexta (de 2 em 2 dias). ${d.ultimaAud ? 'Última auditoria: ' + esc(dataHoraBR(d.ultimaAud.criado_em)) + ' por ' + esc(nomeOperador(d.ultimaAud.criado_por)) + (d.ultimaAud.restantes != null ? ' · ficaram ' + d.ultimaAud.restantes + ' sem tratativa' : '') : 'Nenhuma auditoria registrada ainda.'}</div></div><button class="btn ${c.estado === 'ok' ? '' : 'ambar'}" id="extAud" type="button">Concluir auditoria de hoje</button></section>
     <div class="filtros" style="margin:12px 0"><label class="c">Motorista<select id="extMot"><option value="">Todos</option>${mots.map((m) => `<option ${estExt.filtroMot === m ? 'selected' : ''}>${esc(m)}</option>`).join('')}</select></label></div>
-    ${blocoReatribuicao(d.reat)}
+    ${blocoReatribuicao(d.reat)}${blocoExcecoes(d)}
     ${blocoExtravio(2, d.n2, estExt.limite2)}${blocoExtravio(1, d.n1, estExt.limite1)}
     <details class="cartao ext-trat"><summary>Em tratativa agora (${d.tratativas.length})</summary>${d.tratativas.length ? `<div class="rolagem"><table class="tabela"><thead><tr><th>AWB</th><th>Motorista</th><th>Tratativa</th><th>Por</th><th>Volta ao alerta em</th></tr></thead><tbody>${d.tratativas.slice(0, 200).map((t) => `<tr><td><a class="awb" data-awb="${esc(t.awb)}" tabindex="0" role="link">${esc(t.awb)}</a></td><td>${esc(t.motorista || '—')}</td><td>${esc(t.nota)}</td><td>${esc(nomeCurto(nomeOperador(t.criado_por)))}</td><td>${esc(dataHoraBR(t.valida_ate))}</td></tr>`).join('')}</tbody></table></div>` : '<div class="vazio">Nenhuma tratativa ativa.</div>'}</details>
     <p class="sub" style="margin-top:12px">Como sai do alerta: o pacote some do Backlog (baixa), recebe uma nova atribuição, ou ganha uma tratativa justificada (vale por alguns dias; se continuar parado, volta). A reatribuição em si é feita no app/extensão; aqui você copia os códigos e registra.</p>`;
@@ -2459,8 +2550,277 @@ function desenharExtravio() {
     if (b.dataset.ac === 'tratativa') { const r = await modalTratativaExt(ps.length, n === 2); if (r) registrarTratativasExt(ps, r.nota, r.dias); }
   }));
   $('extAud').addEventListener('click', concluirAuditoriaExt);
+  ligarExcecoes();
   ligarReatribuicao();
 }
+/* ---- 1.28.0: pacotes que NÃO precisam ser reatribuídos (script 21) ---- */
+const MOTIVOS_EXC = { extravio: ['Vai para extravio', 'erro'], perdeu: ['Motorista perdeu', 'divergencia'], leitura: ['Lido de forma errada', 'repetido'], outro: ['Outro', 'neutro'] };
+const estExc = { awb: '', motivo: 'extravio', obs: '' };
+let limpouExcFoto = '';
+function itemDoBacklog(foto, awb) {
+  const k = String(awb || '').trim().toUpperCase();
+  if (!k || !foto) return null;
+  return (foto.itens || []).find((x) => String(x[0] || '').toUpperCase() === k) || null;
+}
+// Mesma regra da extensão (reatribuicao-auto.js, montarFila): 4+ dias, com motorista e código, sem nova
+// atribuição, tratativa, cobrança, reatribuição recente, falha nas últimas 20 h ou marcação de "não reatribuir".
+function filaReatPainel(d) {
+  const r = d.reat || {}, exc = new Set((r.excecoes || []).map((x) => String(x.awb)));
+  const falhou = new Set((r.logs || []).filter((x) => x.resultado === 'falha' && Date.now() - new Date(x.criado_em).getTime() < 20 * 3600000).map((x) => x.awb));
+  const mov = d.movimentou || new Set(), seg = d.seguros || new Set();
+  let total = 0, fora = 0;
+  for (const x of (d.foto && d.foto.itens) || []) {
+    const [awb, mot, cod, dias] = x;
+    if (!awb || (Number(dias) || 0) < 4 || !String(mot || '').trim() || !String(cod || '').trim()) continue;
+    if (mov.has(awb) || seg.has(awb) || falhou.has(awb)) continue;
+    if (exc.has(String(awb))) { fora += 1; continue; }
+    total += 1;
+  }
+  const c = { ...REAT_PADRAO, ...(r.cfg || {}) };
+  return { total, fora, limite: c.limite, vao: Math.min(total, c.limite) };
+}
+function infoExc(foto, lista) {
+  const awb = estExc.awb.trim();
+  if (awb.length < 6) return '';
+  if ((lista || []).some((x) => String(x.awb).toUpperCase() === awb.toUpperCase())) return '<span class="txt-alerta">Este AWB já está na lista.</span>';
+  const it = itemDoBacklog(foto, awb);
+  if (!it) return '<span class="sub">Não está no backlog atual. Pode marcar mesmo assim.</span>';
+  return '<span class="txt-ok">✓ Está no backlog: ' + esc(it[1] || 'sem motorista') + ' · ' + (Number(it[3]) || 0) + ' dia(s) · ' + esc([it[5], it[4]].filter(Boolean).join(', ') || 'sem local') + '</span>';
+}
+function blocoExcecoes(d) {
+  const r = d.reat;
+  if (!r || r.semSql) return '';
+  if (r.excecoes === null) return '<section class="cartao ext-reat" style="margin-top:12px"><b>Pacotes que não precisam ser reatribuídos</b><div class="sub">Rode o script <b>21-observacoes-e-nao-reatribuir.sql</b> no Supabase para ligar este recurso.</div></section>';
+  const lista = r.excecoes || [], pode = ['dono', 'monitor'].includes(E.perfil.papel);
+  const f = filaReatPainel(d);
+  const linhas = lista.map((x) => {
+    const it = itemDoBacklog(d.foto, x.awb), m = MOTIVOS_EXC[x.motivo] || MOTIVOS_EXC.outro;
+    return `<tr><td data-r="AWB"><a class="awb" data-awb="${esc(x.awb)}" tabindex="0" role="link">${esc(x.awb)}</a><div class="sub">${it ? (Number(it[3]) || 0) + ' dia(s) · ' + esc([it[5], it[4]].filter(Boolean).join(', ') || 'sem local') : 'fora do backlog atual'}</div></td>
+      <td data-r="Motivo"><span class="etq ${m[1]}">${esc(m[0])}</span>${x.obs ? `<div class="sub">${esc(x.obs)}</div>` : ''}</td>
+      <td data-r="Motorista">${esc((it && it[1]) || x.motorista || '—')}</td>
+      <td data-r="Quem marcou">${esc(nomeOperador(x.criado_por) || '—')} · ${esc(dataHoraBR(x.criado_em))}</td>
+      <td>${pode ? `<button class="btn mini" type="button" data-exc-tirar="${esc(x.awb)}">Voltar a reatribuir</button>` : ''}</td></tr>`;
+  }).join('');
+  return `<section class="cartao ext-reat ext-exc" style="margin-top:12px">
+    <div class="exc-resumo"><div><span>PRÓXIMA RODADA</span><b>${f.vao} pacote${f.vao === 1 ? '' : 's'}</b><small>${f.total > f.limite ? 'de ' + f.total + ' na fila (limite ' + f.limite + ' por rodada)' : (f.vao === 1 ? 'será reatribuído' : 'serão reatribuídos')}</small></div><div><span>FICAM DE FORA</span><b>${f.fora}</b><small>marcados abaixo</small></div></div>
+    <h2 style="font-size:16px;margin:14px 0 2px">Pacotes que não precisam ser reatribuídos</h2>
+    <div class="sub">A reatribuição automática pula os AWBs desta lista. Use para o caso pontual: pacote que vai para extravio, que o motorista perdeu ou que foi lido errado.</div>
+    ${pode ? `<div class="exc-form">
+      <label class="c">AWB<input id="excAwb" value="${esc(estExc.awb)}" placeholder="Digite ou cole o AWB" autocomplete="off"></label>
+      <label class="c">Motivo<select id="excMotivo">${Object.entries(MOTIVOS_EXC).map(([k, v]) => `<option value="${k}" ${estExc.motivo === k ? 'selected' : ''}>${esc(v[0])}</option>`).join('')}</select></label>
+      <label class="c">Observação (opcional)<input id="excObs" maxlength="500" value="${esc(estExc.obs)}" placeholder="Ex.: motorista confirmou que perdeu na rota"></label>
+      <button class="btn main" id="excMarcar" type="button">Não reatribuir</button></div>
+      <div id="excInfo" class="exc-info" aria-live="polite">${infoExc(d.foto, lista)}</div>` : ''}
+    ${lista.length ? `<div class="rolagem"><table class="tabela empilha"><thead><tr><th>AWB</th><th>Motivo</th><th>Motorista</th><th>Quem marcou</th><th></th></tr></thead><tbody>${linhas}</tbody></table></div>`
+      : '<div class="vazio" style="padding:14px"><b>Nenhum pacote marcado</b>Todos os pacotes da fila podem ser reatribuídos.</div>'}
+    <p class="sub" style="margin:8px 0 0">Quando o pacote sai do backlog (entregue, devolvido ou extraviado), ele sai desta lista sozinho.</p></section>`;
+}
+function ligarExcecoes() {
+  const d = dadosExt; if (!d || !d.reat) return;
+  document.querySelectorAll('[data-exc-tirar]').forEach((b) => b.addEventListener('click', async () => {
+    b.disabled = true;
+    try { await api('DELETE', '/rest/v1/reatribuicao_excecoes?awb=eq.' + eFiltroSeguro(b.dataset.excTirar)); aviso(b.dataset.excTirar + ' volta a ser reatribuído.'); await verificarExtravios(false); }
+    catch (e) { b.disabled = false; aviso(e.message, true); }
+  }));
+  const awb = $('excAwb'); if (!awb) return;
+  awb.addEventListener('input', () => { estExc.awb = awb.value.replace(/\s+/g, ''); const i = $('excInfo'); if (i) i.innerHTML = infoExc(d.foto, d.reat.excecoes); });
+  $('excMotivo').addEventListener('change', (e) => { estExc.motivo = e.target.value; });
+  $('excObs').addEventListener('input', (e) => { estExc.obs = e.target.value; });
+  awb.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); $('excMarcar').click(); } });
+  $('excMarcar').addEventListener('click', async (ev) => {
+    const cod = estExc.awb.trim().toUpperCase();
+    if (!/^[A-Z0-9-]{6,40}$/.test(cod)) { aviso('Digite um AWB válido.', true); awb.focus(); return; }
+    if ((d.reat.excecoes || []).some((x) => String(x.awb).toUpperCase() === cod)) { aviso('Este AWB já está na lista.', true); return; }
+    const it = itemDoBacklog(d.foto, cod), btn = ev.currentTarget; btn.disabled = true;
+    try {
+      await api('POST', '/rest/v1/reatribuicao_excecoes', [{ awb: it ? String(it[0]) : cod, motivo: estExc.motivo, obs: estExc.obs.trim().slice(0, 500), motorista: it ? String(it[1] || '') : null, criado_por: E.perfil.id }], { Prefer: 'return=minimal' });
+      aviso(cod + ' não será reatribuído.'); estExc.awb = ''; estExc.obs = '';
+      await verificarExtravios(false);
+    } catch (e) { btn.disabled = false; aviso(/duplicate|23505|conflict/i.test(e.message) ? 'Este AWB já está na lista.' : e.message, true); }
+  });
+}
+// Marcações de pacotes que saíram do backlog há mais de 2 dias são apagadas (só com backlog recente).
+async function limparExcecoesForaDoBacklog(d) {
+  try {
+    if (!d || !d.foto || !d.reat || !Array.isArray(d.reat.excecoes) || !['dono', 'monitor'].includes(E.perfil.papel)) return;
+    if (limpouExcFoto === d.foto.id || Date.now() - new Date(d.foto.gerado_em).getTime() > 24 * 3600000) return;
+    limpouExcFoto = d.foto.id;
+    const velhas = d.reat.excecoes.filter((x) => !itemDoBacklog(d.foto, x.awb) && new Date(d.foto.gerado_em).getTime() - new Date(x.criado_em).getTime() > 2 * 86400000);
+    if (!velhas.length) return;
+    await api('DELETE', '/rest/v1/reatribuicao_excecoes?awb=in.(' + velhas.map((x) => eFiltroSeguro(x.awb)).join(',') + ')');
+    d.reat.excecoes = d.reat.excecoes.filter((x) => !velhas.includes(x));
+    if (E.aba === 'extravio' && dadosExt === d) desenharExtravio();
+  } catch (_) { /* tenta de novo no próximo backlog */ }
+}
+
+/* ---- 1.28.0: observações do Backlog (situação + texto + print), script 21 ---- */
+const SITUACOES_BL = {
+  cliente_ausente: ['Cliente ausente', 'repetido'], endereco_errado: ['Endereço errado', 'divergencia'],
+  aguardando_cliente: ['Aguardando cliente', 'repetido'], nova_tentativa: ['Motorista vai tentar de novo', 'repetido'],
+  possivel_extravio: ['Possível extravio', 'erro'], devolucao: ['Devolução', 'divergencia'], resolvido: ['Resolvido', 'ok'], outro: ['Outro', 'neutro'],
+};
+const obsBL = { semSql: false, carregado: false, porAwb: new Map(), ultimo: '' };
+const urlsPrint = new Map();
+const PRINT_MAX = 200 * 1024;
+function ultimaObs(awb) { const l = obsBL.porAwb.get(String(awb)); return l && l[0] ? l[0] : null; }
+function estadoObs(awb) { const o = ultimaObs(awb); return !o ? 'sem' : o.situacao === 'resolvido' ? 'resolvido' : 'acomp'; }
+function guardarObs(lista, inicio) {
+  const novas = [...lista].sort((a, b) => String(b.criado_em).localeCompare(String(a.criado_em)));
+  for (const o of novas.reverse()) {
+    const k = String(o.awb), l = obsBL.porAwb.get(k) || [];
+    if (l.some((x) => x.id === o.id)) continue;
+    l.push(o); l.sort((a, b) => String(b.criado_em).localeCompare(String(a.criado_em))); obsBL.porAwb.set(k, l);
+    if (String(o.criado_em) > obsBL.ultimo) obsBL.ultimo = String(o.criado_em);
+  }
+  if (inicio) obsBL.carregado = true;
+}
+// Completo: lê tudo (só ao abrir a aba ou com backlog novo). Senão: só as observações novas desde a última.
+async function carregarObsBL(completo) {
+  const base = '/rest/v1/backlog_obs?select=id,awb,situacao,texto,imagem,criado_em,criado_por';
+  try {
+    if (completo || !obsBL.carregado) {
+      const r = await lerTudo(base + '&order=criado_em.desc', 5);
+      obsBL.porAwb = new Map(); obsBL.ultimo = ''; obsBL.semSql = false; guardarObs(r.itens, true); return true;
+    }
+    if (obsBL.semSql) return false;
+    const r = await api('GET', base + (obsBL.ultimo ? '&criado_em=gt.' + encodeURIComponent(obsBL.ultimo) : '') + '&order=criado_em.desc&limit=500');
+    if (!r || !r.length) return false;
+    guardarObs(r, false); return true;
+  } catch (e) {
+    if (/backlog_obs|schema cache|does not exist|PGRST205/i.test(e.message)) { obsBL.semSql = true; obsBL.carregado = true; }
+    return false;
+  }
+}
+function celObs(p) {
+  if (obsBL.semSql) return '<span class="sub">—</span>';
+  const o = ultimaObs(p.awb), n = (obsBL.porAwb.get(String(p.awb)) || []).filter((x) => x.imagem).length;
+  if (!o) return `<button type="button" class="btn mini obs-add" data-obs="${esc(p.awb)}">+ Observação</button>`;
+  const s = SITUACOES_BL[o.situacao] || SITUACOES_BL.outro;
+  const resumo = String(o.texto || '').trim();
+  return `<button type="button" class="obs-cel" data-obs="${esc(p.awb)}" aria-label="Ver o histórico de ${esc(p.awb)}"><span class="etq ${s[1]}">${esc(s[0])}</span>${n ? ` <small class="obs-np">· ${n} print${n === 1 ? '' : 's'}</small>` : ''}
+    <small>${resumo ? esc(resumo.length > 60 ? resumo.slice(0, 58) + '…' : resumo) + ' · ' : ''}${esc(nomeOperador(o.criado_por) || '—')}, ${esc(dataHoraBR(o.criado_em))}</small></button>`;
+}
+// Reduz o print para no máximo ~200 KB (JPEG), sem a pessoa precisar fazer nada.
+async function reduzirImagem(arquivo) {
+  let img;
+  try { img = await createImageBitmap(arquivo, { imageOrientation: 'from-image' }); }
+  catch (_) {
+    img = await new Promise((ok, falha) => { const u = URL.createObjectURL(arquivo), i = new Image(); i.onload = () => { URL.revokeObjectURL(u); ok(i); }; i.onerror = () => { URL.revokeObjectURL(u); falha(new Error('Não consegui abrir esta imagem.')); }; i.src = u; });
+  }
+  const w0 = img.width, h0 = img.height; let ultimo = null;
+  for (const lado of [1600, 1280, 1024, 800, 640]) {
+    const k = Math.min(1, lado / Math.max(w0, h0)), cv = document.createElement('canvas');
+    cv.width = Math.max(1, Math.round(w0 * k)); cv.height = Math.max(1, Math.round(h0 * k));
+    const g = cv.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); g.drawImage(img, 0, 0, cv.width, cv.height);
+    for (const q of [0.85, 0.75, 0.65, 0.55, 0.45]) {
+      const b = await new Promise((ok) => cv.toBlob(ok, 'image/jpeg', q));
+      if (!b) continue;
+      ultimo = b; if (b.size <= PRINT_MAX) return b;
+    }
+  }
+  if (ultimo && ultimo.size <= 300 * 1024) return ultimo;
+  throw new Error('A imagem é grande demais, mesmo reduzida. Tente um recorte menor.');
+}
+async function enviarPrint(awb, blob) {
+  const id = (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2));
+  const caminho = eFiltroSeguro(awb) + '/' + id + '.jpg';
+  const mandar = async () => fetch(URL_BASE + '/storage/v1/object/backlog-prints/' + caminho, { method: 'POST', headers: { apikey: CHAVE, Authorization: 'Bearer ' + E.sessao.access, 'Content-Type': 'image/jpeg', 'x-upsert': 'false' }, body: blob });
+  if (E.sessao.exp - Math.floor(Date.now() / 1000) < 60) await renovar();
+  let r = await mandar();
+  if (r.status === 401 && await renovar()) r = await mandar();
+  if (!r.ok) {
+    let m = ''; try { const j = await r.json(); m = j.message || j.error || ''; } catch (_) {}
+    throw new Error(/bucket|not found/i.test(m) ? 'Falta a pasta de prints: rode o script 21 no Supabase.' : 'O print não subiu (' + (m || 'código ' + r.status) + ').');
+  }
+  return caminho;
+}
+async function urlDoPrint(caminho) {
+  const c = urlsPrint.get(caminho);
+  if (c && c.ate > Date.now()) return c.url;
+  const seg = caminho.split('/').map(encodeURIComponent).join('/');
+  const r = await api('POST', '/storage/v1/object/sign/backlog-prints/' + seg, { expiresIn: 3600 });
+  const rel = r && (r.signedURL || r.signedUrl);
+  if (!rel) throw new Error('sem link');
+  const url = URL_BASE + '/storage/v1' + rel;
+  urlsPrint.set(caminho, { url, ate: Date.now() + 50 * 60000 });
+  return url;
+}
+// Prints de pacotes que saíram do backlog há mais de 90 dias são apagados (o texto fica). Uma vez por dia.
+async function limparPrintsAntigosBL() {
+  try {
+    if (obsBL.semSql || !dadosBL || !['dono', 'monitor'].includes(E.perfil.papel)) return;
+    const hoje = hojeSP(); try { if (localStorage.getItem('obsLimpezaDia') === hoje) return; localStorage.setItem('obsLimpezaDia', hoje); } catch (_) {}
+    const limite = new Date(Date.now() - 90 * 86400000).toISOString();
+    const velhos = await api('GET', '/rest/v1/backlog_obs?select=id,awb,imagem&imagem=not.is.null&criado_em=lt.' + encodeURIComponent(limite) + '&limit=500');
+    const naFoto = new Set((dadosBL.foto.itens || []).map((x) => String(x[0])));
+    const alvo = (velhos || []).filter((o) => !naFoto.has(String(o.awb)));
+    if (!alvo.length) return;
+    await api('DELETE', '/storage/v1/object/backlog-prints', { prefixes: alvo.map((o) => o.imagem) });
+    await api('PATCH', '/rest/v1/backlog_obs?id=in.(' + alvo.map((o) => eFiltroSeguro(o.id)).join(',') + ')', { imagem: null }, { Prefer: 'return=minimal' });
+    const ids = new Set(alvo.map((o) => o.id));
+    obsBL.porAwb.forEach((l) => l.forEach((o) => { if (ids.has(o.id)) o.imagem = null; }));
+  } catch (_) { /* tenta de novo amanhã */ }
+}
+// Painel lateral do pacote: registrar o que foi feito e ver o histórico.
+function abrirObs(awb) {
+  if (obsBL.semSql) { aviso('Rode o script 21 no Supabase para usar as observações.', true); return; }
+  const p = dadosBL && dadosBL.grupos.flatMap((g) => g.pacotes.map((x) => ({ ...x, g }))).find((x) => String(x.awb) === String(awb));
+  const origem = document.activeElement;
+  const f = document.createElement('div');
+  f.className = 'modal-fundo obs-fundo';
+  f.innerHTML = `<aside class="obs-lado" role="dialog" aria-modal="true" aria-labelledby="obsTitulo">
+    <div class="obs-topo"><div><span class="obs-rot">PACOTE</span><h2 id="obsTitulo">${esc(awb)}</h2><div class="sub">${p ? esc(p.g.nome) + ' · ' + esc([p.bairro, p.cidade].filter(Boolean).join(', ') || 'sem local') + ' · ' + p.dias + ' dia' + (p.dias === 1 ? '' : 's') + ' parado' : 'fora do backlog atual'}</div></div>
+      <button class="btn" type="button" data-fechar aria-label="Fechar">✕</button></div>
+    <form class="obs-form" novalidate>
+      <label class="c">Situação<select name="sit">${Object.entries(SITUACOES_BL).map(([k, v]) => `<option value="${k}">${esc(v[0])}</option>`).join('')}</select></label>
+      <label class="c">O que foi feito<textarea name="txt" rows="3" maxlength="2000" placeholder="Ex.: liguei para a cliente, entrega combinada para amanhã de manhã"></textarea></label>
+      <div class="obs-anexo"><button type="button" class="btn obs-arq">Anexar print</button><input type="file" accept="image/*" hidden><span class="sub obs-dica">ou cole um print aqui (Ctrl+V)</span><span class="obs-prev" hidden></span></div>
+      <div class="obs-acoes"><button class="btn main" type="submit">Salvar observação</button></div>
+    </form>
+    <h3 class="obs-rot" style="margin:16px 0 8px">O QUE FOI FEITO</h3><ol class="obs-hist"></ol></aside>`;
+  const fundos = [$('telaApp'), $('telaLogin')].filter(Boolean).map((el) => ({ el, inert: el.inert }));
+  fundos.forEach(({ el }) => { el.inert = true; });
+  let anexo = null, terminado = false;
+  const form = f.querySelector('form'), prev = f.querySelector('.obs-prev'), hist = f.querySelector('.obs-hist');
+  const fechar = () => { if (terminado) return; terminado = true; document.removeEventListener('keydown', tecla); f.remove(); fundos.forEach(({ el, inert }) => { el.inert = inert; }); if (origem && origem.isConnected) origem.focus(); };
+  const tecla = (e) => { if (e.key === 'Escape') { e.preventDefault(); fechar(); } if (e.key === 'Tab') uxPrenderFoco(e, f); };
+  const usarAnexo = (arq) => {
+    if (!arq || !/^image\//.test(arq.type)) { aviso('Escolha uma imagem (print ou foto).', true); return; }
+    anexo = arq; prev.hidden = false;
+    prev.innerHTML = `${esc(arq.name || 'print colado')} <button type="button" class="btn mini" data-tirar>Tirar</button>`;
+    prev.querySelector('[data-tirar]').addEventListener('click', () => { anexo = null; prev.hidden = true; prev.innerHTML = ''; });
+  };
+  const desenharHist = () => {
+    const l = obsBL.porAwb.get(String(awb)) || [];
+    hist.innerHTML = l.length ? l.map((o) => { const s = SITUACOES_BL[o.situacao] || SITUACOES_BL.outro; return `<li><span class="obs-ponto"></span><div><span class="etq ${s[1]}">${esc(s[0])}</span> <span class="sub">${esc(nomeOperador(o.criado_por) || '—')}, ${esc(dataHoraBR(o.criado_em))}</span>${o.texto ? `<p>${esc(o.texto)}</p>` : ''}${o.imagem ? `<a class="obs-img" data-img="${esc(o.imagem)}" href="#" target="_blank" rel="noopener" aria-label="Abrir o print em tamanho grande"><span class="sub">carregando print…</span></a>` : ''}</div></li>`; }).join('')
+      : '<li class="sub" style="list-style:none">Nenhuma observação ainda.</li>';
+    hist.querySelectorAll('a[data-img]').forEach(async (a) => {
+      try { const u = await urlDoPrint(a.dataset.img); a.href = u; a.innerHTML = `<img src="${esc(u)}" alt="Print anexado" loading="lazy">`; }
+      catch (_) { a.removeAttribute('href'); a.innerHTML = '<span class="sub">Print indisponível.</span>'; }
+    });
+  };
+  f.querySelector('.obs-arq').addEventListener('click', () => f.querySelector('input[type=file]').click());
+  f.querySelector('input[type=file]').addEventListener('change', (e) => { usarAnexo(e.target.files && e.target.files[0]); e.target.value = ''; });
+  f.addEventListener('paste', (e) => { const it = [...((e.clipboardData && e.clipboardData.items) || [])].find((x) => x.type && x.type.startsWith('image/')); if (it) { e.preventDefault(); usarAnexo(it.getAsFile()); } });
+  f.addEventListener('click', (e) => { if (e.target === f || e.target.closest('[data-fechar]')) fechar(); });
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const sit = form.sit.value, txt = form.txt.value.trim(), btn = form.querySelector('[type=submit]');
+    if (!txt && !anexo) { aviso('Escreva o que foi feito ou anexe um print.', true); form.txt.focus(); return; }
+    btn.disabled = true; btn.textContent = anexo ? 'Reduzindo e enviando o print…' : 'Salvando…';
+    try {
+      const imagem = anexo ? await enviarPrint(awb, await reduzirImagem(anexo)) : null;
+      const r = await api('POST', '/rest/v1/backlog_obs', [{ awb: String(awb), situacao: sit, texto: txt, imagem, criado_por: E.perfil.id }], { Prefer: 'return=representation' });
+      guardarObs(r || [], false);
+      form.txt.value = ''; anexo = null; prev.hidden = true; prev.innerHTML = '';
+      aviso('Observação salva.'); desenharHist(); desenharBL();
+    } catch (err) { aviso(err.message, true); }
+    finally { btn.disabled = false; btn.textContent = 'Salvar observação'; }
+  });
+  document.addEventListener('keydown', tecla); document.body.appendChild(f);
+  desenharHist(); form.sit.focus();
+}
+
 /* ---- Reatribuição automática (feita pela extensão, com o iMile aberto) ---- */
 const estReat = { filtro: 'todos', busca: '', limite: 50, rodada: null };
 const REAT_PADRAO = { modo: 'desligada', hora: '09:00', limite: 50, pausado: false, incluir_criticos: false };
@@ -3086,12 +3446,14 @@ function calcularMeta(cc, cm) {
   const pct = aj.percentual != null && aj.percentual !== '' ? Number(aj.percentual) : PCT_PADRAO;
   const universo = Math.max(0, chegaram + Number(aj.ajuste_universo || 0));
   const atribuidos = Math.max(0, atrib + Number(aj.ajuste_atribuidos || 0));
-  const meta = Math.ceil(universo * pct / 100);
-  return { chegaram, atrib, pct, universo, atribuidos, meta, faltam: Math.max(0, meta - atribuidos), a_expedir: Math.max(0, universo - atribuidos),
+  const meta = Math.round(universo * pct) / 100; // exata (quebrada), sem arredondar para cima
+  return { chegaram, atrib, pct, universo, atribuidos, meta, faltam: Math.max(0, Math.round((meta - atribuidos) * 100) / 100), a_expedir: Math.max(0, universo - atribuidos),
     taxa: universo ? atribuidos / universo * 100 : 0, corte: aj.corte || CORTE_PADRAO };
 }
 function fmtPctT(n) { return fmtPct(Math.floor((Number(n) || 0) * 10 + 1e-9) / 10); } // trunca (não arredonda p/ cima): 94,96% aparece 94,9%, igual ao Painel do dia e ao app
 function fmtPct(n) { return n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%'; }
+// 1.27.3: número de meta EXATO ("quebrado"): 95% de 1319 = 1.253,05, sem arredondar para cima. Até 2 casas, sem zeros sobrando.
+function qExato(x) { const n = Math.round((Number(x) || 0) * 100) / 100; return n.toLocaleString('pt-BR', { maximumFractionDigits: 2 }); }
 function telaMeta() {
   if (!estMeta.dia) estMeta.dia = hojeSP();
   $('conteudo').innerHTML = cabecalho('Meta do dia', 'SLA de entrega: baixas ÷ vencimentos do dia, meta ' + PCT_PADRAO + '% <span class="ao-vivo" id="nrVivo"><i></i><span>Conectando…</span></span>',
@@ -3124,7 +3486,7 @@ async function carregarMeta(silencioso) {
 function blocoSla(sla, col, semTabela, hoje, pct) {
   if (semTabela) return '<div class="aviso">O SLA precisa do script 16-sla-dia.sql no Supabase (e da extensão 3.18.0 com uma aba do iMile aberta).</div>';
   if (!sla || !Number(sla.universo)) return '<div class="cartao"><div class="vazio"><b>Sem coleta de SLA neste dia</b>A extensão lê o iMile a cada 10 minutos enquanto houver uma aba do DS aberta e logada.</div></div>';
-  const U = Number(sla.universo), B = Number(sla.baixas_universo), taxa = B / U * 100, meta = Math.ceil(U * pct / 100), faltam = Math.max(0, meta - B);
+  const U = Number(sla.universo), B = Number(sla.baixas_universo), taxa = B / U * 100, meta = Math.round(U * pct) / 100, faltam = Math.max(0, Math.round((meta - B) * 100) / 100);
   const bateu = B >= meta, cor = bateu ? 'ok' : (taxa >= pct - 15 ? 'alerta' : 'erro');
   const idade = Math.round((Date.now() - new Date(sla.atualizado_em).getTime()) / 60000);
   const parada = hoje && idade > 30 ? `<div class="aviso">Última coleta há ${idade} min (${esc(horaCurta(sla.atualizado_em))}). Deixe uma aba do iMile aberta e logada com a extensão ativa.</div>` : '';
@@ -3139,7 +3501,7 @@ function blocoSla(sla, col, semTabela, hoje, pct) {
   }
   return parada + `<div class="tiles tiles4">
       <div class="tile ${cor}"><span>SLA do dia</span><b>${esc(fmtPctT(taxa))}</b><small>${esc(B + ' baixas de ' + U + ' vencimentos')}</small></div>
-      <div class="tile ${bateu ? 'ok' : ''}"><span>Meta ${esc(String(pct))}%</span><b>${meta}</b><small>${bateu ? 'meta batida ✓' : 'faltam ' + faltam + ' baixas'}</small></div>
+      <div class="tile ${bateu ? 'ok' : ''}"><span>Meta ${esc(String(pct))}%</span><b>${esc(qExato(meta))}</b><small>${bateu ? 'meta batida ✓' : 'faltam ' + esc(qExato(faltam)) + ' baixas'}</small></div>
       <div class="tile"><span>Ainda vencem hoje</span><b>${Number(sla.pendentes)}</b><small>sem baixa</small></div>
       <div class="tile ${Number(sla.atrasados) ? 'alerta' : ''}"><span>Atrasados</span><b>${Number(sla.atrasados)}</b><small>venceram antes de hoje</small></div>
     </div>
@@ -3151,11 +3513,11 @@ function blocoSla(sla, col, semTabela, hoje, pct) {
 // RESUMO DO FIM DO DIA (só no painel): texto pronto para copiar e colar no WhatsApp.
 function textoResumoDia(dia, r, sla, cc, motoristas, abertas, pct) {
   const L = ['*Resumo do dia ' + dataBR(dia) + ' — Cordeiro Transportes*', ''];
-  if (r.universo) L.push('Chegaram: ' + r.universo + ' · Atribuídos: ' + r.atribuidos + ' (' + fmtPct(r.taxa) + ') · Faltam: ' + r.faltam);
+  if (r.universo) L.push('Chegaram: ' + r.universo + ' · Atribuídos: ' + r.atribuidos + ' (' + fmtPct(r.taxa) + ') · Faltam: ' + qExato(r.faltam));
   else L.push('Sem chegada registrada neste dia.');
   if (sla && Number(sla.universo)) {
-    const U = Number(sla.universo), B = Number(sla.baixas_universo), meta = Math.ceil(U * pct / 100);
-    L.push('SLA: ' + fmtPctT(B / U * 100) + ' (' + B + ' baixas de ' + U + ' vencimentos) — ' + (B >= meta ? 'meta de ' + pct + '% batida' : 'faltaram ' + (meta - B) + ' baixas para a meta de ' + pct + '%'));
+    const U = Number(sla.universo), B = Number(sla.baixas_universo), meta = Math.round(U * pct) / 100;
+    L.push('SLA: ' + fmtPctT(B / U * 100) + ' (' + B + ' baixas de ' + U + ' vencimentos) — ' + (B >= meta ? 'meta de ' + pct + '% batida' : 'faltaram ' + qExato(meta - B) + ' baixas para a meta de ' + pct + '%'));
     if (Number(sla.atrasados)) L.push('Atrasados (venceram antes de hoje): ' + Number(sla.atrasados));
   }
   const pend = cc.filter((c) => Number(c.faltam) > 0).sort((a, b) => Number(b.faltam) - Number(a.faltam));
@@ -3199,7 +3561,7 @@ function desenharMeta() {
     (r.universo ? '' : '<div class="cartao"><div class="vazio"><b>Nenhuma chegada neste dia</b>Quando os pacotes forem bipados no modo Chegada, a meta aparece aqui.</div></div>') +
     (r.universo ? `<div class="tiles tiles4">
       ${tile('Atribuídos', fmtPct(r.taxa), esc(r.atribuidos + ' de ' + r.universo + ' · meta ' + r.pct + '%'), cor)}
-      ${tile('Meta em pacotes', r.meta, esc(bateu ? 'meta batida ✓' : 'faltam ' + r.faltam + (ritmo ? ' · ' : '')) + (bateu ? '' : esc(ritmo)), bateu ? 'ok' : '')}
+      ${tile('Meta em pacotes', qExato(r.meta), esc(bateu ? 'meta batida ✓' : 'faltam ' + qExato(r.faltam) + (ritmo ? ' · ' : '')) + (bateu ? '' : esc(ritmo)), bateu ? 'ok' : '')}
       ${tile('Chegaram', r.universo, aj ? 'com ajuste manual' : 'no dia')}
       ${tile('A expedir', r.a_expedir, 'sem motorista ainda')}
     </div>
@@ -3575,7 +3937,7 @@ async function uxCarregarMetaPainel(){
    const hora=new Intl.DateTimeFormat('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(new Date());
    const [hh,mm]=hora.split(':').map(Number),[ch,cn]=r.corte.split(':').map(Number),resto=ch*60+cn-(hh*60+mm);
    const ritmo=batida?'Meta alcançada':resto>0?Math.ceil(r.faltam/(resto/60))+' pacotes/h':'Corte encerrado';
-   target.innerHTML=`<section class="pd-card pd-cheg" aria-label="Meta da chegada de hoje"><div class="pd-t"><span>META DA CHEGADA DO DIA</span><span>${esc(String(r.pct))}% exigidos</span></div><div class="pd-n">${esc(fmtPct(r.taxa))}</div><p class="pd-l">${r.atribuidos} de ${r.universo} pacotes atribuídos${config?' · confira ajustes na meta':''}</p><div class="pd-barra" role="progressbar" aria-label="Percentual atribuído" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.min(100,Math.round(r.taxa))}" aria-valuetext="${esc(fmtPct(r.taxa))} atribuídos; meta ${r.pct}%"><i style="width:${Math.min(100,r.taxa)}%"></i><b style="left:${Math.min(99,r.pct)}%"></b></div><div class="pd-rod"><span>Meta: ${r.meta} pacotes</span><span>${batida?'Meta alcançada':'Faltam '+r.faltam+' para a meta'}</span></div><p class="pd-ritmo">Até o corte das ${esc(r.corte)}: <b>${esc(ritmo)}</b> · ${r.a_expedir} a expedir</p>${cm===null?'<p class="pd-fonte">Regra padrão; ajustes indisponíveis nesta consulta.</p>':''}<button class="btn" type="button" data-ux-meta>Detalhar meta do dia</button></section>`;
+   target.innerHTML=`<section class="pd-card pd-cheg" aria-label="Meta da chegada de hoje"><div class="pd-t"><span>META DA CHEGADA DO DIA</span><span>${esc(String(r.pct))}% exigidos</span></div><div class="pd-n">${esc(fmtPct(r.taxa))}</div><p class="pd-l">${r.atribuidos} de ${r.universo} pacotes atribuídos${config?' · confira ajustes na meta':''}</p><div class="pd-barra" role="progressbar" aria-label="Percentual atribuído" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.min(100,Math.round(r.taxa))}" aria-valuetext="${esc(fmtPct(r.taxa))} atribuídos; meta ${r.pct}%"><i style="width:${Math.min(100,r.taxa)}%"></i><b style="left:${Math.min(99,r.pct)}%"></b></div><div class="pd-rod"><span>Meta: ${qExato(r.meta)} pacotes</span><span>${batida?'Meta alcançada':'Faltam '+qExato(r.faltam)+' para a meta'}</span></div><p class="pd-ritmo">Até o corte das ${esc(r.corte)}: <b>${esc(ritmo)}</b> · ${r.a_expedir} a expedir</p>${cm===null?'<p class="pd-fonte">Regra padrão; ajustes indisponíveis nesta consulta.</p>':''}<button class="btn" type="button" data-ux-meta>Detalhar meta do dia</button></section>`;
   }
   target.querySelector('[data-ux-meta]')?.addEventListener('click',()=>irPara('meta'));
  }catch(e){if(token===uxMetaToken&&target.isConnected){target.innerHTML='<div class="meta-inline-empty"><p><b>Resumo da meta indisponível</b><br><span class="sub">'+esc(e.message)+'</span></p><button class="btn" type="button" data-ux-meta>Conferir meta</button></div>';target.querySelector('button').addEventListener('click',()=>irPara('meta'));}}

@@ -1,3 +1,22 @@
+## 1.28.0 — observações no Backlog e "não reatribuir"
+**Antes de publicar, rode no Supabase (SQL Editor) o script `21-observacoes-e-nao-reatribuir.sql`.** Sem ele, as duas novidades mostram um aviso e o resto do painel funciona normalmente.
+
+- **Backlog › Situação:** cada pacote ganha uma observação (situação + o que foi feito + print opcional). Clique na situação ou em "+ Observação" para abrir o histórico do pacote ao lado. Filtros: Sem observação, Em acompanhamento, Resolvidos. O CSV leva a situação e a última observação.
+- **Prints:** anexe pelo botão ou cole com Ctrl+V. O painel reduz a imagem para ~200 KB antes de enviar. Prints de pacotes que saíram do backlog há mais de 90 dias são apagados uma vez por dia (o texto fica).
+- **Extravio › Pacotes que não precisam ser reatribuídos:** digite o AWB, escolha o motivo e marque. A reatribuição automática (extensão 3.33.0) pula esses pacotes. "Voltar a reatribuir" desfaz. Quando o pacote sai do backlog, a marcação some sozinha depois de 2 dias. No topo: quantos pacotes a próxima rodada vai reatribuir e quantos ficam de fora.
+- **Datas:** datas com hora (ex.: "Última busca completa") mostravam o dia seguinte depois das 21h. Agora usam o dia de Brasília.
+
+## 1.27.5 — menos tráfego no Supabase
+- **Backlog:** a aba baixava a lista inteira (milhares de pacotes) a cada 20 s, mesmo sem mudança. Agora confere só se há busca nova e baixa os pacotes só nesse caso.
+- **Não recebidos:** o mesmo, a cada 30 s. Os encontrados continuam atualizando normalmente.
+- **Motoristas:** os 6 dias anteriores são lidos uma vez por dia; a cada minuto vem só o dia de hoje.
+
+## 1.27.4
+- Login com duas abas do painel abertas: a renovação do login agora é uma por vez entre as abas, e a aba adota a sessão que a outra já renovou. Antes, a segunda aba usava um token já gasto e o banco podia encerrar o login das duas.
+
+## 1.27.3
+- Números de meta (SLA e chegada) agora são EXATOS, "quebrados": 95% de 1.319 pacotes = 1.253,05 (antes arredondava para cima, 1.254). "Faltam" também mostra a diferença exata. A meta continua batida quando a taxa é >= 95%.
+
 ## 1.27.2
 - SLA de hoje: se a última coleta da extensão tem mais de 45 min (entre 05:45 e 23:55), o painel avisa em amarelo "SLA desatualizado" com a hora e há quantos minutos.
 - Aviso de dado inconsistente quando há mais entregas do que pacotes do dia.
