@@ -1,3 +1,6 @@
+## 1.28.1
+- SLA com duas casas decimais (ex.: 26,98%), no Painel do dia, nos últimos 7 dias, na Meta do dia e no texto do fechamento. O número é cortado, não arredondado: 94,996% aparece 94,99%, nunca 95,00% sem a meta batida.
+
 ## 1.28.0 — observações no Backlog e "não reatribuir"
 **Antes de publicar, rode no Supabase (SQL Editor) o script `21-observacoes-e-nao-reatribuir.sql`.** Sem ele, as duas novidades mostram um aviso e o resto do painel funciona normalmente.
 

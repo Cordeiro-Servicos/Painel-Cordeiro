@@ -756,7 +756,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
     <div class="nav-empty" id="navVazio" hidden>Nenhuma seção encontrada.</div>
     <div class="lateral-pe">
       <div class="eu"><span class="av" id="euAv"></span><div><b id="euNome"></b><span id="quemSou"></span></div></div>
-      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.28.0</div>
+      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.28.1</div>
       <div class="pe-botoes"><button id="btnTema" class="btn-lat" type="button">Tema auto</button><button id="btnSair" class="btn-lat" type="button">Sair</button></div>
     </div>
   </aside>
@@ -1518,11 +1518,11 @@ async function uxCarregarSlaPainel() {
       const hora = h.atualizado_em ? new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }).format(new Date(h.atualizado_em)) : '';
       const velho = slaVelho(h.atualizado_em, new Date());
       a.innerHTML = `<section class="pd-card pd-sla" aria-label="SLA de entrega de hoje"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div>
-        <div class="pd-n ${ok ? 'ok' : ''}">${esc(fmtPct(Math.floor(c.pct * 10) / 10))}</div>
+        <div class="pd-n ${ok ? 'ok' : ''}">${esc(fmtPctT(c.pct))}</div>
         <p class="pd-l">${c.n} no prazo de ${c.u} pacotes · ${ok ? '<span class="pd-tag ok">meta batida</span>' : '<span class="pd-tag">faltam ' + qExato(c.faltam) + ' para a meta</span>'}</p>
-        <div class="pd-barra" role="progressbar" aria-label="SLA de hoje" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(c.pct)}" aria-valuetext="${esc(fmtPct(c.pct))}; meta ${SLA_META}%"><i style="width:${Math.min(100, c.pct)}%"></i><b style="left:${SLA_META}%"></b></div>
+        <div class="pd-barra" role="progressbar" aria-label="SLA de hoje" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(c.pct)}" aria-valuetext="${esc(fmtPctT(c.pct))}; meta ${SLA_META}%"><i style="width:${Math.min(100, c.pct)}%"></i><b style="left:${SLA_META}%"></b></div>
         <div class="pd-rod"><span>meta: ${qExato(c.alvo)} no prazo</span><span>${c.u}</span></div>
-        <div class="pd-ex"><div><b>${c.pend}</b>pendentes</div><div><b>${c.atraso}</b>entregues com atraso</div><div><b>${esc(fmtPct(Math.floor(c.melhor * 10) / 10))}</b>melhor resultado possível</div></div>
+        <div class="pd-ex"><div><b>${c.pend}</b>pendentes</div><div><b>${c.atraso}</b>entregues com atraso</div><div><b>${esc(fmtPctT(c.melhor))}</b>melhor resultado possível</div></div>
         ${hora ? `<p class="pd-fonte${velho.velho ? ' pd-velho' : ''}">${velho.velho ? '⚠ SLA desatualizado: ' : 'Relatório de Pontualidade do iMile · '}coletado às ${esc(hora)}${velho.velho ? ' (há ' + velho.min + ' min). Abra o iMile com a extensão ligada e conectada à Nuvem.' : ''}</p>` : ''}
         ${c.tot > c.u ? '<p class="pd-fonte pd-velho">⚠ Dado inconsistente (mais entregas do que pacotes do dia): aguarde a próxima coleta.</p>' : ''}</section>`;
     }
@@ -3450,7 +3450,8 @@ function calcularMeta(cc, cm) {
   return { chegaram, atrib, pct, universo, atribuidos, meta, faltam: Math.max(0, Math.round((meta - atribuidos) * 100) / 100), a_expedir: Math.max(0, universo - atribuidos),
     taxa: universo ? atribuidos / universo * 100 : 0, corte: aj.corte || CORTE_PADRAO };
 }
-function fmtPctT(n) { return fmtPct(Math.floor((Number(n) || 0) * 10 + 1e-9) / 10); } // trunca (não arredonda p/ cima): 94,96% aparece 94,9%, igual ao Painel do dia e ao app
+function fmtPctT(n) { return fmtPct2(Math.floor((Number(n) || 0) * 100 + 1e-9) / 100); } // 1.28.1: SLA com 2 casas, cortado (94,996% aparece 94,99%, nunca 95,00% sem a meta)
+function fmtPct2(n) { return n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%'; }
 function fmtPct(n) { return n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%'; }
 // 1.27.3: número de meta EXATO ("quebrado"): 95% de 1319 = 1.253,05, sem arredondar para cima. Até 2 casas, sem zeros sobrando.
 function qExato(x) { const n = Math.round((Number(x) || 0) * 100) / 100; return n.toLocaleString('pt-BR', { maximumFractionDigits: 2 }); }
