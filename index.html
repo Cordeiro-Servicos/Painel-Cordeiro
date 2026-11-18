@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
+<!-- 1.30: só fala com o Supabase da Cordeiro e com as fontes do Google. Scripts e estilos vêm do próprio arquivo. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data: blob: https://vyweddtvpxnmuofmfghz.supabase.co; connect-src https://vyweddtvpxnmuofmfghz.supabase.co wss://vyweddtvpxnmuofmfghz.supabase.co; object-src 'none'; base-uri 'none'; form-action 'self'; frame-src 'none'" />
 <meta name="color-scheme" content="light dark" />
 <title>Painel Cordeiro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -714,6 +716,56 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
 .obs-hist li{display:grid;grid-template-columns:12px 1fr;gap:10px}.obs-ponto{width:10px;height:10px;border-radius:50%;background:var(--azul);margin-top:6px}
 .obs-hist p{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
 .obs-img{display:inline-block;margin-top:6px}.obs-img img{display:block;max-width:100%;max-height:220px;border-radius:8px;border:1px solid var(--linha)}
+/* 1.29: Ao vivo e Mapa */
+.av-filtros { display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px 14px; border-bottom:1px solid var(--linha); }
+.av-filtros input[type=search] { flex:1; min-width:220px; }
+.av-acoes { white-space:normal; min-width:180px; }
+#avCorpo a.awb, #mpCorpo a.awb, #lcCorrecoes a.awb { white-space:nowrap; }
+.av-acoes .btn { margin:2px 0; }
+.av-dup { border-color:var(--erro-fundo); }
+.mp-chk { display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:13.5px; color:var(--tinta-2); }
+.mp-grade { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; align-items:start; }
+.mp-grade .cartao { margin-bottom:0; }
+.mp-cid { display:flex; flex-direction:column; gap:8px; }
+.mp-cab { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+.mp-cab > b { font-size:16.5px; font-weight:800; }
+.mp-cab em { font-style:normal; font-weight:800; font-size:13.5px; }
+.mp-cab em.v, .tabela tr.grupo-cidade small.v { color:var(--erro); } .mp-cab em.g { color:var(--ok); } .mp-cab em.a, .tabela tr.grupo-cidade small.a { color:var(--azul); }
+.mp-barra { height:6px; border-radius:99px; background:var(--linha); overflow:hidden; }
+.mp-barra i { display:block; height:100%; border-radius:99px; }
+.mp-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.mp-mots { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+.mp-mot { display:flex; justify-content:space-between; align-items:center; gap:10px; border:1px solid var(--linha); border-left:5px solid var(--linha); border-radius:10px; padding:8px 12px; }
+.mp-mot div { display:flex; flex-direction:column; min-width:0; }
+.mp-mot div b { font-size:14px; }
+.mp-mot div span { font-size:12.5px; color:var(--tinta-2); }
+.mp-mot.andamento { border-left-color:var(--ambar); } .mp-mot.andamento div span { color:var(--ambar-texto); font-weight:650; }
+.mp-mot.parada { border-left-color:var(--erro); background:var(--erro-fundo); } .mp-mot.parada div span { color:var(--erro); font-weight:700; }
+.mp-n { font-size:19px; font-weight:850; font-stretch:110%; }
+.mp-alerta.ruim { background:var(--erro-fundo); color:var(--erro); }
+.mp-alerta { cursor:pointer; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.lc-corr .lcCorrRota { width:100%; }
+
+/* 1.30: barra lateral recolhível (computador). No celular o menu continua sendo a gaveta. */
+.btn-lat.recolher{display:flex;align-items:center;justify-content:center;gap:6px}
+@media(min-width:861px){
+  .shell.recolhido{grid-template-columns:76px minmax(0,1fr)!important}
+  .shell.recolhido .lateral{padding-left:10px!important;padding-right:10px!important}
+  .shell.recolhido .marca div,.shell.recolhido .nav-search,.shell.recolhido .grupo-nav,.shell.recolhido #abas .nome-longo,.shell.recolhido #abas .nome-curto,
+  .shell.recolhido .lateral-pe .eu div,.shell.recolhido #versaoPainel,.shell.recolhido .pe-botoes,.shell.recolhido .recolher .rotulo,.shell.recolhido .nav-empty{display:none!important}
+  .shell.recolhido .marca{justify-content:center}
+  .shell.recolhido #abas button{justify-content:center;padding:11px 0}
+  .shell.recolhido .lateral-pe .eu{justify-content:center}
+  .shell.recolhido .recolher span[aria-hidden]{display:inline-block;transform:rotate(180deg)}
+}
+@media(max-width:860px){.btn-lat.recolher{display:none!important}}
+/* 1.30: saca compartilhada */
+.sac-comp{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;font-weight:800;color:var(--azul,#1E5A91);margin-top:4px}
+.cod{font-variant-numeric:tabular-nums;letter-spacing:2px;background:var(--ambar-suave,#F8E2B6);color:#0F2A43;border-radius:6px;padding:1px 6px}
+.membros-saca{list-style:none;padding:0;margin:8px 0 12px;display:flex;flex-direction:column;gap:6px}
+.membros-saca li{display:flex;align-items:center;gap:8px}
+.membros-saca li .n{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums}
+.membros-saca li.saiu{opacity:.6}
 </style>
 <link rel="icon" type="image/png" href="data:image/png;base64,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" />
 <link rel="apple-touch-icon" href="data:image/png;base64,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" />
@@ -756,8 +808,9 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
     <div class="nav-empty" id="navVazio" hidden>Nenhuma seção encontrada.</div>
     <div class="lateral-pe">
       <div class="eu"><span class="av" id="euAv"></span><div><b id="euNome"></b><span id="quemSou"></span></div></div>
-      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.28.1</div>
+      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.30.2</div>
       <div class="pe-botoes"><button id="btnTema" class="btn-lat" type="button">Tema auto</button><button id="btnSair" class="btn-lat" type="button">Sair</button></div>
+      <button id="btnRecolher" class="btn-lat recolher" type="button" aria-controls="menuLateral" aria-expanded="true" title="Recolher o menu (Ctrl+B)"><span aria-hidden="true">«</span> <span class="rotulo">Recolher menu</span></button>
     </div>
   </aside>
   <div class="coluna">
@@ -778,8 +831,26 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
 function esc(v) {
   return String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
+// 1.29.2: formatadores de data/hora criados uma vez só (antes, um novo a cada linha das tabelas grandes).
+const FMT = {
+  dia: new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' }),
+  h: new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', hour: '2-digit', hour12: false }),
+  hm: new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }),
+  hms: new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+  completo: new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+};
+// 1.29.2: junta rajadas numa atualização só, mas nunca segura mais que `maximo` ms (bipagem contínua não congela a tela).
+const JUNTA = {};
+function juntar(chave, fn, espera, maximo) {
+  const j = JUNTA[chave] || (JUNTA[chave] = { t: 0, desde: 0, fn: null });
+  j.fn = fn; clearTimeout(j.t);
+  const agora = Date.now(); if (!j.desde) j.desde = agora;
+  const falta = Math.max(0, Math.min(espera, j.desde + maximo - agora));
+  j.t = setTimeout(() => { j.desde = 0; const f = j.fn; j.fn = null; try { f && f(); } catch (e) { console.error(e); } }, falta);
+}
+function cancelarJunta(chave) { const j = JUNTA[chave]; if (j) { clearTimeout(j.t); j.desde = 0; j.fn = null; } }
 function hojeSP(agora) {
-  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(agora || new Date());
+  const p = FMT.dia.format(agora || new Date());
   return p; // AAAA-MM-DD
 }
 function somarDias(iso, n) {
@@ -821,7 +892,7 @@ function totais(lista) {
   return t;
 }
 function horaSP(iso) {
-  return Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', hour: '2-digit', hour12: false }).format(new Date(iso))) % 24;
+  return Number(FMT.h.format(new Date(iso))) % 24;
 }
 function porHora(eventos) {
   const h = new Array(24).fill(0);
@@ -837,7 +908,7 @@ function paraCsv(cabecalho, linhas) {
   return '﻿' + [cabecalho, ...linhas].map((l) => l.map(csvCelula).join(';')).join('\r\n');
 }
 function dataHoraBR(iso) {
-  return new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(iso));
+  return FMT.completo.format(new Date(iso));
 }
 function iniciais(nome) {
   const p = String(nome || '').replace(/<[^>]*>/g, '').trim().split(/\s+/).filter(Boolean);
@@ -859,7 +930,7 @@ function pico(h) {
   return { hora: b, valor: h[b] || 0 };
 }
 function horaCurta(iso) {
-  return new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+  return FMT.hm.format(new Date(iso));
 }
 // Agrupa as linhas de rotas_hoje por rota. Estado: em andamento (alguém sem concluir) ou concluída (todos concluíram).
 function situacaoRotas(itens, agora) {
@@ -1045,18 +1116,24 @@ function estadoSaca(s, agoraMs) {
   return agoraMs - ult > 10 * 60000 ? 'parada' : 'andamento';
 }
 // Pacotes de uma saca: um por AWB, com o último estado (erro/divergência/ok), do mais recente para o mais antigo.
+// 1.30.2: uma linha por REMESSA (etiqueta e waybill juntos). O estado é o do evento mais recente
+// (erro antigo seguido de atribuição fica "Atribuído"); erros, repetições e passagens ficam no histórico.
+function chaveRemessa(e) { const w = e.detalhe && e.detalhe.waybill; return String(w || e.awb || '').trim(); }
 function pacotesDaSaca(eventos) {
   const por = new Map();
-  for (const e of eventos) {
-    const t = new Date(e.ocorreu_em).getTime();
-    let o = por.get(e.awb);
-    if (!o) { o = { awb: e.awb, hora: e.ocorreu_em, t: 0, operador_id: e.operador_id, estado: 'ok', motivo: '', det: {}, hist: [] }; por.set(e.awb, o); }
+  const ord = eventos.slice().sort((a, b) => String(a.ocorreu_em).localeCompare(String(b.ocorreu_em)) || String(a.id || '').localeCompare(String(b.id || '')));
+  for (const e of ord) {
+    const k = chaveRemessa(e); if (!k) continue;
+    let o = por.get(k);
+    if (!o) { o = { awb: e.awb, chave: k, hora: e.ocorreu_em, operador_id: e.operador_id, estado: 'ok', motivo: '', det: {}, hist: [], leituras: 0 }; por.set(k, o); }
     o.hist.push(e);
-    if (e.tipo === 'atribuicao' && t >= o.t) { o.t = t; o.hora = e.ocorreu_em; o.operador_id = e.operador_id; o.det = e.detalhe || {}; }
-    if (e.tipo === 'erro') { o.estado = 'erro'; o.motivo = e.motivo || ''; }
-    else if (e.tipo === 'divergencia' && o.estado !== 'erro') { o.estado = 'divergencia'; o.motivo = e.motivo || ''; }
+    if (e.tipo === 'repetido') { o.leituras += 1; continue; }
+    o.real = true;
+    if (e.tipo === 'atribuicao') { o.leituras += 1; o.hora = e.ocorreu_em; o.operador_id = e.operador_id; o.det = e.detalhe || {}; o.awb = e.awb; o.estado = 'ok'; o.motivo = ''; }
+    else if (e.tipo === 'erro') { o.estado = 'erro'; o.motivo = e.motivo || ''; }
+    else if (e.tipo === 'divergencia') { o.estado = 'divergencia'; o.motivo = e.motivo || ''; }
   }
-  return [...por.values()].sort((a, b) => new Date(b.hora) - new Date(a.hora));
+  return [...por.values()].filter((o) => o.real).sort((a, b) => new Date(b.hora) - new Date(a.hora)); // só repetição: não é desta saca
 }
 // "1h 35min", "38min", "45s". Sem dados: "—".
 function duracaoTotal(ms) {
@@ -1155,7 +1232,7 @@ async function api(metodo, caminho, corpo, extra) {
   if (r.status === 401 && await renovar()) r = await cru(metodo, caminho, corpo, E.sessao.access, extra);
   if (r.status === 401) { mostrarLogin(); throw new Error('Sessão encerrada. Entre novamente.'); }
   uxRegistrarResposta(r.status);
-  if (r.status >= 400) throw new Error((r.corpo && (r.corpo.message || r.corpo.hint)) || 'Erro ' + r.status);
+  if (r.status >= 400) { const er = new Error((r.corpo && (r.corpo.message || r.corpo.hint)) || 'Erro ' + r.status); er.status = r.status; er.codigo = r.corpo && r.corpo.code; throw er; }
   return r.corpo;
 }
 // Lê todas as páginas (o servidor entrega no máximo 1000 por vez).
@@ -1173,6 +1250,7 @@ async function lerTudo(caminho, maxPaginas) {
 const $ = (id) => document.getElementById(id);
 function mostrarLogin() {
   pararTempoReal();
+  try { AV.bipes = []; AV.ids.clear(); AV.dia = ''; AV.oc = []; dadosMP = null; } catch (_) {} // 1.29.1: nada da conta anterior
   uxFecharMenu(); uxLimparEdicao(); $('telaApp').hidden = true; $('telaLogin').hidden = false; E.perfil = null;
 }
 async function entrar() {
@@ -1220,9 +1298,11 @@ ICONES.extravio = '<svg viewBox="0 0 24 24"><path d="M12 3.5l9 16H3l9-16z"/><pat
 ICONES.sacas = '<svg viewBox="0 0 24 24"><path d="M7 4h10l2 4-1 12H6L5 8z"/><path d="M9 4v4h6V4"/></svg>';
 ICONES.chegada = '<svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg>';
 ICONES.meta = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>';
+ICONES.mapa = '<svg viewBox="0 0 24 24"><path d="M9 4.5l-5 2v13l5-2 6 2 5-2v-13l-5 2-6-2z"/><path d="M9 4.5v13M15 6.5v13"/></svg>';
 ICONES.fechamento = '<svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8.5 9l2 2 4-4.5M8.5 15.5h7"/></svg>';
 const ABAS = [
   { id:'painel', nome:'Painel do dia', curto:'Painel', papeis:TODOS, grupo:'Operação' },
+  { id:'mapa', nome:'Mapa da operação', curto:'Mapa', papeis:TODOS, grupo:'Operação' },
   { id:'meta', nome:'Meta do dia', curto:'Meta', papeis:TODOS, grupo:'Operação' },
   { id:'chegada', nome:'Chegada e conciliação', curto:'Chegada', papeis:TODOS, grupo:'Operação' },
   { id:'sacas', nome:'Sacas', curto:'Sacas', papeis:TODOS, grupo:'Operação' },
@@ -1238,7 +1318,7 @@ const ABAS = [
   { id:'locais', nome:'Locais por rota', curto:'Locais', papeis:GESTAO, grupo:'Administração' },
   { id:'equipe', nome:'Equipe', curto:'Equipe', papeis:['dono'], grupo:'Administração' },
 ];
-const SUBTELAS = { produtividade: 'Produtividade', problemas: 'Erros e divergências', pacote: 'Ficha do pacote' };
+const SUBTELAS = { aovivo: 'Ao vivo', produtividade: 'Produtividade', problemas: 'Erros e divergências', pacote: 'Ficha do pacote' };
 const PAPEL_NOME = { dono: 'Administrador do banco de dados', monitor: 'Monitor', bipador: 'Bipador' };
 
 /* ---------- tema ---------- */
@@ -1267,7 +1347,7 @@ function cabecalho(titulo, sub, direita) {
 function esqueleto() {
   return '<div class="esq" style="height:150px;margin-bottom:14px"></div><div class="esq" style="height:260px;margin-bottom:14px"></div><div class="esq" style="height:170px"></div>';
 }
-function horaAgora() { return new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }).format(new Date()); }
+function horaAgora() { return FMT.hm.format(new Date()); }
 
 async function iniciarApp() {
   $('telaLogin').hidden = true;
@@ -1289,7 +1369,7 @@ async function iniciarApp() {
   $('abas').innerHTML = lista.map((a) => {
     const cab = a.grupo && a.grupo !== grupoAtual ? `<div class="grupo-nav">${esc(a.grupo)}</div>` : '';
     grupoAtual = a.grupo || grupoAtual;
-    return cab + `<button type="button" data-aba="${a.id}" aria-current="false">${ICONES[a.id]}<span class="nome-longo">${esc(a.nome)}</span><span class="nome-curto">${esc(a.curto)}</span></button>`;
+    return cab + `<button type="button" data-aba="${a.id}" aria-current="false" title="${esc(a.nome)}">${ICONES[a.id]}<span class="nome-longo">${esc(a.nome)}</span><span class="nome-curto">${esc(a.curto)}</span></button>`;
   }).join('');
   window.ABAS_OK = lista.map((a) => a.id);
   montarNavInferior(lista);
@@ -1302,7 +1382,7 @@ function irPara(id, arg) {
   if (uxTemEdicao() && !confirm('Há alterações ainda não salvas nesta tela. Sair sem salvar?')) return;
   uxLimparEdicao();
   uxFecharMenu();
-  if (id === 'bipagem') id = E.sub === 'pacote' ? 'pacote' : 'problemas';
+  if (id === 'bipagem') id = E.sub === 'pacote' ? 'pacote' : (E.sub === 'problemas' ? 'problemas' : 'aovivo'); // 1.29: abre no Ao vivo
   if (id === 'rotas') id = 'motoristas';
   if (id === 'pacote' && E.aba !== 'pacote') {
     uxPacoteAnterior = E.aba;
@@ -1316,7 +1396,7 @@ function irPara(id, arg) {
   document.querySelectorAll('#abas button').forEach((b) => b.setAttribute('aria-current', b.dataset.aba === nav ? 'page' : 'false'));
   const mapa = { painel: telaPainel, motoristas: telaMotoristas, produtividade: telaProdutividade, problemas: telaProblemas, pacote: telaPacote, fechamento: telaFechamento,
     acareacoes: telaAcareacoes, sacas: telaSacas, extravio: telaExtravio, meta: telaMeta, chegada: telaChegada, naorecebidos: telaNaoRecebidos, backlog: telaBacklog,
-    cobrancas: telaCobrancas, locais: telaLocais, equipe: telaEquipe };
+    cobrancas: telaCobrancas, locais: telaLocais, equipe: telaEquipe, aovivo: telaAoVivo, mapa: telaMapa };
   $('conteudo').innerHTML = '';
   window.scrollTo(0, 0);
   if (SUBTELAS[id]) {
@@ -1515,7 +1595,7 @@ async function uxCarregarSlaPainel() {
       a.innerHTML = `<section class="pd-card pd-sla"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div><div class="pd-n pd-n-vazio">—</div><p class="pd-l">A extensão ainda não enviou o SLA de hoje. Abra o iMile com a extensão ligada.</p></section>`;
     } else {
       const c = slaCalc(h), ok = c.pct >= SLA_META;
-      const hora = h.atualizado_em ? new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' }).format(new Date(h.atualizado_em)) : '';
+      const hora = h.atualizado_em ? FMT.hm.format(new Date(h.atualizado_em)) : '';
       const velho = slaVelho(h.atualizado_em, new Date());
       a.innerHTML = `<section class="pd-card pd-sla" aria-label="SLA de entrega de hoje"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div>
         <div class="pd-n ${ok ? 'ok' : ''}">${esc(fmtPctT(c.pct))}</div>
@@ -1923,7 +2003,7 @@ function mostrarVivo() {
 }
 function enviarTR(m) { try { if (TR.ws && TR.ws.readyState === 1) TR.ws.send(JSON.stringify(m)); } catch (_) {} }
 function pararTempoReal() {
-  TR.ligado = false; clearTimeout(TR.rel); clearInterval(TR.hb); clearTimeout(TR.dep);
+  TR.ligado = false; clearTimeout(TR.rel); clearInterval(TR.hb); cancelarJunta('dep'); cancelarJunta('alerta'); cancelarJunta('mapa');
   const w = TR.ws; TR.ws = null; TR.vivo = false; mostrarVivo();
   try { if (w) { w.onclose = null; w.close(); } } catch (_) {}
 }
@@ -1944,7 +2024,7 @@ function abrirTR() {
   TR.ws = w;
   w.onopen = () => {
     TR.token = E.sessao ? E.sessao.access : '';
-    enviarTR({ topic: TOPICO_TR, event: 'phx_join', ref: '1', join_ref: '1', payload: { config: { broadcast: { ack: false, self: false }, presence: { key: '' }, postgres_changes: [{ event: '*', schema: 'public', table: 'nr_achados' }, { event: '*', schema: 'public', table: 'nr_listas' }, { event: '*', schema: 'public', table: 'sacas' }, { event: '*', schema: 'public', table: 'resolucoes' }, { event: '*', schema: 'public', table: 'eventos' }, { event: '*', schema: 'public', table: 'locais_rota' }] }, access_token: TR.token } });
+    enviarTR({ topic: TOPICO_TR, event: 'phx_join', ref: '1', join_ref: '1', payload: { config: { broadcast: { ack: false, self: false }, presence: { key: '' }, postgres_changes: [{ event: '*', schema: 'public', table: 'nr_achados' }, { event: '*', schema: 'public', table: 'nr_listas' }, { event: '*', schema: 'public', table: 'sacas' }, { event: '*', schema: 'public', table: 'resolucoes' }, { event: '*', schema: 'public', table: 'eventos' }, { event: '*', schema: 'public', table: 'locais_rota' }, { event: '*', schema: 'public', table: 'ocorrencias_bipagem' }, { event: '*', schema: 'public', table: 'enderecos_correcoes' }] }, access_token: TR.token } });
     clearInterval(TR.hb);
     TR.hb = setInterval(() => {
       enviarTR({ topic: 'phoenix', event: 'heartbeat', payload: {}, ref: String(++TR.ref) });
@@ -1958,16 +2038,35 @@ function abrirTR() {
 function receberTR(m) {
   if (!m) return;
   if (m.event === 'phx_reply' && m.topic === TOPICO_TR) {
-    if (m.payload && m.payload.status === 'ok') { TR.tent = 0; TR.vivo = true; mostrarVivo(); } else caiuTR();
+    if (m.payload && m.payload.status === 'ok') {
+      TR.tent = 0; TR.vivo = true; mostrarVivo();
+      // 1.29.1: (re)conectou: busca o que pode ter passado sem tempo real antes de mostrar "ao vivo".
+      if (E.aba === 'aovivo' && $('avCorpo')) carregarAoVivo(true);
+      else if (E.aba === 'mapa' && $('mpCorpo')) carregarMapa(true);
+    } else caiuTR();
   } else if (m.event === 'phx_error' || m.event === 'phx_close') caiuTR();
   else if (m.event === 'postgres_changes') {
     const d = m.payload && m.payload.data ? m.payload.data : {};
+    // 1.29: Ao vivo, Mapa, duplicados e endereços para confirmar.
+    if (d.table === 'eventos' && d.type === 'INSERT' && d.record) {
+      aoVivoEvento(d.record);
+      if (E.aba === 'mapa') juntar('mapa', () => { if (E.aba === 'mapa') carregarMapa(true); }, 15000, 30000);
+    }
+    if (d.table === 'ocorrencias_bipagem' && d.record) {
+      const novo = !AV.oc.some((o) => o.id === d.record.id);
+      guardarOcAV(d.record);
+      if (novo && d.record.tipo === 'duplicado' && d.record.status === 'aberta') aviso('Duplicado para resolver: ' + d.record.awb + ' · ' + nomeOperador(d.record.operador_id));
+      if (E.aba === 'aovivo' && $('avCorpo')) desenharAoVivo();
+      if (E.aba === 'mapa' && $('mpCorpo')) desenharMapa();
+      return;
+    }
+    if (d.table === 'enderecos_correcoes') { if (E.aba === 'locais') { clearTimeout(TR.corr); TR.corr = setTimeout(carregarCorrecoesPainel, 1500); } return; }
     if (d.table === 'nr_achados' && d.type === 'INSERT' && d.record && E.aba === 'naorecebidos') aviso('Pacote encontrado: ' + d.record.chave + ' · ' + nomeOperador(d.record.achado_por));
     if (d.table === 'locais_rota' && d.record && E.sessao && d.record.atualizado_por !== E.sessao.id) aviso('Local ' + (d.record.removido ? 'removido' : 'atualizado') + ' por ' + (d.record.por_nome || 'alguém') + ': ' + d.record.termo + ' → ' + d.record.rota);
-    if (d.table === 'sacas' || d.table === 'eventos') { clearTimeout(TR.alerta); TR.alerta = setTimeout(verificarAlertasSaca, 2500); }
-    clearTimeout(TR.dep); // junta rajadas (vários bipes seguidos) numa atualização só
+    if (d.table === 'sacas' || d.table === 'eventos') juntar('alerta', verificarAlertasSaca, 2500, 10000);
+    // junta rajadas (vários bipes seguidos) numa atualização só
     const nr = d.table === 'nr_achados' || d.table === 'nr_listas';
-    TR.dep = setTimeout(() => {
+    juntar('dep', () => {
       if (d.table === 'locais_rota') { if (E.aba === 'locais' && $('lcCorpo')) carregarLocais(true); return; }
       if (E.aba === 'chegada' && $('cheCorpo')) { carregarChegada(true); return; }
       if (E.aba === 'meta' && $('metCorpo') && !document.activeElement.closest('#metForm')) { carregarMeta(true); return; }
@@ -1975,8 +2074,295 @@ function receberTR(m) {
       if (E.aba === 'sacas' && $('sacCorpo')) carregarSacas(true);
       else if (E.aba === 'problemas' && $('prCorpo')) carregarProblemas(true);
       else if (E.aba === 'produtividade' && $('prodCorpo') && estProd.ate === hojeSP()) carregarProdutividade(true);
-    }, nr ? 350 : 1200);
+    }, nr ? 350 : 1200, 5000);
   }
+}
+
+/* ===================== 1.29: AO VIVO, MAPA, DUPLICADOS E ENDEREÇOS ===================== */
+// Usa o SQL 25: ocorrencias_bipagem (passe "a caminho", duplicado, cidade), enderecos_correcoes
+// (pré-cadastro feito na bipagem) e as views leves mapa_lugares / mapa_motoristas.
+const estAV = { filtro: 'tudo', busca: '' };
+const AV = { bipes: [], ids: new Set(), dia: '', oc: [], timer: null, junta: null, completo: true };
+const estMP = { visao: 'quadro', soFalta: false };
+let timerMP = null, tokenMP = 0, dadosMP = null;
+
+function minDesde(iso) { const t = new Date(iso).getTime(); return isFinite(t) ? Math.max(0, Math.floor((Date.now() - t) / 60000)) : 0; }
+function haQuantoTxt(iso) { if (!iso) return ''; const m = minDesde(iso); if (m < 1) return 'agora'; if (m < 60) return 'há ' + m + ' min'; const h = Math.floor(m / 60), r = m % 60; return 'há ' + h + ' h' + (r ? ' ' + r + ' min' : ''); }
+function hmsSP(iso) { try { return FMT.hms.format(new Date(iso)); } catch (_) { return ''; } }
+function hmSP(iso) { try { return FMT.hm.format(new Date(iso)); } catch (_) { return ''; } }
+function quemBipouAV(e) { return e.origem === 'extensao' ? nomeOperador(e.operador_id) + ' (PC)' : nomeOperador(e.operador_id); } // 1.29.1: PC separado por pessoa
+function semAcentoAV(t) { return String(t || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim(); }
+
+// Bipe vindo da lista enxuta (colunas do detalhe soltas) ou do tempo real (detalhe inteiro).
+function normalizarBipeAV(e) {
+  if (e.detalhe) return e;
+  return { ...e, detalhe: { conferencia: e.conferencia || '', lugar: e.lugar || '', passe: e.passe === 'true' || e.passe === true, confirmacao: e.confirmacao === 'true' || e.confirmacao === true, ...(e.confirmado === 'false' || e.confirmado === false ? { confirmado: false } : {}), ...(e.a_verificar === 'true' || e.a_verificar === true ? { a_verificar: true } : {}) } };
+}
+function situacaoAV(e, dup) {
+  const d = e.detalhe || {};
+  if (dup) return { t: 'Duplicado', c: 'erro', conferir: true };
+  if (e.tipo === 'erro' && (d.a_verificar === true || d.a_verificar === 'true')) return { t: 'Resultado a verificar', c: 'divergencia', conferir: true }; // 1.30: o iMile não respondeu (pode ter aplicado)
+  if (e.tipo === 'erro') return { t: 'Erro iMile', c: 'erro', conferir: true };
+  if (e.tipo === 'repetido') return { t: 'Repetido', c: 'repetido', conferir: false };
+  if (d.confirmado === false) return { t: 'Enviado, sem confirmação', c: 'divergencia', conferir: true }; // 1.29.1: tela do DS sem resposta do iMile
+  if (d.confirmacao) return { t: 'Chegou ✓', c: 'ok', conferir: false };
+  if (d.passe) return { t: 'Passado', c: 'prometida', conferir: false };
+  if (d.conferencia === 'divergente') return { t: 'Conferir', c: 'divergencia', conferir: true };
+  return { t: 'Atribuído', c: 'ok', conferir: false };
+}
+
+async function carregarOcorrenciasAV() {
+  try {
+    const r = await lerTudo('/rest/v1/ocorrencias_bipagem?select=*&or=(dia.eq.' + hojeSP() + ',status.eq.aberta)&order=criado_em.desc', 5);
+    // 1.29.1: uma leitura atrasada não reabre o que o tempo real já mostrou como resolvido.
+    const resolvidas = new Map(AV.oc.filter((o) => o.status === 'resolvida').map((o) => [o.id, o]));
+    AV.oc = r.itens.map((o) => (o.status === 'aberta' && resolvidas.has(o.id) ? resolvidas.get(o.id) : o));
+    AV.ocFalhou = !r.completo;
+    return true;
+  } catch (_) { AV.ocFalhou = true; return false; }
+}
+function ocAbertasAV(tipo) { return AV.oc.filter((o) => o.status === 'aberta' && (!tipo || o.tipo === tipo)); }
+function guardarOcAV(rec) { const i = AV.oc.findIndex((o) => o.id === rec.id); if (i >= 0) AV.oc[i] = rec; else AV.oc.unshift(rec); }
+
+/* ---------- Ao vivo ---------- */
+function telaAoVivo() {
+  raizTela().innerHTML = cabecalho('Bipagem ao vivo', 'Tudo que está sendo bipado hoje, nos celulares e na extensão, com a situação no iMile. <span class="ao-vivo" id="nrVivo"><i></i><span>Conectando…</span></span>', '<button class="btn" id="avAtualizar" type="button">Atualizar</button>') + '<div id="avCorpo">' + esqueleto() + '</div>';
+  mostrarVivo();
+  $('avAtualizar').addEventListener('click', () => carregarAoVivo(false));
+  clearInterval(AV.timer);
+  AV.timer = setInterval(() => { if (E.aba === 'aovivo' && !document.hidden && $('avCorpo')) desenharAoVivo(); }, 30000); // "há X min" anda
+  carregarAoVivo(false);
+}
+async function carregarAoVivo(silencioso) {
+  try {
+    const hoje = hojeSP();
+    if (AV.dia !== hoje) { AV.dia = hoje; AV.bipes = []; AV.ids.clear(); }
+    // Só as colunas que a tela usa (o detalhe inteiro traz endereço e pesa).
+    const sel = 'id,dia,ocorreu_em,tipo,awb,operador_id,origem,cidade,motorista,motivo,saca_id,conferencia:detalhe->>conferencia,lugar:detalhe->>lugar,passe:detalhe->>passe,confirmacao:detalhe->>confirmacao,confirmado:detalhe->>confirmado,a_verificar:detalhe->>a_verificar';
+    const [ev] = await Promise.all([
+      lerTudo('/rest/v1/eventos?select=' + sel + '&dia=eq.' + hoje + '&tipo=in.(atribuicao,erro,repetido)&order=ocorreu_em.desc', 6),
+      carregarOcorrenciasAV(),
+    ]);
+    AV.completo = ev.completo;
+    for (const x of ev.itens) if (!AV.ids.has(x.id)) { AV.ids.add(x.id); AV.bipes.push(normalizarBipeAV(x)); }
+    AV.bipes.sort((a, b) => String(b.ocorreu_em).localeCompare(String(a.ocorreu_em)));
+    if ($('avCorpo')) desenharAoVivo();
+  } catch (e) { if (!silencioso && $('avCorpo')) $('avCorpo').innerHTML = `<div class="aviso erro">${esc(e.message)} Se for a primeira vez, rode o script 25-ao-vivo-mapa-ocorrencias.sql no Supabase.</div>`; }
+}
+function aoVivoEvento(rec) {
+  if (!rec || !['atribuicao', 'erro', 'repetido'].includes(rec.tipo)) return;
+  // 1.29.1: virou o dia com a tela aberta: recomeça no dia novo (antes, o primeiro bipe do dia era ignorado).
+  if (AV.dia && rec.dia && rec.dia > AV.dia) { if (E.aba === 'aovivo' && $('avCorpo')) carregarAoVivo(true); else { AV.dia = ''; } return; }
+  if (AV.dia && rec.dia !== AV.dia) return;
+  if (AV.ids.has(rec.id)) return;
+  AV.ids.add(rec.id); AV.bipes.unshift(normalizarBipeAV(rec));
+  while (AV.bipes.length > 8000) { const x = AV.bipes.pop(); AV.ids.delete(x.id); AV.completo = false; } // 1.29.1: tira também o id
+  juntar('aovivo', () => { if (E.aba === 'aovivo' && $('avCorpo')) desenharAoVivo(); }, 600, 2000);
+}
+function desenharAoVivo() {
+  const corpo = $('avCorpo'); if (!corpo) return;
+  if (!$('avLista')) {
+    corpo.innerHTML = `<div id="avTopo"></div><div id="avDup"></div><div id="avCaminho"></div>
+      <section class="cartao" style="padding:0;overflow:hidden">
+        <div class="av-filtros"><input type="search" id="avBusca" placeholder="Buscar AWB, motorista, cidade ou pessoa" aria-label="Buscar" value="${esc(estAV.busca)}" />
+          <div class="seg" id="avSeg">${[['tudo', 'Tudo'], ['conferir', 'Conferir'], ['repetidos', 'Repetidos']].map(([k, n]) => `<button type="button" data-f="${k}" aria-pressed="${estAV.filtro === k}">${n}</button>`).join('')}</div></div>
+        <div class="rolagem"><table class="tabela empilha"><thead><tr><th>Hora</th><th>AWB</th><th>Quem bipou</th><th>Motorista</th><th>Cidade / lugar</th><th>Situação</th><th>Detalhe</th></tr></thead><tbody id="avLista"></tbody></table></div>
+        <p class="sub" id="avRodape" style="padding:10px 14px;margin:0"></p>
+      </section>`;
+    $('avBusca').addEventListener('input', () => { estAV.busca = $('avBusca').value; desenharAoVivo(); });
+    $('avSeg').addEventListener('click', (e) => { const b = e.target.closest('button[data-f]'); if (!b) return; estAV.filtro = b.dataset.f; $('avSeg').querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); desenharAoVivo(); });
+    corpo.addEventListener('click', (e) => {
+      const a = e.target.closest('a.awb'); if (a) { irPara('pacote', a.dataset.awb); return; }
+      const r = e.target.closest('button[data-resolver]'); if (r) resolverDuplicadoPainel(r.dataset.resolver, r.dataset.res, r);
+    });
+  }
+  const dups = ocAbertasAV('duplicado'), cam = ocAbertasAV('passe');
+  const dupAwbs = new Set(dups.map((o) => o.awb));
+  const atrib = new Set(), erros = new Set(), conferir = new Set(), pessoas = new Set();
+  for (const e of AV.bipes) {
+    if (e.tipo === 'atribuicao') atrib.add(e.awb);
+    if (e.tipo === 'erro') erros.add(e.awb);
+    if (situacaoAV(e, dupAwbs.has(e.awb)).conferir) conferir.add(e.awb);
+    if (minDesde(e.ocorreu_em) <= 10) pessoas.add(quemBipouAV(e));
+  }
+  $('avTopo').innerHTML = `<section class="cartao"><div class="metricas">
+    <div><span>Pacotes atribuídos hoje</span><b>${atrib.size}${AV.completo ? '' : '+'}</b></div>
+    <div><span>Erros no iMile</span><b>${erros.size}${AV.completo ? '' : '+'}</b></div>
+    <div><span>Para conferir</span><b style="color:${conferir.size ? 'var(--erro)' : 'inherit'}">${conferir.size}${AV.completo ? '' : '+'}</b></div>
+    <div><span>Duplicados para resolver</span><b style="color:${dups.length ? 'var(--erro)' : 'inherit'}">${dups.length}</b></div>
+    <div><span>A caminho de outra mesa</span><b style="color:${cam.length ? 'var(--azul)' : 'inherit'}">${cam.length}</b></div>
+    <div><span>Bipando agora (10 min)</span><b>${pessoas.size}</b></div>
+  </div>${pessoas.size ? `<p class="sub" style="margin:10px 0 0">${[...pessoas].map(esc).join(' · ')}</p>` : ''}${AV.completo ? '' : '<p class="sub" style="margin:6px 0 0">Muitos bipes hoje: os números com "+" contam só os carregados. Use a busca para um pacote.</p>'}${AV.ocFalhou ? '<div class="aviso" style="margin:10px 0 0">Não deu para carregar todas as ocorrências agora. Os duplicados e "a caminho" podem estar incompletos — toque em Atualizar.</div>' : ''}</section>`;
+  $('avDup').innerHTML = dups.length ? `<section class="cartao av-dup"><h2>Duplicados para resolver <span class="etq erro">${dups.length}</span></h2>
+    <p class="sub">Pacote bipado para um motorista quando já estava com outro. O app não mandou para o iMile: continua com o primeiro até alguém decidir.</p>
+    <div class="rolagem"><table class="tabela empilha"><thead><tr><th>AWB</th><th>No iMile</th><th>Bipado depois para</th><th>Quem separou</th><th>Desde</th><th></th></tr></thead><tbody>
+    ${dups.map((o) => `<tr><td data-r="AWB"><a class="awb" data-awb="${esc(o.awb)}" tabindex="0" role="link">${esc(o.awb)}</a></td><td data-r="No iMile">${esc(o.de_motorista || '—')}</td><td data-r="Depois">${esc(o.para_motorista || '—')}</td><td data-r="Quem">${esc(nomeOperador(o.operador_id))}</td><td data-r="Desde">${esc(haQuantoTxt(o.criado_em))}</td>
+      <td class="av-acoes"><button class="btn mini" type="button" data-resolver="${esc(o.id)}" data-res="fica_anterior">Fica com ${esc(nomeCurto(o.de_motorista || 'o primeiro'))}</button> <button class="btn mini" type="button" data-resolver="${esc(o.id)}" data-res="dois_pacotes">Dois pacotes</button> <button class="btn mini" type="button" data-resolver="${esc(o.id)}" data-res="fica_novo" title="Use depois de atribuir no iMile">Já passei para ${esc(nomeCurto(o.para_motorista || 'o novo'))}</button></td></tr>`).join('')}
+    </tbody></table></div></section>` : '';
+  $('avCaminho').innerHTML = cam.length ? `<section class="cartao"><h2>A caminho de outra mesa <span class="etq prometida">${cam.length}</span></h2>
+    <p class="sub">Já atribuídos ao motorista certo no iMile, esperando alguém bipar na mesa certa. Mais de 30 min fica em vermelho.</p>
+    ${tabelaACaminho(cam)}</section>` : '';
+  const q = semAcentoAV(estAV.busca);
+  const vis = AV.bipes.filter((e) => {
+    if (q && !semAcentoAV(`${e.awb} ${e.motorista || ''} ${e.cidade || ''} ${(e.detalhe || {}).lugar || ''} ${quemBipouAV(e)}`).includes(q)) return false;
+    if (estAV.filtro === 'conferir') return situacaoAV(e, dupAwbs.has(e.awb)).conferir;
+    if (estAV.filtro === 'repetidos') return e.tipo === 'repetido';
+    return true;
+  });
+  const mostra = vis.slice(0, 400);
+  $('avLista').innerHTML = mostra.length ? mostra.map((e) => {
+    const s = situacaoAV(e, dupAwbs.has(e.awb)), d = e.detalhe || {};
+    const det = e.tipo === 'erro' ? (e.motivo || '') : (d.passe ? 'Passado; a caminho da mesa certa' : (d.confirmacao ? 'Confirmado na mesa certa (não foi ao iMile de novo)' : ''));
+    return `<tr class="${s.conferir ? 'falta' : ''}"><td data-r="Hora" class="sub">${esc(hmsSP(e.ocorreu_em))}</td><td data-r="AWB"><a class="awb" data-awb="${esc(e.awb)}" tabindex="0" role="link">${esc(e.awb)}</a></td><td data-r="Quem">${esc(quemBipouAV(e))}</td><td data-r="Motorista">${esc(e.motorista || '—')}</td><td data-r="Lugar">${esc([d.lugar, e.cidade].filter(Boolean).filter((v, i, a) => a.findIndex((x) => semAcentoAV(x) === semAcentoAV(v)) === i).join(' · ') || '—')}</td><td data-r="Situação"><span class="etq ${s.c}">${esc(s.t)}</span></td><td data-r="Detalhe" class="sub">${esc(det)}</td></tr>`;
+  }).join('') : `<tr><td colspan="7"><div class="vazio"><b>Nada por aqui.</b>${AV.bipes.length ? 'Nenhum bipe com esse filtro.' : 'Nenhum bipe de atribuição hoje ainda.'}</div></td></tr>`;
+  $('avRodape').textContent = vis.length > mostra.length ? `Mostrando ${mostra.length} de ${vis.length}. Use a busca para achar um pacote.` : `${vis.length} bipe(s).`;
+}
+function tabelaACaminho(cam) {
+  return `<div class="rolagem"><table class="tabela empilha"><thead><tr><th>AWB</th><th>De → para</th><th>Está com</th><th>Endereço</th><th class="n">A caminho</th></tr></thead><tbody>
+    ${cam.map((o) => { const atrasado = minDesde(o.criado_em) >= 30; return `<tr class="${atrasado ? 'falta' : ''}"><td data-r="AWB"><a class="awb" data-awb="${esc(o.awb)}" tabindex="0" role="link">${esc(o.awb)}</a></td><td data-r="De → para">${esc(o.de_motorista || 'outra saca')} → <b>${esc(o.para_motorista || '—')}</b>${o.para_lugar ? ` <span class="sub">· ${esc(o.para_lugar)}</span>` : ''}</td><td data-r="Está com">${esc(nomeOperador(o.operador_id))}${o.de_motorista ? ` <span class="sub">(mesa de ${esc(o.de_motorista)})</span>` : ''}</td><td data-r="Endereço" class="sub">${esc([o.endereco, o.bairro, o.cidade].filter(Boolean).join(' · ') || '—')}</td><td data-r="A caminho" class="n"><span class="etq ${atrasado ? 'erro' : 'prometida'}">${esc(haQuantoTxt(o.criado_em))}</span></td></tr>`; }).join('')}
+  </tbody></table></div>`;
+}
+async function resolverDuplicadoPainel(id, resolucao, botao) {
+  const o = AV.oc.find((x) => x.id === id); if (!o) return;
+  if (resolucao === 'fica_novo' && !confirm(`Confirma que ${o.awb} já foi atribuído a ${o.para_motorista} no iMile? O painel não atribui; use o app ou a extensão.`)) return;
+  if (botao) botao.disabled = true;
+  try {
+    // 1.29.1: resolve pela função do banco (SQL 26): só fecha se ainda estiver aberta; se outra pessoa já
+    // resolveu, mostra quem e como. Sem o SQL 26, cai na forma antiga (só se ainda estiver aberta).
+    let linha = null;
+    try {
+      const r = await api('POST', '/rest/v1/rpc/resolver_ocorrencia', { p_id: id, p_resolucao: resolucao, p_detalhe: resolucao === 'fica_novo' ? { atestado_no_painel: true } : null });
+      linha = Array.isArray(r) ? r[0] : r;
+    } catch (e) {
+      if (!/resolver_ocorrencia|404|Could not find/i.test(e.message)) throw e;
+      await api('PATCH', '/rest/v1/ocorrencias_bipagem?id=eq.' + eFiltroSeguro(id) + '&status=eq.aberta', { status: 'resolvida', resolucao, resolvido_em: new Date().toISOString() }, { Prefer: 'return=minimal' });
+      linha = { status: 'resolvida', resolucao, resolvido_por: E.sessao.id, resolvido_em: new Date().toISOString(), aplicada: true };
+    }
+    guardarOcAV({ ...o, status: linha.status, resolucao: linha.resolucao, resolvido_por: linha.resolvido_por, resolvido_em: linha.resolvido_em });
+    const NOMES = { chegou: 'chegou na mesa certa', fica_novo: 'ficou com o motorista novo', fica_anterior: 'ficou com o primeiro motorista', dois_pacotes: 'dois pacotes (etiqueta repetida)' };
+    if (linha.aplicada === false) aviso(o.awb + ': ' + nomeOperador(linha.resolvido_por) + ' já tinha resolvido antes (' + (NOMES[linha.resolucao] || linha.resolucao) + '). Vale a decisão dela.', true);
+    else aviso(o.awb + ': ' + (resolucao === 'dois_pacotes' ? 'etiqueta repetida registrada.' : resolucao === 'fica_novo' ? 'fica com ' + o.para_motorista + '.' : 'continua com ' + o.de_motorista + '.'));
+    if (E.aba === 'aovivo') desenharAoVivo(); else if (E.aba === 'mapa') desenharMapa();
+  } catch (e) { aviso(e.message, true); if (botao) botao.disabled = false; }
+}
+
+// 1.29.1: voltou para a aba do navegador: completa o que passou enquanto estava escondida.
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden || !E.sessao) return;
+  if (E.aba === 'aovivo' && $('avCorpo')) carregarAoVivo(true);
+  else if (E.aba === 'mapa' && $('mpCorpo')) carregarMapa(true);
+});
+
+/* ---------- Mapa da operação ---------- */
+function telaMapa() {
+  $('conteudo').innerHTML = cabecalho('Mapa da operação', 'Chegada × atribuição por cidade e motorista, ao vivo: o que falta, onde parou e o que está a caminho. <span class="ao-vivo" id="nrVivo"><i></i><span>Conectando…</span></span>',
+    `<div class="seg" id="mpVisao"><button type="button" data-v="quadro" aria-pressed="${estMP.visao === 'quadro'}">Quadro</button><button type="button" data-v="lista" aria-pressed="${estMP.visao === 'lista'}">Lista</button></div><label class="mp-chk"><input type="checkbox" id="mpFalta" ${estMP.soFalta ? 'checked' : ''}/> Só com falta</label><button class="btn" id="mpAtualizar" type="button">Atualizar</button>`) + '<div id="mpCorpo">' + esqueleto() + '</div>';
+  mostrarVivo();
+  $('mpVisao').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (!b) return; estMP.visao = b.dataset.v; $('mpVisao').querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); desenharMapa(); });
+  $('mpFalta').addEventListener('change', () => { estMP.soFalta = $('mpFalta').checked; desenharMapa(); });
+  $('mpAtualizar').addEventListener('click', () => carregarMapa(false));
+  $('mpCorpo').addEventListener('click', (e) => {
+    const a = e.target.closest('a.awb'); if (a) { irPara('pacote', a.dataset.awb); return; }
+    const c = e.target.closest('[data-cidade]'); if (c) { estChe.dia = hojeSP(); estChe.modo = 'cidade'; estChe.abertas.add(c.dataset.cidade); irPara('chegada'); return; }
+    if (e.target.closest('[data-ir-aovivo]')) irPara('aovivo');
+  });
+  clearInterval(timerMP);
+  timerMP = setInterval(() => { if (E.aba === 'mapa' && !document.hidden) carregarMapa(true); }, 60000);
+  carregarMapa(false);
+}
+async function carregarMapa(silencioso) {
+  const meu = ++tokenMP;
+  try {
+    const hoje = hojeSP();
+    const [lug, mot] = await Promise.all([
+      lerTudo('/rest/v1/mapa_lugares?select=cidade,lugar,chegaram,atribuidos,faltam,ultima_chegada_em&dia=eq.' + hoje, 3),
+      api('GET', '/rest/v1/mapa_motoristas?select=motorista,cidade,lugar,pacotes,primeiro_bipe_em,ultimo_bipe_em,bipando_agora,ultimo_operador&dia=eq.' + hoje + '&limit=500'),
+      carregarOcorrenciasAV(),
+    ]);
+    if (meu !== tokenMP || !$('mpCorpo')) return;
+    dadosMP = { lugares: lug.itens || [], motoristas: mot || [], em: new Date() };
+    desenharMapa();
+  } catch (e) { if (meu === tokenMP && !silencioso && $('mpCorpo')) $('mpCorpo').innerHTML = `<div class="aviso erro">${esc(e.message)} Se for a primeira vez, rode o script 25-ao-vivo-mapa-ocorrencias.sql no Supabase.</div>`; }
+}
+function cidadesDoMapa() {
+  const por = new Map();
+  const cid = (nome) => { const n = String(nome || '').trim() || 'Sem cidade'; const k = semAcentoAV(n); if (!por.has(k)) por.set(k, { nome: n, chegaram: 0, atribuidos: 0, faltam: 0, lugares: [], motoristas: [], caminho: [] }); return por.get(k); };
+  for (const l of (dadosMP && dadosMP.lugares) || []) { const c = cid(l.cidade); c.chegaram += Number(l.chegaram) || 0; c.atribuidos += Number(l.atribuidos) || 0; c.faltam += Number(l.faltam) || 0; c.lugares.push(l); }
+  for (const m of (dadosMP && dadosMP.motoristas) || []) cid(m.cidade).motoristas.push(m);
+  for (const o of ocAbertasAV('passe')) cid(o.cidade).caminho.push(o);
+  const lista = [...por.values()];
+  for (const c of lista) { c.sem = semAcentoAV(c.nome) === 'sem cidade'; c.lugares.sort((a, b) => b.faltam - a.faltam); c.motoristas.sort((a, b) => b.pacotes - a.pacotes); }
+  lista.sort((a, b) => (a.sem - b.sem) || (b.faltam - a.faltam) || (b.chegaram - a.chegaram));
+  return lista;
+}
+function paradoMP(m, c) { return c.faltam > 0 && !String(m.bipando_agora || '').trim() && m.ultimo_bipe_em && minDesde(m.ultimo_bipe_em) >= 30; }
+function estadoMP(m, c) {
+  if (String(m.bipando_agora || '').trim()) return { t: 'Bipando agora · ' + m.bipando_agora, c: 'andamento' };
+  if (paradoMP(m, c)) return { t: 'Parado há ' + minDesde(m.ultimo_bipe_em) + ' min · ninguém bipando', c: 'parada' };
+  return { t: m.ultimo_bipe_em ? 'Último bipe ' + hmSP(m.ultimo_bipe_em) + (m.ultimo_operador ? ' · ' + m.ultimo_operador : '') : 'Sem bipe', c: 'fechada' };
+}
+function desenharMapa() {
+  const corpo = $('mpCorpo'); if (!corpo || !dadosMP) return;
+  const cids = cidadesDoMapa();
+  const tot = cids.reduce((t, c) => ({ ch: t.ch + c.chegaram, at: t.at + c.atribuidos, fa: t.fa + c.faltam }), { ch: 0, at: 0, fa: 0 });
+  const parados = []; for (const c of cids) for (const m of c.motoristas) if (paradoMP(m, c)) parados.push({ m, c });
+  const cam = ocAbertasAV('passe'), atrasados = cam.filter((o) => minDesde(o.criado_em) >= 30), dups = ocAbertasAV('duplicado');
+  const vis = estMP.soFalta ? cids.filter((c) => c.faltam > 0 || c.caminho.length) : cids;
+  const esc2 = cids.length - vis.length;
+  const pct = (c) => c.chegaram ? Math.floor(c.atribuidos / c.chegaram * 100) : 100;
+  const barra = (c) => `<div class="mp-barra" aria-hidden="true"><i style="width:${Math.min(100, pct(c))}%;background:${c.faltam ? 'var(--ambar)' : 'var(--ok)'}"></i></div>`;
+  const lugares = (c) => { const com = c.lugares.filter((l) => String(l.lugar || '').trim() && semAcentoAV(l.lugar) !== semAcentoAV(c.nome)); const sem = c.lugares.filter((l) => !String(l.lugar || '').trim()).reduce((a, l) => a + (Number(l.faltam) || 0), 0); if (!com.length) return ''; return `<div class="mp-chips">${com.map((l) => `<span class="etq ${l.faltam > 0 ? 'aberta' : 'ok'}">${esc(l.lugar)} · ${l.faltam > 0 ? 'faltam ' + l.faltam : 'ok'}</span>`).join('')}${sem ? `<span class="etq erro">${sem} sem rota</span>` : ''}</div>`; };
+  const motoristas = (c) => c.motoristas.map((m) => { const s = estadoMP(m, c); return `<li class="mp-mot ${s.c}"><div><b>${esc(m.motorista)}</b><span>${esc(s.t)}</span></div><b class="mp-n">${Number(m.pacotes) || 0}</b></li>`; }).join('');
+  const cabeca = (c) => `<div class="mp-cab"><b>${esc(c.sem ? 'Sem cidade (sem endereço)' : c.nome)}</b><span>${c.chegaram && !c.faltam ? '<em class="g">completa</em>' : (c.chegaram ? `<em class="v">faltam ${c.faltam}</em>` : '')}${c.caminho.length ? ` <em class="a">· ${c.caminho.length} a caminho</em>` : ''}</span></div>`;
+  const quadro = () => `<div class="mp-grade">${vis.map((c) => `<section class="cartao mp-cid">${cabeca(c)}${barra(c)}<p class="sub">${c.chegaram ? `${c.atribuidos} de ${c.chegaram} atribuídos` : `Sem chegada registrada · ${c.motoristas.reduce((a, m) => a + (Number(m.pacotes) || 0), 0)} atribuídos`}</p>${lugares(c)}<ul class="mp-mots">${motoristas(c)}</ul>${c.faltam > 0 && !c.sem ? `<button class="btn mini" type="button" data-cidade="${esc(c.nome)}">Ver os ${c.faltam} que faltam</button>` : ''}</section>`).join('')}</div>`;
+  const lista = () => `<section class="cartao" style="padding:0;overflow:hidden"><div class="rolagem"><table class="tabela"><thead><tr><th>Cidade / motorista</th><th>Situação</th><th class="n">Pacotes</th><th class="n">Faltam</th></tr></thead><tbody>${vis.map((c) => `<tr class="grupo-cidade"><td colspan="2">${esc(c.sem ? 'Sem cidade' : c.nome)}<small class="${c.faltam ? 'v' : 'g'}">${c.chegaram && !c.faltam ? 'completa' : c.chegaram ? pct(c) + '%' : ''}</small>${c.caminho.length ? `<small class="a">${c.caminho.length} a caminho</small>` : ''}</td><td class="n">${c.atribuidos}/${c.chegaram}</td><td class="n">${c.faltam ? `<a href="#" data-cidade="${esc(c.nome)}" onclick="return false">${c.faltam}</a>` : '0'}</td></tr>${c.lugares.filter((l) => l.faltam > 0 && String(l.lugar || '').trim()).map((l) => `<tr><td>↳ ${esc(l.lugar)}</td><td class="sub">${l.atribuidos} de ${l.chegaram}</td><td class="n"></td><td class="n">${l.faltam}</td></tr>`).join('')}${c.motoristas.map((m) => { const s = estadoMP(m, c); return `<tr><td>${esc(m.motorista)}</td><td>${pilulaSaca(s.c)} <span class="sub">${esc(s.t)}</span></td><td class="n">${Number(m.pacotes) || 0}</td><td class="n"></td></tr>`; }).join('')}`).join('')}</tbody></table></div></section>`;
+  corpo.innerHTML = `<section class="cartao"><div class="metricas">
+      <div><span>Chegaram</span><b>${tot.ch}</b></div><div><span>Atribuídos</span><b>${tot.at}</b></div>
+      <div><span>Faltam</span><b style="color:${tot.fa ? 'var(--erro)' : 'var(--ok)'}">${tot.fa}</b></div>
+      <div><span>A caminho</span><b style="color:${cam.length ? 'var(--azul)' : 'inherit'}">${cam.length}</b></div>
+      <div><span>Parados há +30 min</span><b style="color:${parados.length ? 'var(--erro)' : 'inherit'}">${parados.length}</b></div>
+    </div><p class="sub" style="margin:10px 0 0">Atualizado às ${esc(hmSP(dadosMP.em.toISOString()))}. Atualiza sozinho a cada minuto.</p></section>
+    ${parados.slice(0, 5).map((p) => `<div class="aviso mp-alerta ruim" data-cidade="${esc(p.c.nome)}" role="button" tabindex="0"><span><b>${esc(p.m.motorista)} parado há ${minDesde(p.m.ultimo_bipe_em)} min</b> · ${esc(p.c.nome)} ainda tem ${p.c.faltam} pacote(s) faltando${p.m.ultimo_operador ? ' · último bipe por ' + esc(p.m.ultimo_operador) : ''}</span><span>Ver ›</span></div>`).join('')}
+    ${atrasados.length ? `<div class="aviso mp-alerta ruim" style="cursor:default">${atrasados.length} pacote(s) a caminho há mais de 30 min: confira se chegaram na mesa certa.</div>` : ''}
+    ${dups.length ? `<div class="aviso mp-alerta" data-ir-aovivo role="button" tabindex="0"><b>${dups.length} duplicado(s) para resolver</b> <span>Abrir Bipagem ao vivo ›</span></div>` : ''}
+    ${cam.length ? `<section class="cartao"><h2>A caminho de outra mesa <span class="etq prometida">${cam.length}</span></h2><p class="sub">Já atribuídos ao motorista certo no iMile, esperando alguém bipar na mesa da cidade.</p>${tabelaACaminho(cam)}</section>` : ''}
+    ${!cids.length ? '<div class="vazio"><b>Nenhuma chegada registrada hoje ainda.</b></div>' : (estMP.visao === 'lista' ? lista() : quadro())}
+    ${esc2 > 0 ? `<p class="sub" style="text-align:center">${esc2} cidade(s) completa(s) escondida(s).</p>` : ''}`;
+}
+
+/* ---------- Endereços para confirmar (na tela Locais por rota) ---------- */
+async function carregarCorrecoesPainel() {
+  const el = $('lcCorrecoes'); if (!el) return;
+  let lista;
+  try { lista = await api('GET', '/rest/v1/enderecos_correcoes?select=*&status=eq.pendente&order=vezes.desc,marcado_em.desc&limit=300'); }
+  catch (_) { if ($('lcCorrecoes')) $('lcCorrecoes').innerHTML = ''; return; } // SQL 25 ainda não rodado
+  if (!$('lcCorrecoes')) return;
+  if (!lista || !lista.length) { el.innerHTML = ''; return; }
+  const rotas = (window.ROTAS_LOCAIS || []);
+  el.innerHTML = `<section class="cartao lc-corr"><h2>Endereços para confirmar <span class="etq aberta">${lista.length}</span></h2>
+    <p class="sub">Marcados na bipagem com "é desta cidade/rota mesmo". Já valem nos celulares como "a confirmar". Confirmando, viram locais da rota para todos. Pode corrigir a rota antes de confirmar.</p>
+    <datalist id="lcCorrRotas">${rotas.map((r) => `<option value="${esc(r)}"></option>`).join('')}</datalist>
+    <div class="rolagem"><table class="tabela empilha"><thead><tr><th>Endereço</th><th>O app achava</th><th>Vai para</th><th class="n">Vezes</th><th>Marcado por</th><th></th></tr></thead><tbody>
+    ${lista.map((c) => `<tr data-id="${esc(c.id)}"><td data-r="Endereço"><b>${esc(c.termo)}</b>${c.cidade ? ` <span class="sub">· ${esc(c.cidade)}</span>` : ''}${c.motivo ? `<br><span class="sub">${esc(c.motivo)}</span>` : ''}</td>
+      <td data-r="O app achava" class="sub" style="text-decoration:line-through">${esc(c.de_lugar || '—')}</td>
+      <td data-r="Vai para"><input class="lcCorrRota" list="lcCorrRotas" value="${esc(c.rota)}" aria-label="Rota" style="min-width:120px" /></td>
+      <td data-r="Vezes" class="n"><span class="etq aberta">${Number(c.vezes) || 1}×</span></td>
+      <td data-r="Marcado por" class="sub">${esc(nomeOperador(c.marcado_por))} · ${esc(dataHoraBR(c.marcado_em))}${c.exemplo_awb ? `<br>ex.: <a class="awb" data-awb="${esc(c.exemplo_awb)}" tabindex="0" role="link">${esc(c.exemplo_awb)}</a>` : ''}</td>
+      <td class="av-acoes"><button class="btn mini main" type="button" data-dec="confirmada">Confirmar</button> <button class="btn mini" type="button" data-dec="descartada" title="Não vira regra">Só valia para aquele pacote</button></td></tr>`).join('')}
+    </tbody></table></div></section>`;
+  el.querySelectorAll('a.awb').forEach((a) => a.addEventListener('click', () => irPara('pacote', a.dataset.awb)));
+  el.querySelectorAll('button[data-dec]').forEach((b) => b.addEventListener('click', async () => {
+    const tr = b.closest('tr'), id = tr.dataset.id, c = lista.find((x) => x.id === id); if (!c) return;
+    const rota = (tr.querySelector('.lcCorrRota').value || '').trim();
+    if (b.dataset.dec === 'confirmada' && !rota) return aviso('Escolha a rota antes de confirmar.', true);
+    tr.querySelectorAll('button').forEach((x) => { x.disabled = true; });
+    try {
+      await api('POST', '/rest/v1/rpc/decidir_correcao_endereco', { p_id: id, p_status: b.dataset.dec, p_rota: b.dataset.dec === 'confirmada' && rota !== c.rota ? rota : null });
+      aviso(b.dataset.dec === 'confirmada' ? `"${c.termo}" → ${rota}: confirmado para todos.` : `"${c.termo}" descartado.`);
+      carregarCorrecoesPainel();
+      if (b.dataset.dec === 'confirmada' && typeof carregarLocais === 'function') carregarLocais(true);
+    } catch (e) { aviso(e.message, true); tr.querySelectorAll('button').forEach((x) => { x.disabled = false; }); }
+  }));
 }
 
 /* ===================== BACKLOG ===================== */
@@ -2232,22 +2618,73 @@ function telaSacas() {
   timerSac = setInterval(() => { if (E.aba === 'sacas' && !document.hidden) carregarSacas(true); }, 60000);
   carregarSacas(false);
 }
+let SAC28 = false, SAC29 = false;
+// 1.30: quem está (ou esteve) na saca compartilhada.
+function membrosSaca(x, todos) { return (Array.isArray(x.membros) ? x.membros : []).filter((m) => todos || !m.saiu_em); }
+function nomesSaca(x) { const m = membrosSaca(x); return m.length ? m.map((p) => nomeCurto(p.nome || nomeOperador(p.operador_id))).join(', ') : nomeCurto(nomeOperador(x.operador_id)); }
+function seloCompartilhada(x) { return x.compartilhada ? `<div class="sac-comp">${ICO_GRUPO} Compartilhada${x.codigo ? ` <span class="cod" title="Código para entrar no app (vale hoje)">${esc(x.codigo)}</span>` : ''} · ${esc(nomesSaca(x))}</div>` : ''; }
+const ICO_GRUPO = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.4 5 2.8 5 5.8"/></svg>';
+async function compartilharSacaPainel(s) {
+  // 1.30.2: o painel não sabe o distrito (Itabatã, Juerana…): usa só a área que o celular registrou.
+  if (!s.area) { aviso('A área desta saca não foi registrada pelo celular. Compartilhe pelo celular de quem abriu a saca (Sacas › Compartilhar).', true); return; }
+  try {
+    const r = await api('POST', '/rest/v1/rpc/compartilhar_saca', { p_saca: s.id, p_area: null });
+    if (r && r.ok) aviso('Saca compartilhada. Código para entrar pelo app (vale hoje): ' + r.codigo);
+    else aviso('Não deu para compartilhar: ' + textoMotivoSaca(r && r.motivo), true);
+  } catch (e) { aviso('Não deu para compartilhar: ' + e.message, true); }
+  carregarSacas(false);
+}
+async function pararCompartilharPainel(s) {
+  const ok = await confirmarAcao({ titulo: 'Parar de compartilhar?', texto: 'Quem entrou sai da saca do <b>' + esc(s.motorista) + '</b> nº ' + esc(s.numero) + '. Os próximos bipes dessas pessoas abrem uma saca delas. O que já foi bipado continua nesta saca.', quem: nomeOperador(E.perfil.id) || 'você', ok: 'Parar de compartilhar' });
+  if (!ok) return;
+  try { const r = await api('POST', '/rest/v1/rpc/parar_de_compartilhar', { p_saca: s.id }); if (!r || !r.ok) aviso('Não deu: ' + textoMotivoSaca(r && r.motivo), true); else aviso('A saca não está mais compartilhada.'); }
+  catch (e) { aviso('Não deu: ' + e.message, true); }
+  carregarSacas(false);
+}
+async function reabrirSacaPainel(s) {
+  const ok = await confirmarAcao({ titulo: 'Reabrir esta saca?', texto: 'A saca do <b>' + esc(s.motorista) + '</b> nº ' + esc(s.numero) + ' volta a ficar em andamento. ' + (s.compartilhada ? 'Quem está nela volta a bipar nela.' : 'O próximo pacote deste motorista no celular de quem fez a saca volta para ela.'), quem: nomeOperador(E.perfil.id) || 'você', ok: 'Sim, reabrir' });
+  if (!ok) return;
+  try {
+    const volta = await api('PATCH', '/rest/v1/sacas?id=eq.' + eFiltroSeguro(s.id) + '&status=eq.fechada' + filtroRevisao(s), { status: 'em_andamento', fechada_em: null }, { Prefer: 'return=representation' });
+    aviso(Array.isArray(volta) && volta.length ? 'Saca reaberta.' : 'Não reabriu: a saca mudou desde a última leitura (ou você não tem permissão). Atualize e confira.', !(Array.isArray(volta) && volta.length));
+  } catch (e) { aviso('Não deu para reabrir: ' + e.message, true); }
+  carregarSacas(false);
+}
+// 1.30.2: fecha/reabre só a saca no estado que o painel leu (SQL 29).
+function filtroRevisao(x) { return SAC29 && x && Number.isFinite(Number(x.revisao)) && x.revisao !== null && x.revisao !== undefined ? '&revisao=eq.' + Number(x.revisao) : ''; }
+function textoMotivoSaca(m) {
+  return ({ ainda_nao_subiu: 'a saca ainda não chegou ao banco', saca_fechada: 'a saca está fechada', outro_dia: 'a saca é de outro dia', sem_permissao: 'sem permissão', so_quem_abriu: 'só quem abriu a saca, dono ou monitor', area_desconhecida: 'a área da saca não foi registrada pelo celular' })[m] || (m || 'erro');
+}
 async function carregarSacas(silencioso) {
   const meu = ++tokenSac;
   try {
     const urlSacas = (extra) => '/rest/v1/sacas_resumo?select=id,motorista,rota,cidade,numero,dia,status,aberta_em,fechada_em,operador_id,pacotes,erros,pessoas,ultimo_bipe_em' + extra + '&or=(and(dia.gte.' + eFiltroSeguro(estSac.de) + ',dia.lte.' + eFiltroSeguro(estSac.ate) + '),status.eq.em_andamento)&order=aberta_em.desc';
-    let r; try { r = await lerTudo(urlSacas(',primeiro_bipe_em'), 10); } catch (_) { r = await lerTudo(urlSacas(''), 10); } // sem o SQL 09 ainda
+    // 1.30: saca compartilhada (SQL 28); sem ele, lê como antes.
+    // 1.30.2: só volta para a leitura antiga quando o banco diz que a coluna não existe (400). Falha de rede
+    // ou sessão não desliga a saca compartilhada: a tela mantém a última lista e avisa.
+    const comum = ',primeiro_bipe_em,compartilhada,codigo,area,membros,membros_ativos,fechada_por';
+    const ler = async (extra) => { try { return await lerTudo(urlSacas(extra), 10); } catch (e) { if (e.status === 400) return null; throw e; } };
+    let r = await ler(comum + ',revisao'); SAC29 = !!r;
+    if (!r) r = await ler(comum);
+    SAC28 = !!r;
+    if (!r) r = await ler(',primeiro_bipe_em');
+    if (!r) r = await lerTudo(urlSacas(''), 10); // sem o SQL 09 ainda
     if (meu !== tokenSac || !$('sacCorpo')) return;
     fantasmasSac = r.itens.filter(ehSacaFantasma);
     dadosSac = r.itens.filter((x) => !ehSacaFantasma(x));
     if (!estSac.sel || !dadosSac.some((x) => x.id === estSac.sel)) { const a = dadosSac.find((x) => x.status !== 'fechada'); estSac.sel = a ? a.id : (dadosSac[0] ? dadosSac[0].id : null); estSac.pac = null; }
     if (!document.activeElement?.closest('#sacCorpo input, #sacCorpo select')) desenharSacas();
     if (estSac.sel) carregarPacotesSaca(estSac.sel, silencioso);
-  } catch (e) { if (meu === tokenSac && $('sacCorpo') && !silencioso) $('sacCorpo').innerHTML = `<div class="aviso erro">${esc(e.message)}</div>`; }
+  } catch (e) {
+    if (meu !== tokenSac || !$('sacCorpo')) return;
+    // 1.30.2: já havia lista: mantém e avisa (não some o selo de compartilhada por uma falha passageira).
+    if (dadosSac.length) { if (!silencioso) aviso('Não deu para atualizar as sacas agora (' + e.message + '). Mostrando a última leitura.', true); }
+    else if (!silencioso) $('sacCorpo').innerHTML = `<div class="aviso erro">${esc(e.message)}</div>`;
+  }
 }
 async function carregarPacotesSaca(id, silencioso) {
   try {
-    const ev = await lerTudo('/rest/v1/eventos?select=id,ocorreu_em,tipo,awb,operador_id,motivo,detalhe&saca_id=eq.' + eFiltroSeguro(id) + '&tipo=in.(atribuicao,erro,divergencia)&order=ocorreu_em.desc', 5);
+    const ev = await lerTudo('/rest/v1/eventos?select=id,ocorreu_em,tipo,awb,operador_id,motivo,detalhe&saca_id=eq.' + eFiltroSeguro(id) + '&tipo=in.(atribuicao,erro,divergencia,repetido)&order=ocorreu_em.desc', 10);
     if (estSac.sel !== id) return;
     pacotesSac = { id, lista: pacotesDaSaca(ev.itens), produtos: pacotesSac.produtos };
     const falta = pacotesSac.lista.map((x) => x.awb).filter((a) => !pacotesSac.produtos.has(a)).slice(0, 200);
@@ -2268,7 +2705,8 @@ function desenharSacas() {
   const agora = Date.now(), com = dadosSac.map((x) => ({ ...x, est: estadoSaca(x, agora) }));
   const ativas = com.filter((x) => x.est !== 'fechada'), fechadas = com.filter((x) => x.est === 'fechada');
   const paradas = ativas.filter((x) => x.est === 'parada'), maior = ativas.reduce((a, x) => (x.pacotes > (a ? a.pacotes : -1) ? x : a), null);
-  const pessoas = new Set(ativas.map((x) => x.operador_id)).size;
+  // 1.30.2: quem está nas sacas abertas agora (quem abriu + quem entrou e não saiu), cada pessoa uma vez.
+  const pessoas = new Set(ativas.flatMap((x) => [x.operador_id, ...membrosSaca(x).map((m) => m.operador_id)])).size;
   const mediaF = fechadas.length ? Math.round(fechadas.reduce((a, x) => a + Number(x.pacotes), 0) / fechadas.length) : 0;
   const cidades = [...new Set(com.map((x) => x.cidade).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
   const ops = [...new Set(com.map((x) => x.operador_id))];
@@ -2286,7 +2724,7 @@ function desenharSacas() {
     ${avisoFecharSacas(ativas, paradas)}
     <h2 class="sub" style="text-transform:uppercase;letter-spacing:.8px;font-weight:800;margin:4px 0 10px">Quem está fazendo o quê agora</h2>
     ${ativas.length ? `<div class="ativos">${ativas.map((x) => `<button type="button" class="ativo ${x.id === estSac.sel ? 'sel' : ''}" data-saca="${esc(x.id)}"><div class="t"><span class="av" aria-hidden="true">${esc(iniciais(nomeOperador(x.operador_id)))}</span><b title="${esc(nomeOperador(x.operador_id))}">${esc(nomeCurto(nomeOperador(x.operador_id)))}</b><span class="lock" title="Saca travada para este colaborador">${ICO_CADEADO}</span><span class="n" title="Pacotes na saca">${x.pacotes}</span></div>
-      <div class="quem"><b title="Saca do ${esc(x.motorista)}">Saca do ${esc(x.motorista)}</b><span title="${esc([x.cidade, x.rota].filter(Boolean).join(' · '))}">${esc([x.cidade, x.rota].filter(Boolean).join(' · ')) || '&nbsp;'}</span></div>
+      <div class="quem"><b title="Saca do ${esc(x.motorista)}">Saca do ${esc(x.motorista)}</b><span title="${esc([x.cidade, x.rota].filter(Boolean).join(' · '))}">${esc([x.cidade, x.rota].filter(Boolean).join(' · ')) || '&nbsp;'}</span>${seloCompartilhada(x)}</div>
       <div class="barra-s ${x.est === 'parada' ? 'par' : ''}" role="img" aria-label="${x.pacotes} pacotes"><i style="width:${Math.max(3, Math.min(100, Number(x.pacotes) / Math.max(1, maior ? maior.pacotes : 1) * 100))}%"></i></div>
       <div class="lin"><span>iniciada ${esc(horaCurta(x.aberta_em))}</span><span style="${x.est === 'parada' ? 'color:var(--erro);font-weight:700' : ''}">último bipe há ${esc(haTempo(agora - new Date(x.ultimo_bipe_em || x.aberta_em).getTime()))}</span></div>${tempoSaca(x, agora)}</button>`).join('')}</div>`
       : '<div class="vazio" style="margin-bottom:14px"><b>Nenhuma saca em andamento</b>Quando alguém começar a bipar para um motorista, a saca aparece aqui.</div>'}
@@ -2297,7 +2735,7 @@ function desenharSacas() {
       <label class="c">Buscar<span class="busca-in">${ICO_BUSCA}<input id="sacBusca" placeholder="Motorista, rota ou colaborador" value="${esc(estSac.busca)}" /></span></label></div>
       ${lista.length ? `<div class="rolagem"><table class="tabela empilha"><thead><tr><th>Saca</th><th>Colaborador</th><th>Status</th><th class="num">Pacotes</th><th>Início</th><th>Último bipe</th><th class="num">Duração</th></tr></thead><tbody>
       ${lista.map((x) => `<tr class="clic ${x.id === estSac.sel ? 'sel' : ''}" data-saca="${esc(x.id)}" tabindex="0" role="button" aria-label="Abrir saca ${esc(x.numero)} de ${esc(x.motorista)}"><td><b>${nomeSaca(x)}</b><div class="sub">${esc([x.cidade, x.rota].filter(Boolean).join(' · '))}</div></td>
-        <td data-r="Colaborador" title="${esc(nomeOperador(x.operador_id))}">${esc(nomeCurto(nomeOperador(x.operador_id)))} ${x.est !== 'fechada' ? `<span class="lock">${ICO_CADEADO}</span>` : ''}</td><td data-r="Status">${pilulaSaca(x.est)}</td><td class="num" data-r="Pacotes"><b>${x.pacotes}</b></td><td data-r="Início">${esc(horaCurta(x.primeiro_bipe_em || x.aberta_em))}</td>
+        <td data-r="Colaborador" title="${esc(membrosSaca(x, true).length > 1 ? membrosSaca(x, true).map((p) => p.nome).join(', ') : nomeOperador(x.operador_id))}">${esc(membrosSaca(x, true).length > 1 ? membrosSaca(x, true).map((p) => nomeCurto(p.nome)).join(', ') : nomeCurto(nomeOperador(x.operador_id)))} ${x.est !== 'fechada' ? `<span class="lock">${x.compartilhada ? ICO_GRUPO : ICO_CADEADO}</span>` : ''}</td><td data-r="Status">${pilulaSaca(x.est)}</td><td class="num" data-r="Pacotes"><b>${x.pacotes}</b></td><td data-r="Início">${esc(horaCurta(x.primeiro_bipe_em || x.aberta_em))}</td>
         <td data-r="Último bipe">${x.ultimo_bipe_em ? esc(horaCurta(x.ultimo_bipe_em)) : '—'}<div class="sub" style="${x.est === 'parada' ? 'color:var(--erro)' : ''}">${x.ultimo_bipe_em ? 'há ' + esc(haTempo(agora - new Date(x.ultimo_bipe_em).getTime())) : ''}</div></td><td class="num" data-r="Duração"><b>${esc(resumoTempo(x.primeiro_bipe_em || x.aberta_em, x.ultimo_bipe_em || x.aberta_em, agora).total)}</b></td></tr>`).join('')}</tbody></table></div>`
         : '<div class="vazio"><b>Nenhuma saca aqui</b>Mude o filtro ou o período.</div>'}
       ${lista.length ? '<div style="margin-top:10px"><button class="btn mini" id="sacCsv" type="button">Baixar CSV</button></div>' : ''}</div>
@@ -2339,8 +2777,8 @@ function desenharGavetaSaca() {
     estSac.pac = null;
   }
   const lista = pacotesSac.id === s.id ? pacotesSac.lista : null;
-  g.innerHTML = `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b style="font-size:19px">Saca do ${esc(s.motorista)} · nº ${esc(s.numero)}</b>${pilulaSaca(est)}${est !== 'fechada' ? `<span class="lock">${ICO_CADEADO} ${esc(nomeOperador(s.operador_id))} está nesta saca</span>` : ''}</div>
-    ${est !== 'fechada' && podeFecharSaca() ? '<div style="margin:0 0 10px"><button class="btn ambar mini" id="sacFechar" type="button">Fechar esta saca</button></div>' : ''}
+  g.innerHTML = `<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b style="font-size:19px">Saca do ${esc(s.motorista)} · nº ${esc(s.numero)}</b>${pilulaSaca(est)}${est !== 'fechada' ? (s.compartilhada && membrosSaca(s).length > 1 ? `<span class="lock">${ICO_GRUPO} ${esc(nomesSaca(s))} estão nesta saca</span>` : `<span class="lock">${ICO_CADEADO} ${esc(nomeOperador(s.operador_id))} está nesta saca</span>`) : ''}</div>
+    ${gavetaCompartilhada(s, est)}
     <div class="sub" style="margin:4px 0 12px">${esc([s.cidade, s.rota].filter(Boolean).join(' · '))} · iniciada ${esc(horaCurta(s.aberta_em))} por ${esc(nomeOperador(s.operador_id))}${s.fechada_em ? ' · fechada ' + esc(horaCurta(s.fechada_em)) : ''}</div>
     <div class="cards" style="grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px"><div class="prob zero" style="cursor:default;padding:10px"><b style="font-size:24px">${s.pacotes}</b><span>Pacotes</span></div>
       <div class="prob zero" style="cursor:default;padding:10px"><b style="font-size:24px">${s.ultimo_bipe_em ? esc(horaCurta(s.ultimo_bipe_em)) : '—'}</b><span>Último bipe</span></div>
@@ -2349,7 +2787,27 @@ function desenharGavetaSaca() {
     ${lista === null ? '<div class="esq" style="height:120px;margin-top:8px"></div>' : lista.length ? `<div class="pk-lista">${lista.slice(0, 300).map((p) => `<button type="button" class="pk${p.awb === estSac.alvo ? ' alvo' : ''}" data-awb="${esc(p.awb)}"><time>${esc(horaCurta(p.hora))}</time><span><span class="awb">${esc(p.awb)}</span>${prod.get(p.awb) ? ` <span class="sub">· ${esc(String(prod.get(p.awb)).slice(0, 38))}</span>` : (p.det && p.det.bairro ? ` <span class="sub">· ${esc(p.det.bairro)}</span>` : '')}</span>${p.estado === 'ok' ? '<span class="sub">›</span>' : `<span class="etq ${esc(p.estado)}">${p.estado === 'erro' ? 'erro' : 'diverg.'}</span>`}</button>`).join('')}</div>` : '<div class="vazio" style="margin-top:8px">Nenhum pacote visível nesta saca para o seu acesso.</div>'}`;
   g.querySelectorAll('.pk').forEach((b) => b.addEventListener('click', () => { estSac.pac = b.dataset.awb; desenharGavetaSaca(); }));
   const alvoEl = g.querySelector('.pk.alvo'); if (alvoEl && lista !== null) { alvoEl.scrollIntoView({ block: 'center' }); const gi = $('sacGaveta'); if (gi && window.innerWidth <= 1280) gi.scrollIntoView({ block: 'start' }); }
-  const bf = $('sacFechar'); if (bf) bf.addEventListener('click', () => fecharSacas([s], 'Fechar esta saca'));
+  const bf = $('sacFechar'); if (bf) bf.addEventListener('click', () => fecharSacas([s], s.compartilhada ? 'Fechar esta saca para todos' : 'Fechar esta saca'));
+  const bc = $('sacCompartilhar'); if (bc) bc.addEventListener('click', () => compartilharSacaPainel(s));
+  const bp = $('sacParar'); if (bp) bp.addEventListener('click', () => pararCompartilharPainel(s));
+  const br = $('sacReabrir'); if (br) br.addEventListener('click', () => reabrirSacaPainel(s));
+}
+// 1.30: botões da saca (fechar / compartilhar / reabrir) e quem está nela.
+function gavetaCompartilhada(s, est) {
+  const gestor = podeFecharSaca(), aberta = est !== 'fechada';
+  const botoes = [];
+  if (aberta && gestor) botoes.push(`<button class="btn ambar mini" id="sacFechar" type="button">${s.compartilhada ? 'Fechar para todos' : 'Fechar esta saca'}</button>`);
+  if (aberta && gestor && SAC28 && !s.compartilhada && s.dia === hojeSP()) botoes.push(s.area ? '<button class="btn mini" id="sacCompartilhar" type="button">Compartilhar (gerar código)</button>' : '<button class="btn mini" id="sacCompartilhar" type="button" title="A área não foi registrada pelo celular: compartilhe pelo app">Compartilhar (pelo app)</button>');
+  if (aberta && gestor && s.compartilhada) botoes.push('<button class="btn mini" id="sacParar" type="button">Parar de compartilhar</button>');
+  if (!aberta && gestor && SAC28 && s.dia === hojeSP()) botoes.push('<button class="btn mini" id="sacReabrir" type="button">Reabrir saca</button>');
+  const membros = membrosSaca(s, true);
+  const grande = aberta && SAC28 && !s.compartilhada && Number(s.pacotes) >= 100 && Number(s.membros_ativos || 0) <= 1
+    && s.ultimo_bipe_em && Date.now() - new Date(s.ultimo_bipe_em).getTime() < 5 * 60000;
+  return (botoes.length ? `<div style="margin:0 0 10px;display:flex;gap:8px;flex-wrap:wrap">${botoes.join('')}</div>` : '')
+    + (grande ? `<div class="aviso" style="margin:0 0 10px">${Number(s.pacotes)} pacotes já separados por uma pessoa só. Dá para compartilhar: no app (Sacas › Compartilhar) ou aqui, gerando o código para outra pessoa entrar.</div>` : '')
+    + (s.compartilhada || membros.length > 1 ? `<div class="sub" style="text-transform:uppercase;letter-spacing:.8px;font-weight:800;margin-top:4px">${s.compartilhada ? 'Saca compartilhada' : 'Foi compartilhada'}${s.codigo ? ` · código <span class="cod" style="letter-spacing:2px">${esc(s.codigo)}</span>` : ''}</div>
+      <ul class="membros-saca">${membros.map((m) => `<li class="${m.saiu_em ? 'saiu' : ''}"><span class="av" aria-hidden="true">${esc(iniciais(nomeCurto(m.nome)))}</span><span><b>${esc(nomeCurto(m.nome))}</b> <span class="sub">${m.como === 'dono' ? 'abriu a saca' : m.como === 'convite' ? 'entrou pelo convite' : 'entrou pelo código'} às ${esc(horaCurta(m.entrou_em))}${m.saiu_em ? ' · saiu às ' + esc(horaCurta(m.saiu_em)) : ''}</span></span><span class="n" title="Pacotes que esta pessoa atribuiu nesta saca">${Number(m.pacotes || 0)}</span></li>`).join('')}</ul>` : '')
+    + (!aberta && s.fechada_por ? `<div class="sub" style="margin:0 0 8px">Fechada por ${esc(nomeOperador(s.fechada_por))}</div>` : '');
 }
 
 /* ===================== RISCO DE EXTRAVIO ===================== */
@@ -3026,11 +3484,11 @@ async function fecharSacas(lista, titulo) {
     const ult = new Date(x.ultimo_bipe_em || x.aberta_em).getTime(), ab = new Date(x.aberta_em).getTime();
     const quando = estadoSaca(x, agora) === 'andamento' ? agora : Math.max(ab, ult);
     try {
-      const volta = await api('PATCH', '/rest/v1/sacas?id=eq.' + eFiltroSeguro(x.id) + '&status=eq.em_andamento', { status: 'fechada', fechada_em: new Date(quando).toISOString() }, { Prefer: 'return=representation' });
+      const volta = await api('PATCH', '/rest/v1/sacas?id=eq.' + eFiltroSeguro(x.id) + '&status=eq.em_andamento' + filtroRevisao(x), { status: 'fechada', fechada_em: new Date(quando).toISOString() }, { Prefer: 'return=representation' });
       if (Array.isArray(volta) && volta.length) feitas += 1; else if (Array.isArray(volta)) feitas += 0, falhas += 1;
     } catch (_) { falhas += 1; }
   }
-  aviso(feitas + (feitas === 1 ? ' saca fechada.' : ' sacas fechadas.') + (falhas ? ' ' + falhas + ' não puderam ser fechadas (já estavam fechadas ou sem permissão).' : ''), falhas > 0 && !feitas);
+  aviso(feitas + (feitas === 1 ? ' saca fechada.' : ' sacas fechadas.') + (falhas ? ' ' + falhas + ' não puderam ser fechadas (já estavam fechadas, mudaram desde a última leitura ou sem permissão).' : ''), falhas > 0 && !feitas);
   carregarSacas(false);
 }
 
@@ -3348,9 +3806,9 @@ function desenharChegada() {
 /* ===================== LOCAIS POR REGRA (tempo real, todos editam) ===================== */
 let tokenLoc = 0;
 async function telaLocais() {
-  $('conteudo').innerHTML = cabecalho('Locais por rota', 'Bairros, ruas ou trechos (como BR-101 ou Centro) que pertencem a cada rota. Qualquer pessoa adiciona ou edita; vale na hora para todos e fica registrado quem alterou. <span class="ao-vivo" id="nrVivo"><i></i><span>Conectando…</span></span>') + `<div id="lcRaiz">${esqueleto()}</div>`;
+  $('conteudo').innerHTML = cabecalho('Locais por rota', 'Bairros, ruas ou trechos (como BR-101 ou Centro) que pertencem a cada rota. Qualquer pessoa adiciona ou edita; vale na hora para todos e fica registrado quem alterou. <span class="ao-vivo" id="nrVivo"><i></i><span>Conectando…</span></span>') + `<div id="lcCorrecoes"></div><div id="lcRaiz">${esqueleto()}</div>`;
   mostrarVivo();
-  carregarLocais(false);
+  Promise.resolve(carregarLocais(false)).finally(carregarCorrecoesPainel); // 1.29: depois dos locais (lista de rotas)
 }
 const linhaLocal = (x) => `<tr class="lcRow" data-o="${esc(JSON.stringify({ termo: x.termo, rota: x.rota, cidade: x.cidade || '' }))}"><td><input class="lcTermo" value="${esc(x.termo)}" aria-label="Local" /></td>
   <td><div style="display:flex;gap:6px;align-items:center"><input class="lcRota" list="lcRotas" value="${esc(x.rota)}" aria-label="Rota" placeholder="Digite ou escolha" style="flex:1;min-width:0" /><select class="lcRotaSel" aria-label="Escolher rota da lista" title="Escolher rota da lista" style="width:46px;flex:none"><option value="">▾</option>${(window.ROTAS_LOCAIS || []).map((r) => `<option value="${esc(r)}">${esc(r)}</option>`).join('')}</select></div></td>
@@ -3967,6 +4425,23 @@ uxInicializar();
 /* ===================== PARTIDA ===================== */
 aplicarTema(temaGuardado());
 $('btnTema').addEventListener('click', ciclarTema);
+// 1.30: recolher a barra lateral (lembrado neste navegador).
+function aplicarRecolhido(sim) {
+  const sh = $('telaApp'); if (!sh) return;
+  sh.classList.toggle('recolhido', !!sim);
+  const b = $('btnRecolher');
+  if (b) { b.setAttribute('aria-expanded', sim ? 'false' : 'true'); b.title = sim ? 'Abrir o menu (Ctrl+B)' : 'Recolher o menu (Ctrl+B)'; const r = b.querySelector('.rotulo'); if (r) r.textContent = sim ? 'Abrir menu' : 'Recolher menu'; }
+}
+function alternarRecolhido() {
+  const sim = !$('telaApp').classList.contains('recolhido');
+  aplicarRecolhido(sim);
+  try { localStorage.setItem('cord.menuRecolhido', sim ? '1' : '0'); } catch (_) {}
+}
+try { aplicarRecolhido(localStorage.getItem('cord.menuRecolhido') === '1'); } catch (_) {}
+$('btnRecolher').addEventListener('click', alternarRecolhido);
+document.addEventListener('keydown', (ev) => {
+  if ((ev.ctrlKey || ev.metaKey) && !ev.altKey && (ev.key === 'b' || ev.key === 'B') && !ev.target.closest('input,textarea,select,[contenteditable]')) { ev.preventDefault(); alternarRecolhido(); }
+});
 $('formLogin').addEventListener('submit', (e) => { e.preventDefault(); entrar(); });
 $('lgVer').addEventListener('click', () => { const i = $('lgSenha'), ver = i.type === 'password'; i.type = ver ? 'text' : 'password'; $('lgVer').textContent = ver ? 'Ocultar' : 'Mostrar'; $('lgVer').setAttribute('aria-pressed', String(ver)); $('lgVer').setAttribute('aria-label', ver ? 'Ocultar senha' : 'Mostrar senha'); });
 $('btnSair').addEventListener('click', sair);

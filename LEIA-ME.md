@@ -1,3 +1,72 @@
+## 1.30.2: correções da auditoria da saca compartilhada (rode o `29-saca-compartilhada-correcoes.sql`)
+- **Pacotes da saca (gaveta):**
+  - Uma linha por remessa: a etiqueta e o waybill do mesmo pacote não aparecem duas vezes.
+  - O estado é o do evento mais recente: um erro seguido de atribuição bem-sucedida fica "Atribuído".
+  - O histórico do pacote mostra também as leituras repetidas.
+- **Total e pessoas:**
+  - O total da saca conta remessas.
+  - O número de cada pessoa conta as remessas que ela atribuiu e que estão na saca; a soma dá o total.
+  - "Em andamento · N colaboradores" conta quem está nas sacas agora (quem abriu e quem entrou e não saiu).
+  - Entrada e saída de pessoas aparece na hora (tempo real).
+- **Compartilhar pelo painel:** usa a área que o celular registrou. Saca sem área (aberta por celular antigo) é
+  compartilhada pelo celular de quem abriu.
+- **Fechar e reabrir:** valem só para a saca no estado que o painel leu. Se outra pessoa mudou antes, o painel avisa.
+- **Parar de compartilhar:** só quem abriu, dono ou monitor.
+- **Falha passageira de rede:** não esconde mais o selo nem os botões da saca compartilhada. A tela mantém a última
+  lista e avisa.
+- **Sugestão de ajuda:** diz quantos pacotes já foram separados por uma pessoa só.
+
+## 1.30.1: correções da segunda auditoria
+- **Ao vivo:** "Resultado a verificar" quando o app não recebeu resposta do iMile (o pacote pode ter sido atribuído).
+  Antes aparecia como "Erro iMile".
+- **Segurança:** o painel declara uma política de conteúdo (CSP). A página só se conecta ao Supabase da Cordeiro e às
+  fontes do Google, não carrega scripts de fora e não pode ser usada para enviar formulários a outros sites.
+
+## 1.30.0: saca compartilhada e menu recolhível (rode o `28-saca-compartilhada.sql`)
+- **Sacas:** a saca compartilhada aparece com o selo "Compartilhada", o código e quem está nela.
+  - Na tabela, a coluna Colaborador lista todas as pessoas da saca.
+  - Na gaveta da saca: quem abriu, quem entrou (pelo convite ou pelo código), a hora de entrada e de saída, e quantos
+    pacotes cada pessoa atribuiu.
+- **Dono e monitor podem:**
+  - Fechar a saca compartilhada para todos.
+  - Gerar o código para compartilhar ("Compartilhar (gerar código)") e passar o código para alguém entrar pelo app.
+  - Parar de compartilhar.
+  - Reabrir uma saca fechada de hoje.
+- **Saca grande para uma pessoa só:** a gaveta avisa quando a saca tem 100 pacotes ou mais, alguém bipou nos últimos
+  5 minutos e só uma pessoa está nela.
+- **Saca fechada:** a gaveta mostra quem fechou.
+- **Menu lateral:** o botão "Recolher menu" (ou Ctrl+B) deixa só os ícones; passe o mouse para ver o nome da seção.
+  O navegador lembra a escolha. No celular o menu continua igual.
+- Sem o SQL 28, o painel funciona como na 1.29.2.
+
+## 1.29.2: desempenho com muitos bipes (rode também o `27-reserva-do-pacote.sql`)
+- Os horários das tabelas (Ao vivo, histórico, mapa) usam formatadores criados uma vez só. Telas com milhares de linhas
+  desenham mais rápido.
+- Com bipagem contínua, o painel ainda junta as rajadas, mas atualiza pelo menos a cada 2 s (Ao vivo), 5 s (telas
+  abertas), 10 s (alertas de saca) e 30 s (Mapa). Antes, bipes sem pausa podiam segurar a atualização indefinidamente.
+- O SQL 27 (reserva do pacote) reconhece o mesmo pacote pelo AWB ou pelo waybill. A Chegada e conciliação não conta mais
+  o mesmo pacote duas vezes quando ele veio com códigos diferentes.
+
+## 1.29.1 — correções da auditoria (rode também o `26-correcoes-auditoria.sql`)
+- Resolver duplicado passa pela função do banco: só fecha se ainda estiver aberto. Se outra pessoa resolveu antes, aparece quem e como (antes as duas pareciam ter dado certo).
+- Ao vivo: virada do dia com a tela aberta recomeça no dia novo; ao reconectar ou voltar para a aba, busca o que passou; uma leitura atrasada não reabre ocorrência já resolvida; ao sair da conta, limpa os dados da tela.
+- Envio pela tela do DS sem confirmação do iMile (extensão) aparece como "Enviado, sem confirmação" e entra em Conferir.
+- Bipes do PC aparecem com o nome de quem bipou ("Ana (PC)"). Com mais de 8.000 bipes no dia, os números mostram "+".
+
+## 1.29.0 — Bipagem ao vivo, Mapa da operação e endereços para confirmar
+Antes de publicar, rode no Supabase (SQL Editor) o script `25-ao-vivo-mapa-ocorrencias.sql`.
+- **Bipagem e histórico › Ao vivo** (abre primeiro): todos os bipes de hoje, dos celulares e da extensão, em tempo real.
+  Mostra quem bipou, motorista, cidade/lugar e a situação no iMile. Filtros Conferir e Repetidos, e busca.
+  - **Duplicados para resolver**: pacote bipado para um motorista quando já estava com outro (o app travou e alguém
+    deixou para depois). Botões: fica com o primeiro, dois pacotes (etiqueta repetida), ou "já passei" para o novo.
+  - **A caminho de outra mesa**: pacotes passados para o motorista certo que ainda não foram bipados na mesa certa
+    (mais de 30 min fica em vermelho).
+- **Mapa da operação** (menu Operação): chegaram × atribuídos por cidade e por lugar (rotas, distritos, "sem rota"),
+  cada motorista com quem está bipando ou "parado há X min", alertas de parados, a caminho e duplicados.
+  Quadro ou lista, "Só com falta", e "Ver os que faltam" abre a Chegada e conciliação na cidade.
+- **Locais por rota › Endereços para confirmar**: o pré-cadastro feito na bipagem ("é de Mucuri mesmo").
+  Confirmar vira local da rota para todos (pode corrigir a rota antes); "Só valia para aquele pacote" descarta.
+
 ## 1.28.1
 - SLA com duas casas decimais (ex.: 26,98%), no Painel do dia, nos últimos 7 dias, na Meta do dia e no texto do fechamento. O número é cortado, não arredondado: 94,996% aparece 94,99%, nunca 95,00% sem a meta batida.
 
