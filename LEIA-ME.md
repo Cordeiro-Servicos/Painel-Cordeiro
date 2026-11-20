@@ -1,3 +1,14 @@
+## 1.31.0: SLA com a margem dos 5% e "Atualizar SLA agora" (rode o `31-pedidos-de-coleta.sql`)
+- **Meta em pacotes inteiros:** 95% de 1.438 = 1.366,1, então a meta é **1.367 baixas** ("faltam 643 baixas
+  para a meta", sem o 642,1 quebrado).
+- **Margem dos 5% (até 23:59):** "Dos 714 pendentes de hoje, podem ficar sem baixa até 71 · dar baixa em pelo
+  menos 643". Conta só o vencimento do dia (Relatório de Pontualidade); atrasados de dias anteriores não entram.
+  Se a meta não der mais, o quadro fica vermelho e diz até quanto o dia pode chegar.
+- **Saiu o quadro "entregues com atraso".** Quando algum pacote de hoje tiver baixa depois do horário limite,
+  aparece um aviso pequeno e a margem diminui na mesma quantidade.
+- **Botão "Atualizar SLA agora":** o painel pede a coleta; o computador com a extensão 3.37.0 busca no iMile
+  em até 1 minuto e o número muda sozinho. Se nenhum computador responder em 5 min, o painel avisa.
+
 ## 1.30.2: correções da auditoria da saca compartilhada (rode o `29-saca-compartilhada-correcoes.sql`)
 - **Pacotes da saca (gaveta):**
   - Uma linha por remessa: a etiqueta e o waybill do mesmo pacote não aparecem duas vezes.

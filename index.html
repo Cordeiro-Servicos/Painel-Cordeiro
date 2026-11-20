@@ -638,6 +638,16 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
 .pd-ritmo{margin:12px 0;font-size:13px;color:var(--tinta-2)}.pd-ritmo b{color:var(--tinta)}.pd-cheg .btn{align-self:flex-start;margin-top:auto}
 .pd-ex{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}.pd-ex div{font-size:12px;color:#C8D4E0}.pd-ex b{display:block;font-size:20px;color:#fff}
 .pd-fonte{margin:12px 0 0;font-size:11.5px;color:#9FB2C6}.pd-fonte.pd-velho{color:#FFC27A;font-weight:700}.pd-cheg .pd-fonte{color:var(--tinta-2)}
+/* 1.31.0 — SLA: margem dos 5% e botão de atualizar */
+.pd-margem{display:flex;gap:14px;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;background:rgba(92,203,147,.12);border:1px solid rgba(92,203,147,.6)}
+.pd-margem>div:first-child{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.pd-mt{font-size:11px;font-weight:800;letter-spacing:.06em;color:#5CCB93}.pd-mx{font-size:14px;color:#fff}.pd-mx b{font-size:16px}.pd-ms{font-size:12.5px;color:#C8D4E0}.pd-ms b{color:#fff}
+.pd-mn{text-align:center;flex:none}.pd-mn b{display:block;font-size:32px;line-height:1;color:#5CCB93;font-weight:800}.pd-mn span{font-size:10.5px;font-weight:800;letter-spacing:.05em;color:#C8D4E0}
+.pd-margem.ruim{background:rgba(255,154,140,.12);border-color:rgba(255,154,140,.6)}.pd-margem.ruim .pd-mt{color:#FF9A8C}
+.pd-ex.pd-ex2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pd-atu{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}
+.pd-atu .btn{background:#1C3E5C;color:#9CC7F2;border-color:#1C3E5C}.pd-atu .btn[disabled]{opacity:.8;cursor:default}
+.pd-atu-t{font-size:12px;color:#C8D4E0}.pd-atu-t.esperando{color:#FFC27A}.pd-atu-t.ruim{color:#FF9A8C}
 .pd-mini{display:flex;align-items:flex-end;gap:6px;height:130px;position:relative;margin-top:16px}
 .pd-mini span{flex:1;background:#6F8399;border-radius:3px 3px 0 0;min-height:4px}.pd-mini span.ruim{background:var(--ambar)}.pd-mini span.hoje{background:#fff}.pd-mini span.hoje.ruim{background:#F0AE45}.pd-mini span.sem{background:#2B4259;opacity:.7}
 .pd-linha{position:absolute;left:0;right:0;border-top:1.5px dashed rgba(255,255,255,.7);pointer-events:none}
@@ -808,7 +818,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
     <div class="nav-empty" id="navVazio" hidden>Nenhuma seção encontrada.</div>
     <div class="lateral-pe">
       <div class="eu"><span class="av" id="euAv"></span><div><b id="euNome"></b><span id="quemSou"></span></div></div>
-      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.30.2</div>
+      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.31.0</div>
       <div class="pe-botoes"><button id="btnTema" class="btn-lat" type="button">Tema auto</button><button id="btnSair" class="btn-lat" type="button">Sair</button></div>
       <button id="btnRecolher" class="btn-lat recolher" type="button" aria-controls="menuLateral" aria-expanded="true" title="Recolher o menu (Ctrl+B)"><span aria-hidden="true">«</span> <span class="rotulo">Recolher menu</span></button>
     </div>
@@ -1573,9 +1583,68 @@ function desenharFaixa() {
 const SLA_META = 95;
 function slaCalc(x) {
   const u = Number(x.universo) || 0, n = Number(x.baixas_universo) || 0, tot = Number(x.baixas_total) || 0, pend = Number(x.pendentes) || 0;
-  const alvo = Math.round(u * SLA_META) / 100; // exato, sem arredondar para cima
-  return { u, n, tot, pend, pct: u ? n * 100 / u : 0, alvo, faltam: Math.max(0, Math.round((alvo - n) * 100) / 100), atraso: Math.max(0, tot - n), melhor: u ? (n + pend) * 100 / u : 0 };
+  const alvo = Math.round(u * SLA_META) / 100; // exato, sem arredondar para cima (ex.: 1.366,1)
+  // 1.31.0: não existe "0,1 baixa": a meta em pacotes é o inteiro de cima (1.366,1 -> 1.367).
+  const precisa = Math.ceil(alvo - 1e-9);
+  const atraso = Math.max(0, tot - n); // baixa depois do horário limite (já conta como fora do prazo)
+  const pode = Math.max(0, u - precisa); // podem ficar fora do prazo no dia todo (5%)
+  const margem = pode - atraso; // ainda podem ficar sem baixa hoje (negativo: meta não dá mais)
+  return { u, n, tot, pend, pct: u ? n * 100 / u : 0, alvo, precisa, faltam: Math.max(0, precisa - n), atraso, pode, margem, melhor: u ? (n + pend) * 100 / u : 0 };
 }
+// 1.31.0: margem dos 5% (só o vencimento do dia; vale até 23:59) e "Atualizar SLA agora".
+const fmtInt = (n) => Number(n || 0).toLocaleString('pt-BR');
+function slaMargemHtml(c) {
+  if (!(c.u > 0)) return '';
+  if (c.margem < 0) {
+    return `<div class="pd-margem ruim"><div><span class="pd-mt">MARGEM DOS 5% · ATÉ 23:59</span><span class="pd-mx">A meta de hoje não dá mais: já passou de ${fmtInt(c.pode)} fora do prazo.</span><span class="pd-ms">Mesmo dando baixa em todos os ${fmtInt(c.pend)} pendentes, o dia fecha em ${esc(fmtPctT(c.melhor))}.</span></div></div>`;
+  }
+  const podem = Math.min(c.pend, c.margem);
+  const minimo = Math.max(0, c.precisa - c.n);
+  return `<div class="pd-margem"><div><span class="pd-mt">MARGEM DOS 5% · ATÉ 23:59</span>
+    <span class="pd-mx">Dos <b>${fmtInt(c.pend)}</b> pendentes de hoje, podem ficar sem baixa <b>até ${fmtInt(podem)}</b></span>
+    <span class="pd-ms">${minimo > 0 ? 'Dar baixa em pelo menos <b>' + fmtInt(minimo) + '</b> até 23:59 para fechar o dia em ' + SLA_META + '%.' : 'Meta já batida: mesmo que os pendentes fiquem sem baixa, o dia fecha em ' + SLA_META + '% ou mais.'}</span></div>
+    <div class="pd-mn" aria-hidden="true"><b>${fmtInt(podem)}</b><span>PODEM FICAR<br>SEM BAIXA</span></div></div>`;
+}
+let slaPedido = null; // { id, desde, status, texto }
+function slaBotaoHtml() {
+  const p = slaPedido;
+  if (p && (p.status === 'pendente' || p.status === 'atendendo')) {
+    return `<div class="pd-atu"><button class="btn" type="button" disabled>⏳ Atualizando…</button><span class="pd-atu-t esperando">Pedido às ${esc(FMT.hm.format(new Date(p.desde)))} · o computador da coleta busca no iMile em até 1 min</span></div>`;
+  }
+  const txt = p && p.texto ? `<span class="pd-atu-t ${p.status === 'atendido' ? '' : 'ruim'}">${esc(p.texto)}</span>` : '';
+  return `<div class="pd-atu"><button class="btn" type="button" data-sla-atualizar>↻ Atualizar SLA agora</button>${txt}</div>`;
+}
+async function pedirAtualizacaoSla() {
+  if (slaPedido && (slaPedido.status === 'pendente' || slaPedido.status === 'atendendo')) return;
+  try {
+    const r = await api('POST', '/rest/v1/rpc/pedir_coleta', { p_tipo: 'sla' });
+    slaPedido = { id: r.id, desde: r.pedido_em || new Date().toISOString(), status: r.status || 'pendente', texto: '' };
+  } catch (e) {
+    slaPedido = { status: 'falhou', texto: e.status === 404 || e.codigo === 'PGRST202' ? 'Falta rodar o script 31-pedidos-de-coleta.sql no Supabase.' : 'Não deu para pedir agora: ' + e.message };
+  }
+  uxCarregarSlaPainel();
+  if (slaPedido.id) acompanharPedidoSla(slaPedido.id);
+}
+async function acompanharPedidoSla(id) {
+  const inicio = Date.now();
+  while (slaPedido && slaPedido.id === id && Date.now() - inicio < 6 * 60000) {
+    await new Promise((ok) => setTimeout(ok, 6000));
+    if (!slaPedido || slaPedido.id !== id) return;
+    let x = null;
+    try { const r = await api('GET', '/rest/v1/pedidos_coleta?select=status,resposta,atendido_em&id=eq.' + eFiltroSeguro(id)); x = r && r[0]; } catch (_) { continue; }
+    if (!x || x.status === 'pendente' || x.status === 'atendendo') { slaPedido.status = x ? x.status : slaPedido.status; continue; }
+    const quando = x.atendido_em ? FMT.hm.format(new Date(x.atendido_em)) : '';
+    const motivo = x.resposta && (x.resposta.texto || x.resposta.erro) ? String(x.resposta.texto || x.resposta.erro) : '';
+    slaPedido = { id, status: x.status, texto: x.status === 'atendido' ? 'Atualizado às ' + quando + '.' : 'Não atualizou' + (motivo ? ': ' + motivo : '.') };
+    uxCarregarSlaPainel();
+    return;
+  }
+  if (slaPedido && slaPedido.id === id) {
+    slaPedido = { id, status: 'falhou', texto: 'Nenhum computador com a extensão respondeu. Confira se o PC da coleta está ligado, com o Chrome aberto e “Manter sempre atualizado” ligado.' };
+    uxCarregarSlaPainel();
+  }
+}
+document.addEventListener('click', (ev) => { if (ev.target.closest && ev.target.closest('[data-sla-atualizar]')) pedirAtualizacaoSla(); });
 // 1.27.2: SLA "velho" = última coleta há mais de 45 min dentro do horário de coleta da extensão (05:00–23:55, Brasília).
 function slaVelho(atualizadoEm, agora) {
   if (!atualizadoEm) return { velho: false, min: 0 };
@@ -1592,19 +1661,22 @@ async function uxCarregarSlaPainel() {
     const por = new Map((itens || []).map((x) => [x.dia, x]));
     const h = por.get(hoje);
     if (!h || !(Number(h.universo) > 0)) {
-      a.innerHTML = `<section class="pd-card pd-sla"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div><div class="pd-n pd-n-vazio">—</div><p class="pd-l">A extensão ainda não enviou o SLA de hoje. Abra o iMile com a extensão ligada.</p></section>`;
+      a.innerHTML = `<section class="pd-card pd-sla"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div><div class="pd-n pd-n-vazio">—</div><p class="pd-l">A extensão ainda não enviou o SLA de hoje. Abra o iMile com a extensão ligada.</p>${slaBotaoHtml()}</section>`;
     } else {
       const c = slaCalc(h), ok = c.pct >= SLA_META;
       const hora = h.atualizado_em ? FMT.hm.format(new Date(h.atualizado_em)) : '';
       const velho = slaVelho(h.atualizado_em, new Date());
       a.innerHTML = `<section class="pd-card pd-sla" aria-label="SLA de entrega de hoje"><div class="pd-t"><span>SLA DE ENTREGA — HOJE</span><span>meta ${SLA_META}%</span></div>
         <div class="pd-n ${ok ? 'ok' : ''}">${esc(fmtPctT(c.pct))}</div>
-        <p class="pd-l">${c.n} no prazo de ${c.u} pacotes · ${ok ? '<span class="pd-tag ok">meta batida</span>' : '<span class="pd-tag">faltam ' + qExato(c.faltam) + ' para a meta</span>'}</p>
+        <p class="pd-l">${c.n} no prazo de ${fmtInt(c.u)} pacotes · ${ok ? '<span class="pd-tag ok">meta batida</span>' : '<span class="pd-tag">faltam ' + fmtInt(c.faltam) + ' baixas para a meta</span>'}</p>
         <div class="pd-barra" role="progressbar" aria-label="SLA de hoje" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(c.pct)}" aria-valuetext="${esc(fmtPctT(c.pct))}; meta ${SLA_META}%"><i style="width:${Math.min(100, c.pct)}%"></i><b style="left:${SLA_META}%"></b></div>
-        <div class="pd-rod"><span>meta: ${qExato(c.alvo)} no prazo</span><span>${c.u}</span></div>
-        <div class="pd-ex"><div><b>${c.pend}</b>pendentes</div><div><b>${c.atraso}</b>entregues com atraso</div><div><b>${esc(fmtPctT(c.melhor))}</b>melhor resultado possível</div></div>
-        ${hora ? `<p class="pd-fonte${velho.velho ? ' pd-velho' : ''}">${velho.velho ? '⚠ SLA desatualizado: ' : 'Relatório de Pontualidade do iMile · '}coletado às ${esc(hora)}${velho.velho ? ' (há ' + velho.min + ' min). Abra o iMile com a extensão ligada e conectada à Nuvem.' : ''}</p>` : ''}
-        ${c.tot > c.u ? '<p class="pd-fonte pd-velho">⚠ Dado inconsistente (mais entregas do que pacotes do dia): aguarde a próxima coleta.</p>' : ''}</section>`;
+        <div class="pd-rod"><span>meta: ${fmtInt(c.precisa)} baixas no prazo (${SLA_META}% = ${esc(qExato(c.alvo))})</span><span>${fmtInt(c.u)}</span></div>
+        ${slaMargemHtml(c)}
+        <div class="pd-ex pd-ex2"><div><b>${fmtInt(c.pend)}</b>pendentes (vencem hoje, sem baixa)</div><div><b>${esc(fmtPctT(c.melhor))}</b>melhor resultado possível</div></div>
+        ${c.atraso > 0 ? `<p class="pd-fonte pd-velho">${fmtInt(c.atraso)} ${c.atraso === 1 ? 'pacote de hoje teve' : 'pacotes de hoje tiveram'} baixa depois do horário limite: já ${c.atraso === 1 ? 'conta' : 'contam'} como fora do prazo e ${c.atraso === 1 ? 'diminuiu' : 'diminuíram'} a margem.</p>` : ''}
+        ${hora ? `<p class="pd-fonte${velho.velho ? ' pd-velho' : ''}">${velho.velho ? '⚠ SLA desatualizado: ' : 'Relatório de Pontualidade do iMile · '}coletado às ${esc(hora)}${velho.velho ? ' (há ' + velho.min + ' min). Toque em “Atualizar SLA agora” ou confira o computador da coleta.' : ''}</p>` : ''}
+        ${c.tot > c.u ? '<p class="pd-fonte pd-velho">⚠ Dado inconsistente (mais entregas do que pacotes do dia): aguarde a próxima coleta.</p>' : ''}
+        ${slaBotaoHtml()}</section>`;
     }
     // últimos 7 dias
     const dias = []; for (let i = 6; i >= 0; i--) dias.push(somarDias(hoje, -i));
