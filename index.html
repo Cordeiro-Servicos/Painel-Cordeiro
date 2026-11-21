@@ -648,6 +648,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
 .pd-atu{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}
 .pd-atu .btn{background:#1C3E5C;color:#9CC7F2;border-color:#1C3E5C}.pd-atu .btn[disabled]{opacity:.8;cursor:default}
 .pd-atu-t{font-size:12px;color:#C8D4E0}.pd-atu-t.esperando{color:#FFC27A}.pd-atu-t.ruim{color:#FF9A8C}
+.pk-prod{display:block;white-space:normal;line-height:1.35;margin-top:2px}
 .pd-mini{display:flex;align-items:flex-end;gap:6px;height:130px;position:relative;margin-top:16px}
 .pd-mini span{flex:1;background:#6F8399;border-radius:3px 3px 0 0;min-height:4px}.pd-mini span.ruim{background:var(--ambar)}.pd-mini span.hoje{background:#fff}.pd-mini span.hoje.ruim{background:#F0AE45}.pd-mini span.sem{background:#2B4259;opacity:.7}
 .pd-linha{position:absolute;left:0;right:0;border-top:1.5px dashed rgba(255,255,255,.7);pointer-events:none}
@@ -818,7 +819,7 @@ a.awb.visto{text-decoration:underline line-through;opacity:.62}
     <div class="nav-empty" id="navVazio" hidden>Nenhuma seção encontrada.</div>
     <div class="lateral-pe">
       <div class="eu"><span class="av" id="euAv"></span><div><b id="euNome"></b><span id="quemSou"></span></div></div>
-      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.31.0</div>
+      <div class="sub" style="color:var(--lateral-tinta);font-size:11px;text-align:center" id="versaoPainel">Painel 1.31.1</div>
       <div class="pe-botoes"><button id="btnTema" class="btn-lat" type="button">Tema auto</button><button id="btnSair" class="btn-lat" type="button">Sair</button></div>
       <button id="btnRecolher" class="btn-lat recolher" type="button" aria-controls="menuLateral" aria-expanded="true" title="Recolher o menu (Ctrl+B)"><span aria-hidden="true">«</span> <span class="rotulo">Recolher menu</span></button>
     </div>
@@ -2836,7 +2837,7 @@ function desenharGavetaSaca() {
       g.innerHTML = `<button type="button" class="volta" id="sacVolta">‹ Voltar para a saca ${esc(s.motorista)} · nº ${esc(s.numero)}</button>
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b style="font-size:19px">${esc(p.awb)}</b><span class="etq ${p.estado === 'ok' ? 'ok' : esc(p.estado)}">${p.estado === 'ok' ? 'Atribuído' : p.estado === 'erro' ? 'Erro' : 'Divergência'}</span></div>
         <dl class="dl"><dt>Saca</dt><dd>${esc(s.motorista)} · nº ${esc(s.numero)} · ${esc(s.rota || '—')}</dd><dt>Bipado por</dt><dd>${esc(nomeOperador(p.operador_id))} às ${esc(horaCurta(p.hora))}</dd>
-          <dt>Produto</dt><dd>${produto ? esc(produto) : '<span class="sub">Ainda não buscado. Abra o pacote no aplicativo e toque em “Mostrar produto”.</span>'}</dd>
+          <dt>Produto</dt><dd>${produto ? esc(produto) : '<span class="sub">Ainda sem produto: o iMile ainda não informou (aparece na próxima leitura do backlog ou no bipe).</span>'}</dd>
           <dt>Bairro</dt><dd>${esc(d.bairro || '—')}</dd><dt>Endereço</dt><dd>${esc(d.endereco || '—')}</dd><dt>CEP</dt><dd>${esc(d.cep || '—')}</dd><dt>Cidade</dt><dd>${esc(s.cidade || '—')}</dd></dl>
         ${p.motivo ? `<div class="aviso" style="margin:8px 0">Motivo: <b>${esc(p.motivo)}</b></div>` : ''}
         <div class="sub" style="text-transform:uppercase;letter-spacing:.8px;font-weight:800">Histórico deste pacote nesta saca</div>
@@ -2856,7 +2857,7 @@ function desenharGavetaSaca() {
       <div class="prob zero" style="cursor:default;padding:10px"><b style="font-size:24px">${s.ultimo_bipe_em ? esc(horaCurta(s.ultimo_bipe_em)) : '—'}</b><span>Último bipe</span></div>
       <div class="prob ${Number(s.erros) ? 'erro' : 'zero'}" style="cursor:default;padding:10px"><b style="font-size:24px">${s.erros}</b><span>Erros</span></div></div>
     <div class="sub" style="text-transform:uppercase;letter-spacing:.8px;font-weight:800">Pacotes da saca <span style="font-weight:500;text-transform:none;letter-spacing:0">· clique para ver detalhes</span></div>
-    ${lista === null ? '<div class="esq" style="height:120px;margin-top:8px"></div>' : lista.length ? `<div class="pk-lista">${lista.slice(0, 300).map((p) => `<button type="button" class="pk${p.awb === estSac.alvo ? ' alvo' : ''}" data-awb="${esc(p.awb)}"><time>${esc(horaCurta(p.hora))}</time><span><span class="awb">${esc(p.awb)}</span>${prod.get(p.awb) ? ` <span class="sub">· ${esc(String(prod.get(p.awb)).slice(0, 38))}</span>` : (p.det && p.det.bairro ? ` <span class="sub">· ${esc(p.det.bairro)}</span>` : '')}</span>${p.estado === 'ok' ? '<span class="sub">›</span>' : `<span class="etq ${esc(p.estado)}">${p.estado === 'erro' ? 'erro' : 'diverg.'}</span>`}</button>`).join('')}</div>` : '<div class="vazio" style="margin-top:8px">Nenhum pacote visível nesta saca para o seu acesso.</div>'}`;
+    ${lista === null ? '<div class="esq" style="height:120px;margin-top:8px"></div>' : lista.length ? `<div class="pk-lista">${lista.slice(0, 300).map((p) => `<button type="button" class="pk${p.awb === estSac.alvo ? ' alvo' : ''}" data-awb="${esc(p.awb)}"><time>${esc(horaCurta(p.hora))}</time><span><span class="awb">${esc(p.awb)}</span>${prod.get(p.awb) ? `<span class="sub pk-prod">${esc(String(prod.get(p.awb)))}</span>` : (p.det && p.det.bairro ? ` <span class="sub">· ${esc(p.det.bairro)}</span>` : '')}</span>${p.estado === 'ok' ? '<span class="sub">›</span>' : `<span class="etq ${esc(p.estado)}">${p.estado === 'erro' ? 'erro' : 'diverg.'}</span>`}</button>`).join('')}</div>` : '<div class="vazio" style="margin-top:8px">Nenhum pacote visível nesta saca para o seu acesso.</div>'}`;
   g.querySelectorAll('.pk').forEach((b) => b.addEventListener('click', () => { estSac.pac = b.dataset.awb; desenharGavetaSaca(); }));
   const alvoEl = g.querySelector('.pk.alvo'); if (alvoEl && lista !== null) { alvoEl.scrollIntoView({ block: 'center' }); const gi = $('sacGaveta'); if (gi && window.innerWidth <= 1280) gi.scrollIntoView({ block: 'start' }); }
   const bf = $('sacFechar'); if (bf) bf.addEventListener('click', () => fecharSacas([s], s.compartilhada ? 'Fechar esta saca para todos' : 'Fechar esta saca'));
@@ -3685,8 +3686,8 @@ function confirmarAcao(o) {
 const estChe = { dia: null, modo: 'saca', filtro: 'todas', abertas: new Set(), todos: new Set(), verTodos: new Set(), soFaltam: new Set() };
 let tokenChe = 0, dadosChe = null, timerChe = null;
 const prodChe = { mapa: new Map(), tentou: new Set() };
-const prodCelula = (awb) => { const v = prodChe.mapa.get(awb); return v ? `<b>${esc(v)}</b>` : '<span class="sub">' + (prodChe.tentou.has(awb) ? 'ainda não consultado' : '…') + '</span>'; };
-// Nome do produto de cada pacote (guardado quando alguém toca em "Mostrar produto" no app).
+const prodCelula = (awb) => { const v = prodChe.mapa.get(awb); return v ? `<b>${esc(v)}</b>` : '<span class="sub">' + (prodChe.tentou.has(awb) ? 'ainda sem produto' : '…') + '</span>'; };
+// Nome do produto de cada pacote (1.31.1: lido sozinho na pesquisa de pacotes do iMile pela extensão e pelo app).
 async function buscarProdutosChe() {
   const celulas = [...document.querySelectorAll('#cheCorpo [data-prod]')];
   const falta = [...new Set(celulas.map((c) => c.dataset.prod))].filter((a) => !prodChe.mapa.has(a) && !prodChe.tentou.has(a)).slice(0, 300);
@@ -4246,7 +4247,7 @@ async function pkMostrarPop(a) {
     el.innerHTML = `<h4><span>${esc(awb)}</span>${d.reps.length ? `<span class="etq repetido">${d.reps.length} repetiç${d.reps.length === 1 ? 'ão' : 'ões'}</span>` : ''}</h4>
       <div class="l"><span>Chegou</span><b>${d.cheg ? esc(pkHora(d.cheg.ocorreu_em)) + ' · ' + esc(nomeCurto(nomeOperador(d.cheg.operador_id))) : 'sem registro de chegada'}</b></div>
       ${d.motorista ? `<div class="l"><span>Motorista</span><b>${esc(d.motorista)}</b></div>` : ''}
-      <div class="l"><span>Produto</span><b>${d.produto ? esc(d.produto) : '<span class="sub">ainda não consultado</span>'}</b></div>
+      <div class="l"><span>Produto</span><b>${d.produto ? esc(d.produto) : '<span class="sub">ainda sem produto</span>'}</b></div>
       ${d.reps.length ? `<ul>${d.reps.map((e) => `<li><span>Repetido</span><b>${esc(pkHora(e.ocorreu_em))} · ${esc(nomeCurto(nomeOperador(e.operador_id)))}</b></li>`).join('')}</ul>` : ''}
       <div class="dica">Clique no número para ver a ficha completa.</div>`;
   } catch (e) { if (pkAwbPop === awb) el.innerHTML = `<h4><span>${esc(awb)}</span></h4><div class="sub">Não consegui carregar agora.</div>`; }
@@ -4282,11 +4283,11 @@ async function pkAbrirGaveta(awb, origem) {
   try {
     const d = await dadosPacote(awb); if (!g.classList.contains('on') || !g.querySelector('h2') || g.querySelector('h2').textContent !== awb) return;
     const cob = d.cob[0], campos = [
-      ['Produto', d.produto ? esc(d.produto) : '<span class="sub">ainda não consultado (use “Mostrar produto” no app)</span>'],
+      ['Produto', d.produto ? esc(d.produto) : '<span class="sub">o iMile ainda não informou (aparece na próxima leitura do backlog ou no bipe)</span>'],
       ['Endereço', d.endereco ? esc(d.endereco) : '—'], ['Bairro / CEP', esc([d.bairro, d.cep].filter(Boolean).join(' · ') || '—')], ['Cidade', esc(d.cidade || '—')],
       ['Motorista', esc(d.motorista || '—')], ['Saca', d.saca ? esc('nº ' + d.saca.numero + ' · ' + (d.saca.status === 'fechada' ? 'Fechada' + (d.saca.fechada_em ? ' às ' + pkHora(d.saca.fechada_em) : '') : 'Aberta')) : '—'],
       ['Rota', esc(d.rota || '—')], ['Cobrança', cob ? esc(cob.status + (cob.prazo_ate ? ' · prazo ' + cob.prazo_ate : '')) : '—']];
-    g.innerHTML = `<button class="btn pk-x" type="button" data-pkx>Fechar ✕</button><h2>${esc(awb)}</h2><div class="sub">${d.produto ? esc(d.produto) : 'Produto ainda não consultado'}</div>
+    g.innerHTML = `<button class="btn pk-x" type="button" data-pkx>Fechar ✕</button><h2>${esc(awb)}</h2><div class="sub">${d.produto ? esc(d.produto) : 'Produto: o iMile ainda não informou'}</div>
       <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${d.reps.length ? `<span class="etq repetido">${d.reps.length} repetiç${d.reps.length === 1 ? 'ão' : 'ões'}</span>` : ''}${d.atr ? '<span class="etq atribuicao">Atribuído</span>' : '<span class="etq divergencia">Não atribuído</span>'}${cob ? '<span class="etq erro">Cobrança</span>' : ''}</div>
       <div class="pk-bloco"><h3>Pacote</h3><dl class="pk-grade">${campos.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></div>
       <div class="pk-bloco"><h3>Linha do tempo</h3>${d.ev.length ? pkLinhaTempo(d) : '<div class="sub">Nenhum registro deste pacote.</div>'}</div>

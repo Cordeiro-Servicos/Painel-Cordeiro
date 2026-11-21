@@ -1,3 +1,13 @@
+## 1.31.1: produto do pacote aparece sozinho, com o nome completo
+- O nome do produto agora é lido sozinho na **pesquisa de pacotes** do iMile (campo "sku"), a mesma consulta do
+  endereço, **sem gastar a cota de 700/dia** do rastreamento. Conferido: é o mesmo texto do "Nome do produto" do
+  rastreamento. Quem preenche: extensão 3.39.0 (backlog a cada 3 h e bipagem) e app 1.23.0 (bipe, chegada,
+  não recebidos, vencimentos).
+- Na gaveta da saca o produto aparece **inteiro** embaixo do código (antes cortava em 38 letras); também no
+  detalhe do pacote, na Chegada e na ficha do pacote.
+- Pacote ainda sem produto: "o iMile ainda não informou (aparece na próxima leitura do backlog ou no bipe)".
+- Sem SQL novo (usa a tabela produtos do script 08).
+
 ## 1.31.0: SLA com a margem dos 5% e "Atualizar SLA agora" (rode o `31-pedidos-de-coleta.sql`)
 - **Meta em pacotes inteiros:** 95% de 1.438 = 1.366,1, então a meta é **1.367 baixas** ("faltam 643 baixas
   para a meta", sem o 642,1 quebrado).
